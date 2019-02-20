@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Input } from '@material-ui/core';
+import { getPokemonDetail } from './api';
 
-class App extends Component {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: '',
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  onChange(e) {
+    const { value, name } = e.target;
+    this.setState({ [name]: value });
+  }
+  
+  onEnter() {
+    getPokemonDetail(this.state.searchText);
+  }
+
+  onKeyDown(e){
+    if(e.keyCode === 13) this.onEnter(e);
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Input
+          name='searchText'
+          placeholder='Search…'
+          style={{backgroundColor: '#ccc'}}
+          onChange={this.onChange}
+          onKeyDown={this.onKeyDown}
+        />
       </div>
     );
   }
 }
-
-export default App;
