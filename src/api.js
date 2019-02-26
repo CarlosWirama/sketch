@@ -29,11 +29,9 @@ export async function getPokemonDetail(name) {
   const learnsetSection = await fetchAndParseWiki({
     page: name,
   });
-  console.log(learnsetSection);
-  // const learnsetTable = learnsetSection.sections[0].templates;
   const learnsetTable = learnsetSection.templates
-    // .filter(i => i.template === 'learnlist/level7');
+    .filter(i => i.template === 'learnlist/level7');
   console.log(learnsetTable);
 
-  return learnsetTable;
+  return await learnsetTable;
 }

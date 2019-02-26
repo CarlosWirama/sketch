@@ -7,6 +7,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       searchText: '',
+      learnset: [],
     };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -17,8 +18,10 @@ export default class App extends Component {
     this.setState({ [name]: value });
   }
   
-  onEnter() {
-    getPokemonDetail(this.state.searchText);
+  async onEnter() {
+    const learnset = await getPokemonDetail(this.state.searchText);
+    console.log(learnset)
+    this.setState({ learnset });
   }
 
   onKeyDown(e){
@@ -35,6 +38,16 @@ export default class App extends Component {
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
         />
+        <ul>
+            <li>
+              level, move, type, category, power, acc, pp, -, stab ''' / ''
+            </li>
+          { this.state.learnset.map(({list}, i) =>
+            <li key={i}>
+              {list}
+            </li>
+          )}
+        </ul>
       </div>
     );
   }
