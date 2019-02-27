@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Input } from '@material-ui/core';
-import { getPokemonDetail } from '../api';
-import Learnset from './Learnset';
+import { Close, Search } from '@material-ui/icons';
+import {
+  Navbar,
+  ClickArea,
+  LayoutContainer,
+} from 'common/components';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchText: '',
-      learnset: [],
     };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -19,10 +22,9 @@ export default class Home extends Component {
     this.setState({ [name]: value });
   }
   
-  async onEnter() {
-    const learnset = await getPokemonDetail(this.state.searchText);
-    console.log(learnset)
-    this.setState({ learnset });
+  onEnter() {
+    const pokemon = this.state.searchText;
+    this.props.history.push(`/pokémon/${pokemon}`)
   }
 
   onKeyDown(e){
@@ -31,7 +33,11 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
+      <LayoutContainer>
+        <Navbar
+          left={<CloseButton {...this.props} />}
+          middle="Add Pokémon to Party"
+        />
         <Input
           name='searchText'
           placeholder='Search…'
@@ -39,26 +45,15 @@ export default class Home extends Component {
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
         />
-        <Learnset learnset={this.state.learnset} />
-      </div>
+      </LayoutContainer>
     );
   }
 }
 
-function LearnsetItem({list}) {
-  function encodeDash(string) {
-    return string === '&mdash;' ? '-' : string;
-  }
-  const isStab = list[8] === `'''`;
-  return (
-    <div style={{display: 'flex'}}>
-      <div style={{flex: 1}}>{list[0]}</div>
-      <div style={{flex: 3}}>{list[1]}</div>
-      <div style={{flex: 2}}>{list[2]}</div>
-      <div style={{flex: 2}}>{list[3]}</div>
-      <div style={{flex: 1}}>{encodeDash(list[4])}</div>
-      <div style={{flex: 1}}>{encodeDash(list[5])}</div>
-      <div style={{flex: 1}}>{list[6]}</div>
-    </div>
+function CloseButton({ history }) {
+  return(
+    <ClickArea onClick={history.goBack}>
+      <Close />
+    </ClickArea>
   );
 }

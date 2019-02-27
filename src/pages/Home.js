@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { AppBar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import Navbar from 'common/components/Navbar';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: '',
-      learnset: [],
+      // searchText: '',
+      // learnset: [],
     };
     // this.onChange = this.onChange.bind(this);
     // this.onKeyDown = this.onKeyDown.bind(this);
@@ -17,12 +17,7 @@ export default class Home extends Component {
   render() {
     return (
       <LayoutContainer>
-        <StyledAppBar>
-          <HeaderContent>
-            PokéPlanner
-          </HeaderContent>
-        </StyledAppBar>
-        <EmptySpace />
+        <Navbar middle="PokéPlanner" />
         <Section title="PokéPlanner" desc="Select and plan your party Pokémon" />
         <Section
           title="PokéFight"
@@ -45,21 +40,8 @@ function Section({title, desc}) {
   );
 }
 
-const HeaderContent = styled.h3`
-  text-align: center;
-  vertical-align: center;
-`;
-
-const StyledAppBar = styled(AppBar)`
-  height: 64px;
-`;
-
 const SectionStyle = styled.div`
   margin: 24px 0;
-`;
-
-const EmptySpace = styled.div`
-  height: 64px;
 `;
 
 const PartyArea = styled.div`

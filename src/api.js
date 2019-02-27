@@ -31,7 +31,6 @@ export async function getPokemonDetail(name) {
   });
   const learnsetTable = learnsetSection.templates
     .filter(i => i.template === 'learnlist/level7');
-  console.log(learnsetTable);
 
   return await learnsetTable;
 }

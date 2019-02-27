@@ -2,6 +2,7 @@ import React from 'react';
 // import { Home, Search } from './pages';
 import Home from './pages/Home';
 import Search from './pages/Search';
+import Detail from './pages/Detail';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 export default function() {
@@ -9,7 +10,7 @@ export default function() {
     <BrowserRouter>
       <Switch>
         <Route path='/search' component={Search}/>
-        {/* <Route path='/' component={Detail}/> */}
+        <Route path='/pokémon/:pokemon' component={Detail}/>
         <Route path='/' component={Home}/>
         <Route component={NotFound}/>
       </Switch>
