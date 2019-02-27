@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { AppBar } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 export default class Home extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ function Section({title, desc}) {
       <div style={{fontWeight: 'bold'}}>{title}</div>
       <div>{desc}</div>
       <PartyArea>
-        Tap to add Pokémon to your party
+        <Link to="/search">Tap to add Pokémon to your party</Link>
       </PartyArea>
     </SectionStyle>
   );
