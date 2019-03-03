@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Input } from '@material-ui/core';
+import { InputBase, Paper, IconButton } from '@material-ui/core';
 import { Close, Search } from '@material-ui/icons';
 import {
   Navbar,
-  ClickArea,
   LayoutContainer,
 } from 'common/components';
 
@@ -38,13 +37,19 @@ export default class Home extends Component {
           left={<CloseButton {...this.props} />}
           middle="Add Pokémon to Party"
         />
-        <Input
-          name='searchText'
-          placeholder='Search…'
-          style={{backgroundColor: '#ccc'}}
-          onChange={this.onChange}
-          onKeyDown={this.onKeyDown}
-        />
+        X Pokémon Selected
+        <Paper style={{display: 'flex'}}>
+          <IconButton aria-label="Search">
+            <Search />
+          </IconButton>
+          <InputBase
+            name='searchText'
+            placeholder='Search…'
+            style={{flex: 1}}
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+          />
+        </Paper>
       </LayoutContainer>
     );
   }
@@ -52,8 +57,8 @@ export default class Home extends Component {
 
 function CloseButton({ history }) {
   return(
-    <ClickArea onClick={history.goBack}>
+    <IconButton onClick={history.goBack} color="inherit" aria-label="Menu">
       <Close />
-    </ClickArea>
+    </IconButton>
   );
 }
