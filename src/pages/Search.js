@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { InputBase, Paper, IconButton } from '@material-ui/core';
+import { Paper, IconButton } from '@material-ui/core';
 import { Close, Search } from '@material-ui/icons';
 import {
   Navbar,
   LayoutContainer,
+  AutoCompleteInput,
 } from 'common/components';
 
 export default class Home extends Component {
@@ -12,22 +13,12 @@ export default class Home extends Component {
     this.state = {
       searchText: '',
     };
-    this.onChange = this.onChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
-  onChange(e) {
-    const { value, name } = e.target;
-    this.setState({ [name]: value });
+    this.onSubmit = this.onSubmit.bind(this);
   }
   
-  onEnter() {
+  onSubmit() {
     const pokemon = this.state.searchText;
     this.props.history.push(`/pokémon/${pokemon}`)
-  }
-
-  onKeyDown(e){
-    if(e.keyCode === 13) this.onEnter(e);
   }
 
   render() {
@@ -42,12 +33,11 @@ export default class Home extends Component {
           <IconButton aria-label="Search">
             <Search />
           </IconButton>
-          <InputBase
+          <AutoCompleteInput
             name='searchText'
             placeholder='Search…'
             style={{flex: 1}}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
+            onSubmit={this.onSubmit}
           />
         </Paper>
       </LayoutContainer>
