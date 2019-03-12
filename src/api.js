@@ -1,7 +1,6 @@
 import wtf from 'wtf_wikipedia';
 
 const DOMAIN = `https://m.bulbapedia.bulbagarden.net/w/api.php`;
-// const DEFAULT_PARAMS = `?origin=*&action=parse&format=json&redirects=1`;
 const DEFAULT_PARAMS = {
   origin: '*',
   action: 'parse',
@@ -27,28 +26,38 @@ async function fetchWiki(params) {
   return response.parse;
 }
 
-async function fetchAndParseWiki(params, sections) {
+async function fetchAndParseWiki(params) {
   const { wikitext } = await fetchWiki({ ...params, prop: 'wikitext' });
-  // TODO; should break this down to allow multple sections in one fetch
-  return await wtf(wikitext['*']).sections(sections).json();
+  return await wtf(wikitext['*']);
 }
 
 export async function getPokemons() {
   // get all Kanto Pokemon (Pokemon Let's Go)
-  const learnsetSection = await fetchAndParseWiki({
+  const wikitextResult = await fetchAndParseWiki({
     page: POKEMON_LIST_PAGE,
-  }, 'By leveling up');
-  const learnsetTable = learnsetSection.templates
-    .filter(i => i.template === 'learnlist/level7');
-
-  return await learnsetTable;
+  });
+  return [].concat( // flatten arrays, combine all pokemons from all sections
+    ...wikitextResult.sections() // sections() will produce list of sections in page
+      .filter(i => i.depth === 2) // filter only sections with pokemon list
+      .map(section =>
+        // sections(str) will return content of section 'str'
+        wikitextResult.sections(section._title).json()
+          .templates
+          .filter(i => i.template === 'rdex') // exclude header
+          .map(i => ({
+            kantoDex: i.list[0],
+            name: i.list[2],
+            types: i.list.splice(4),
+          }))
+      )
+  );
 }
 
 export async function getPokemonDetail(name) {
   // get learnset table
   const learnsetSection = await fetchAndParseWiki({
     page: name,
-  }, 'By leveling up');
+  }).sections('By leveling up').json();
   const learnsetTable = learnsetSection.templates
     .filter(i => i.template === 'learnlist/level7');
 
