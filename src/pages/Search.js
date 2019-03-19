@@ -10,18 +10,20 @@ import {
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchText: '',
-    };
     this.onSubmit = this.onSubmit.bind(this);
   }
   
-  onSubmit() {
-    const pokemon = this.state.searchText;
-    this.props.history.push(`/pokémon/${pokemon}`)
+  onSubmit(searchText) {
+    this.props.history.push(`/pokémon/${searchText}`)
   }
 
   render() {
+    const collection = [
+      {name: 'asd'},
+      {name: 'aaaaa'},
+      {name: 'gsaaaa'},
+      {name: 'aa'},
+    ];
     return (
       <LayoutContainer>
         <Navbar
@@ -37,6 +39,7 @@ export default class Home extends Component {
             name='searchText'
             placeholder='Search…'
             style={{flex: 1}}
+            collection={collection}
             onSubmit={this.onSubmit}
           />
         </Paper>
