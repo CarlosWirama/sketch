@@ -6,24 +6,27 @@ import {
   LayoutContainer,
   AutoCompleteInput,
 } from 'common/components';
+import { getPokemons } from 'api';
 
-export default class Home extends Component {
+export default class SearchPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchSuggestion: [],
+    }
     this.onSubmit = this.onSubmit.bind(this);
   }
-  
+
+  componentDidMount() {
+    getPokemons().then(r => this.setState({ searchSuggestion: r }));
+  }
+
   onSubmit(searchText) {
     this.props.history.push(`/pokémon/${searchText}`)
   }
 
   render() {
-    const collection = [
-      {name: 'asd'},
-      {name: 'aaaaa'},
-      {name: 'gsaaaa'},
-      {name: 'aa'},
-    ];
+    const { searchSuggestion } = this.state;
     return (
       <LayoutContainer>
         <Navbar
@@ -39,7 +42,7 @@ export default class Home extends Component {
             name='searchText'
             placeholder='Search…'
             style={{flex: 1}}
-            collection={collection}
+            collection={searchSuggestion}
             onSubmit={this.onSubmit}
           />
         </Paper>

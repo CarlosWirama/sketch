@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
-import { InputBase } from '@material-ui/core';
+import { Popper, Paper } from '@material-ui/core';
+import {
+  renderInputComponent,
+  renderSuggestion,
+  // renderSuggestionsContainer,
+} from './Input';
 
 export default class AutoCompleteInput extends Component {
   constructor(props) {
@@ -54,11 +60,23 @@ export default class AutoCompleteInput extends Component {
   getSuggestionValue(suggestion) {
     return suggestion.name;
   }
-
-  renderSuggestion(suggestion) {
-    return <span>{suggestion.name}</span>
+  
+  renderSuggestionsContainer = (props) => {
+    return (
+      <Popper
+        anchorEl={this.popperNode}
+        open={Boolean(props.children)}>
+        <Paper
+          square
+          {...props.containerProps}
+          style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
+        >
+          {props.children}
+        </Paper>
+      </Popper>
+    );
   }
-
+  
   render() {
     return (
       <Autosuggest
@@ -66,13 +84,30 @@ export default class AutoCompleteInput extends Component {
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={this.getSuggestionValue}
-        renderSuggestion={this.renderSuggestion}
+        renderInputComponent={renderInputComponent}
+        renderSuggestion={renderSuggestion}
         inputProps={{
           ...this.props,
           value: this.props.value || this.state.searchText,
           onChange: this.onChange,
           onKeyDown: this.onKeyDown,
+          inputRef: node => {
+            this.popperNode = node;
+          },
         }}
+        renderSuggestionsContainer={(props) => (
+          <Popper anchorEl={this.popperNode} open={Boolean(props.children)}>
+            <StyledPaper
+              square
+              {...props.containerProps}
+              style={{listStyleType: 'none' , width: this.popperNode ? this.popperNode.clientWidth : null }}
+              root={{listStyleType: 'none'}}
+            >
+              {props.children}
+            </StyledPaper>
+          </Popper>
+        )}
+        
       />
     );
   }
@@ -82,3 +117,10 @@ AutoCompleteInput.propTypes = {
   name: PropTypes.string.isRequired,
   collection: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
+
+const StyledPaper = styled(Paper)`
+  .react-autosuggest__suggestions-list {
+    list-style: none;
+    padding: 0;
+  }
+`;
