@@ -20,7 +20,7 @@ export function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion.name, query);
   const parts = parse(suggestion.name, matches);
   return (
-    <MenuItem selected={isHighlighted} component="div">
+    <MenuItem selected={isHighlighted} component="div" onClick={props.onClick}>
       {parts.map((part, index) =>
         part.highlight ? (
           <span key={String(index)} style={{ fontWeight: 500 }}>

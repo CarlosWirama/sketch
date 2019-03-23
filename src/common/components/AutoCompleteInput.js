@@ -17,7 +17,8 @@ export default class AutoCompleteInput extends Component {
       suggestions: [],
     };
     this.onChange = this.onChange.bind(this);
-    this.onEnter = this.onEnter.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.submitInput = this.submitInput.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
@@ -27,13 +28,14 @@ export default class AutoCompleteInput extends Component {
     const { value, name } = e.target;
     this.setState({ [name]: value });
   }
-  
-  onEnter() {
+
+  submitInput() {
     this.props.onSubmit(this.state.searchText);
   }
 
   onKeyDown(e) {
-    if(e.keyCode === 13) this.onEnter(e);
+    // if the user key-down an Enter key
+    if(e.keyCode === 13) this.submitInput();
   }
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
@@ -60,23 +62,7 @@ export default class AutoCompleteInput extends Component {
   getSuggestionValue(suggestion) {
     return suggestion.name;
   }
-  
-  renderSuggestionsContainer = (props) => {
-    return (
-      <Popper
-        anchorEl={this.popperNode}
-        open={Boolean(props.children)}>
-        <Paper
-          square
-          {...props.containerProps}
-          style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
-        >
-          {props.children}
-        </Paper>
-      </Popper>
-    );
-  }
-  
+
   render() {
     return (
       <Autosuggest
