@@ -1,7 +1,6 @@
 import React from 'react';
-import { InputBase, MenuItem } from '@material-ui/core';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
+import styled from 'styled-components';
+import { InputBase, MenuItem, Popper, Paper } from '@material-ui/core';
 
 export function renderInputComponent({ inputRef = () => {}, ref, ...other }) {
   return (
@@ -16,11 +15,11 @@ export function renderInputComponent({ inputRef = () => {}, ref, ...other }) {
   );
 }
 
-export function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.name, query);
-  const parts = parse(suggestion.name, matches);
+export function AutoSuggestRenderSuggestionComponent({
+  parts, isHighlighted, onClick, text,
+}) {
   return (
-    <MenuItem selected={isHighlighted} component="div" onClick={props.onClick}>
+    <MenuItem selected={isHighlighted} component="div" onClick={() => onClick(text)}>
       {parts.map((part, index) =>
         part.highlight ? (
           <span key={String(index)} style={{ fontWeight: 500 }}>
@@ -35,3 +34,27 @@ export function renderSuggestion(suggestion, { query, isHighlighted }) {
     </MenuItem>
   );
 }
+
+export function AutoSuggestRenderSuggestionContainerComponent({
+  anchorEl, children, containerProps,
+}) {
+  return (
+    <Popper anchorEl={anchorEl} open={Boolean(children)}>
+      <StyledPaper
+        square
+        {...containerProps}
+        style={{listStyleType: 'none' , width: anchorEl ? anchorEl.clientWidth : null }}
+        root={{listStyleType: 'none'}}
+      >
+        {children}
+      </StyledPaper>
+    </Popper>
+  );
+}
+
+const StyledPaper = styled(Paper)`
+  .react-autosuggest__suggestions-list {
+    list-style: none;
+    padding: 0;
+  }
+`;
