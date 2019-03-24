@@ -39,7 +39,6 @@ export default class SearchPage extends Component {
             <Search />
           </IconButton>
           <AutoCompleteInput
-            name='searchText'
             placeholder='Search…'
             style={{flex: 1}}
             suggestions={searchSuggestion}

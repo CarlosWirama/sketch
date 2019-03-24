@@ -14,17 +14,10 @@ export default class AutoCompleteInput extends Component {
     super(props);
     this.state = {
       searchText: '',
-      matchedSuggestions: [],
     };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
     this.renderSuggestion = this.renderSuggestion.bind(this);
-  }
-
-  static getDerivedStateFromProps(props) {
-    return { matchedSuggestions: props.suggestions };
   }
 
   onChange(e) {
@@ -39,25 +32,18 @@ export default class AutoCompleteInput extends Component {
     }
   }
 
-  // Teach Autosuggest how to calculate suggestions for any given input value.
-  filterSuggestions(rawInput = '', suggestions) {
+  // filter suggestions by comparing input with all suggestions from props
+  filterSuggestions(rawInput = '', suggestions, getSuggestionValue) {
     const input = rawInput.trim().toLowerCase();
     const { length } = input;
 
     return length === 0
       ? []
-      : suggestions
-        .filter(item => item.name.toLowerCase().slice(0, length) === input);
-  }
-
-  onSuggestionsFetchRequested({ value }) {
-    const matchedSuggestions = this.filterSuggestions(value, this.props.suggestions);
-    this.setState({ matchedSuggestions });
-  }
-
-  // triggered every time user clicked clear button
-  onSuggestionsClearRequested() {
-    this.setState({ matchedSuggestions: [] });
+      : suggestions.filter(
+          item => input === getSuggestionValue(item).toLowerCase().slice(0, length)
+        );
+      // TODO: later give more suggestions for
+      // matching character in the middle of the string
   }
 
   getSuggestionValue(suggestion) {
@@ -79,17 +65,22 @@ export default class AutoCompleteInput extends Component {
   }
 
   render() {
+    const { searchText } = this.state;
+    const { suggestions, value } = this.props;
     return (
       <Autosuggest
-        suggestions={this.state.matchedSuggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        // since theres no other props, i put the filter here
+        // and will be recalculated in every render
+        suggestions={this.filterSuggestions(
+          searchText, suggestions, this.getSuggestionValue
+        )}
         getSuggestionValue={this.getSuggestionValue}
         renderInputComponent={renderInputComponent}
         renderSuggestion={this.renderSuggestion}
         inputProps={{
           ...this.props,
-          value: this.props.value || this.state.searchText,
+          name: 'searchText',
+          value: value || searchText,
           onChange: this.onChange,
           onKeyDown: this.onKeyDown,
           inputRef: node => {
@@ -108,6 +99,5 @@ export default class AutoCompleteInput extends Component {
 }
 
 AutoCompleteInput.propTypes = {
-  name: PropTypes.string.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
