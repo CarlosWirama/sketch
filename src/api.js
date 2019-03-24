@@ -55,9 +55,10 @@ export async function getPokemons() {
 
 export async function getPokemonDetail(name) {
   // get learnset table
-  const learnsetSection = await fetchAndParseWiki({
+  const parsedWikitext = await fetchAndParseWiki({
     page: name,
-  }).sections('By leveling up').json();
+  });
+  const learnsetSection = parsedWikitext.sections('By leveling up').json();
   const learnsetTable = learnsetSection.templates
     .filter(i => i.template === 'learnlist/level7');
 

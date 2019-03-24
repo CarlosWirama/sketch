@@ -42,7 +42,7 @@ export default class SearchPage extends Component {
             name='searchText'
             placeholder='Search…'
             style={{flex: 1}}
-            collection={searchSuggestion}
+            suggestions={searchSuggestion}
             onSubmit={this.onSubmit}
           />
         </Paper>

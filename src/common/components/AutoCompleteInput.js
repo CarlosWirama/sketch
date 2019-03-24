@@ -14,14 +14,17 @@ export default class AutoCompleteInput extends Component {
     super(props);
     this.state = {
       searchText: '',
-      suggestions: [],
+      matchedSuggestions: [],
     };
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.getSuggestions = this.getSuggestions.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
     this.renderSuggestion = this.renderSuggestion.bind(this);
+  }
+
+  static getDerivedStateFromProps(props) {
+    return { matchedSuggestions: props.suggestions };
   }
 
   onChange(e) {
@@ -37,24 +40,24 @@ export default class AutoCompleteInput extends Component {
   }
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
-  getSuggestions(rawInput = '') {
+  filterSuggestions(rawInput = '', suggestions) {
     const input = rawInput.trim().toLowerCase();
     const { length } = input;
 
     return length === 0
       ? []
-      : this.props.collection
+      : suggestions
         .filter(item => item.name.toLowerCase().slice(0, length) === input);
   }
 
   onSuggestionsFetchRequested({ value }) {
-    const suggestions = this.getSuggestions(value);
-    this.setState({ suggestions });
+    const matchedSuggestions = this.filterSuggestions(value, this.props.suggestions);
+    this.setState({ matchedSuggestions });
   }
 
   // triggered every time user clicked clear button
   onSuggestionsClearRequested() {
-    this.setState({ suggestions: [] });
+    this.setState({ matchedSuggestions: [] });
   }
 
   getSuggestionValue(suggestion) {
@@ -78,7 +81,7 @@ export default class AutoCompleteInput extends Component {
   render() {
     return (
       <Autosuggest
-        suggestions={this.state.suggestions}
+        suggestions={this.state.matchedSuggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={this.getSuggestionValue}
@@ -106,5 +109,5 @@ export default class AutoCompleteInput extends Component {
 
 AutoCompleteInput.propTypes = {
   name: PropTypes.string.isRequired,
-  collection: PropTypes.arrayOf(PropTypes.object).isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
