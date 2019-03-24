@@ -1,3 +1,14 @@
+## PokéPlanner
+
+To run the project:
+1. npm install
+2. create .env file, fill it with this line:
+    NODE_PATH = src/
+3. npm start
+
+
+######################
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

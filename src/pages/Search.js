@@ -1,36 +1,32 @@
 import React, { Component } from 'react';
-import { InputBase, Paper, IconButton } from '@material-ui/core';
+import { Paper, IconButton } from '@material-ui/core';
 import { Close, Search } from '@material-ui/icons';
 import {
   Navbar,
   LayoutContainer,
+  AutoCompleteInput,
 } from 'common/components';
+import { getPokemons } from 'api';
 
-export default class Home extends Component {
+export default class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: '',
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
+      searchSuggestion: [],
+    }
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    const { value, name } = e.target;
-    this.setState({ [name]: value });
-  }
-  
-  onEnter() {
-    const pokemon = this.state.searchText;
-    this.props.history.push(`/pokémon/${pokemon}`)
+  componentDidMount() {
+    getPokemons().then(r => this.setState({ searchSuggestion: r }));
   }
 
-  onKeyDown(e){
-    if(e.keyCode === 13) this.onEnter(e);
+  onSubmit(searchText) {
+    this.props.history.push(`/pokémon/${searchText}`)
   }
 
   render() {
+    const { searchSuggestion } = this.state;
     return (
       <LayoutContainer>
         <Navbar
@@ -42,12 +38,11 @@ export default class Home extends Component {
           <IconButton aria-label="Search">
             <Search />
           </IconButton>
-          <InputBase
-            name='searchText'
+          <AutoCompleteInput
             placeholder='Search…'
             style={{flex: 1}}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
+            suggestions={searchSuggestion}
+            onSubmit={this.onSubmit}
           />
         </Paper>
       </LayoutContainer>

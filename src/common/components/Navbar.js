@@ -27,7 +27,7 @@ Navbar.propTypes = {
   right: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
 };
 
-const Middle = styled.h3`
+const Middle = styled.div`
   flex: 1;
 `;
 
