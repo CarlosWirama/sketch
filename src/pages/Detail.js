@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getPokemonDetail } from '../api';
+import { getPokemonDetail } from 'api';
 import Learnset from './Learnset';
 
 export default class Home extends Component {

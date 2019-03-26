@@ -1,4 +1,4 @@
-import { buildQueryParams, getPokemonDetail } from './api';
+import { buildQueryParams, getPokemonDetail } from '.';
 
 describe('buildQueryParams function', () => {
   it('will build queryParams with only default parameter', () => {

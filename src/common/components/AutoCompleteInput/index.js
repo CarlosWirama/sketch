@@ -7,7 +7,7 @@ import {
   renderInputComponent,
   AutoSuggestRenderSuggestionComponent,
   AutoSuggestRenderSuggestionContainerComponent,
-} from './Input';
+} from './AutoCompleteInputLayout';
 
 export default class AutoCompleteInput extends Component {
   constructor(props) {
@@ -74,6 +74,8 @@ export default class AutoCompleteInput extends Component {
         suggestions={this.filterSuggestions(
           searchText, suggestions, this.getSuggestionValue
         )}
+        onSuggestionsFetchRequested={() => {}}
+        onSuggestionsClearRequested={() => {}}
         getSuggestionValue={this.getSuggestionValue}
         renderInputComponent={renderInputComponent}
         renderSuggestion={this.renderSuggestion}
