@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
+import { filterSuggestions } from 'common/utilities/filter';
 import {
   renderInputComponent,
   AutoSuggestRenderSuggestionComponent,
@@ -32,20 +33,6 @@ export default class AutoCompleteInput extends Component {
     }
   }
 
-  // filter suggestions by comparing input with all suggestions from props
-  filterSuggestions(rawInput = '', suggestions, getSuggestionValue) {
-    const input = rawInput.trim().toLowerCase();
-    const { length } = input;
-
-    return length === 0
-      ? []
-      : suggestions.filter(
-          item => input === getSuggestionValue(item).toLowerCase().slice(0, length)
-        );
-      // TODO: later give more suggestions for
-      // matching character in the middle of the string
-  }
-
   getSuggestionValue(suggestion) {
     return suggestion.name;
   }
@@ -71,7 +58,7 @@ export default class AutoCompleteInput extends Component {
       <Autosuggest
         // since theres no other props, i put the filter here
         // and will be recalculated in every render
-        suggestions={this.filterSuggestions(
+        suggestions={filterSuggestions(
           searchText, suggestions, this.getSuggestionValue
         )}
         onSuggestionsFetchRequested={() => {}}

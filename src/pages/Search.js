@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Paper, IconButton } from '@material-ui/core';
-import { Close, Search } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import {
   Navbar,
   LayoutContainer,
-  AutoCompleteInput,
 } from 'common/components';
+import { filterSuggestions } from 'common/utilities/filter';
+import SearchInput from './SearchInput';
 import { getPokemons } from 'api';
 
 export default class SearchPage extends Component {
@@ -14,6 +15,7 @@ export default class SearchPage extends Component {
     this.state = {
       searchSuggestion: [],
     }
+    this.searchInput = {};
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -25,8 +27,20 @@ export default class SearchPage extends Component {
     this.props.history.push(`/pokémon/${searchText}`)
   }
 
+  filterResult(searchText) {
+  //   filterSuggestions(
+  //     searchText,
+  //     this.searchSuggestion,
+  //     suggestion => suggestion.name
+  //   );
+  }
+
+  // getSuggestionValue(suggestion) {
+  //   return suggestion.name;
+  // }
+
   render() {
-    const { searchSuggestion } = this.state;
+    // const { searchSuggestion } = this.state;
     return (
       <LayoutContainer>
         <Navbar
@@ -34,17 +48,12 @@ export default class SearchPage extends Component {
           middle="Add Pokémon to Party"
         />
         X Pokémon Selected
-        <Paper style={{display: 'flex'}}>
-          <IconButton aria-label="Search">
-            <Search />
-          </IconButton>
-          <AutoCompleteInput
-            placeholder='Search…'
-            style={{flex: 1}}
-            suggestions={searchSuggestion}
-            onSubmit={this.onSubmit}
-          />
-        </Paper>
+        <SearchInput
+          ref={e => this.searchInput = e}
+          onSubmit={this.onSubmit}
+          onChange={this.filterResult}
+          onClear={this.searchInput.clear}
+        />
       </LayoutContainer>
     );
   }
