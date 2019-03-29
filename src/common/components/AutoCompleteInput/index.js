@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
+import { match, parse } from 'autosuggest-highlight/parse';
 import { filterAutocomplete } from 'common/utilities/filter';
 import {
   renderInputComponent,

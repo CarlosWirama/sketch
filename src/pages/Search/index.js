@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import { IconButton, List } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
-import {
-  Navbar,
-  LayoutContainer,
-} from 'common/components';
 import { filterAutocomplete } from 'common/utilities/filter';
-import SearchInput from './SearchInput';
-import SearchResultItem from './SearchResultItem';
 import { getPokemons } from 'api';
 import SearchPageLayout from './SearchPageLayout';
 
@@ -51,12 +43,4 @@ export default class SearchPage extends Component {
       />
     );
   }
-}
-
-function CloseButton({ history }) {
-  return(
-    <IconButton onClick={history.goBack} color="inherit" aria-label="Menu">
-      <Close />
-    </IconButton>
-  );
 }
