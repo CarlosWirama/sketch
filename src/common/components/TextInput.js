@@ -26,11 +26,14 @@ export default class TextInput extends React.Component {
   }
 
   clear() {
-    this.setState({ [this.props.name]: '' });
+    const { name, onChange, onClear } = this.props;
+    this.setState({ [name]: '' });
+    onClear ? onClear() : onChange('');
   }
 
   render() {
-    const { defaultValue, onChange, ...restProps } = this.props;
+    // exclude these props to prevent it applied on the actual <input/>
+    const { defaultValue, onChange, onClear, ...restProps } = this.props;
     return (
       <InputBase
         value={this.state[this.props.name]}

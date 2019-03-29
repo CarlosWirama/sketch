@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import { filterSuggestions } from 'common/utilities/filter';
+import { filterAutocomplete } from 'common/utilities/filter';
 import {
   renderInputComponent,
   AutoSuggestRenderSuggestionComponent,
@@ -58,8 +58,8 @@ export default class AutoCompleteInput extends Component {
       <Autosuggest
         // since theres no other props, i put the filter here
         // and will be recalculated in every render
-        suggestions={filterSuggestions(
-          searchText, suggestions, this.getSuggestionValue
+        suggestions={filterAutocomplete(
+          suggestions, searchText, false, this.getSuggestionValue
         )}
         onSuggestionsFetchRequested={() => {}}
         onSuggestionsClearRequested={() => {}}

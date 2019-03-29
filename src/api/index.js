@@ -9,7 +9,7 @@ const DEFAULT_PARAMS = {
 };
 const POKEMON_LIST_PAGE = `List_of_Pokémon_by_Kanto_Pokédex_number`;
 
-export function buildQueryParams(params) {
+export function buildQueryParams(params = {}) {
   function buildKeyValueQueryFromObject(obj) {
     return Object.keys(obj).map(key => `${key}=${obj[key]}`)
   }
