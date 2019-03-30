@@ -4,9 +4,10 @@ import { ListItem } from '@material-ui/core';
 
 export default function SearchResultItem({
   listItem: { kantoDex, name, types },
+  onClick,
 }) {
   return (
-    <ListItem button>
+    <ListItem button onClick={onClick}>
       {kantoDex} {name} {types}
     </ListItem>
   );
@@ -18,6 +19,11 @@ SearchResultItem.propTypes = {
     name: PropTypes.string.isRequired,
     types: PropTypes.arrayOf(
       PropTypes.string.isRequired
-    ).isRequired,
-  }).isRequired,
+      ).isRequired,
+    }).isRequired,
+  onClick: PropTypes.func,
+};
+
+SearchResultItem.defaultProps = {
+  onClick: () => {},
 };

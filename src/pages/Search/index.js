@@ -8,10 +8,10 @@ export default class SearchPage extends Component {
     super(props);
     this.state = {
       pokemonList: [],
-      filteredList: [],
       searchText: '',
     }
     this.onSubmit = this.onSubmit.bind(this);
+    this.onClickItem = this.onClickItem.bind(this);
   }
 
   componentDidMount() {
@@ -19,7 +19,13 @@ export default class SearchPage extends Component {
   }
 
   onSubmit(searchText) {
-    this.props.history.push(`/pokémon/${searchText}`)
+    this.props.history.push(`/pokémon/${searchText}`);
+  }
+
+  onClickItem(filteredList, index) {
+    const selectedPokemon = filteredList[index];
+    const pokemonName = this.getSuggestionValue(selectedPokemon);
+    this.props.history.push(`/pokémon/${pokemonName}`);
   }
 
   getSuggestionValue(suggestion) {
@@ -36,8 +42,9 @@ export default class SearchPage extends Component {
     );
     return (
       <SearchPageLayout
-        onSubmit={this.onSubmit}
         onChange={searchText => this.setState({ searchText })}
+        onSubmit={this.onSubmit}
+        onClickItem={index => this.onClickItem(filteredList, index)}
         filteredList={filteredList}
         {...this.props}
       />

@@ -21,7 +21,11 @@ export default function SearchPageLayout(props) {
       />
       <List>
         {props.filteredList.map((listItem, index) => (
-          <SearchResultItem listItem={listItem} key={index} />
+          <SearchResultItem
+            listItem={listItem}
+            key={index}
+            onClick={() => props.onClickItem(index)}
+          />
         ))}
       </List>
     </LayoutContainer>
