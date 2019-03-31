@@ -11,8 +11,6 @@ export function filterAutocomplete(
   return length === 0
     ? defaultResult
     : list.filter(
-        item => input === getItemValue(item).toLowerCase().slice(0, length)
-      );
-    // TODO: later give more list for
-    // matching character in the middle of the string
+      item => getItemValue(item).toLowerCase().includes(input)
+    );
 }
