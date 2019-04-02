@@ -15,7 +15,14 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    getPokemons().then(r => this.setState({ pokemonList: r }));
+    getPokemons()
+      .then(r => this.setState({ pokemonList: r }))
+      .catch(e => {
+        console.error('e', e);
+        if(e.message === 'Network request failed') {
+          //
+        } else console.error('e', e);
+      });
   }
 
   onSubmit(searchText) {
