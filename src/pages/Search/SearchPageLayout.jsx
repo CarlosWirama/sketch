@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import {
@@ -22,6 +23,12 @@ export default function SearchPageLayout(props) {
     </LayoutContainer>
   );
 }
+
+SearchPageLayout.propTypes = {
+  searchResultContent: PropTypes.node.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 function CloseButton({ history }) {
   return(

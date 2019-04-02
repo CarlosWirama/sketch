@@ -41,6 +41,6 @@ SearchInput.propTypes = {
 SearchInput.defaultProps = {
   onSubmit: () => {},
   onChange: () => {},
-  // onClear: () => {}, // keep it undefined
   defaultValue: '',
+  // keep onClear undefined
 };

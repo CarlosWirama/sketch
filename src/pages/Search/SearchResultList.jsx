@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { List } from '@material-ui/core';
 import SearchResultItem from './SearchResultItem';
 
@@ -15,3 +16,12 @@ export default function SearchResultList(props) {
     </List>
   );
 }
+
+SearchResultList.propTypes = {
+  filteredList: PropTypes.array.isRequired,
+  onClickItem: PropTypes.func,
+};
+
+SearchResultList.defaultProps = {
+  onClickItem: () => {},
+};
