@@ -1,12 +1,12 @@
 import React from 'react';
-import { List, IconButton } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { IconButton } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import {
   Navbar,
   LayoutContainer,
 } from 'common/components';
 import SearchInput from './SearchInput';
-import SearchResultItem from './SearchResultItem';
 
 export default function SearchPageLayout(props) {
   return (
@@ -16,21 +16,19 @@ export default function SearchPageLayout(props) {
         middle="Add Pokémon to Party"
       />
       <SearchInput
-        onSubmit={props.onSubmit}
         onChange={props.onChange}
+        onSubmit={props.onSubmit}
       />
-      <List>
-        {props.filteredList.map((listItem, index) => (
-          <SearchResultItem
-            listItem={listItem}
-            key={index}
-            onClick={() => props.onClickItem(index)}
-          />
-        ))}
-      </List>
+      {props.searchResultContent}
     </LayoutContainer>
   );
 }
+
+SearchPageLayout.propTypes = {
+  searchResultContent: PropTypes.node.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 function CloseButton({ history }) {
   return(

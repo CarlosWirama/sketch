@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { LinearProgress } from '@material-ui/core';
 import { filterAutocomplete } from 'common/utilities/filter';
 import { getPokemons } from 'api';
 import SearchPageLayout from './SearchPageLayout';
+import SearchResultList from './SearchResultList';
+import EmptyState from './EmptyState';
 
 export default class SearchPage extends Component {
   constructor(props) {
@@ -9,13 +12,21 @@ export default class SearchPage extends Component {
     this.state = {
       pokemonList: [],
       searchText: '',
+      isLoading: true,
     }
     this.onSubmit = this.onSubmit.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
   }
 
   componentDidMount() {
-    getPokemons().then(r => this.setState({ pokemonList: r }));
+    getPokemons()
+      .then(r => this.setState({ pokemonList: r }))
+      .catch(e => {
+        if(e.message === 'Network request failed') {
+          // do nothing, Error message will be rendered
+        } else console.error(e);
+      })
+      .finally(() => this.setState({ isLoading: false }));
   }
 
   onSubmit(searchText) {
@@ -33,19 +44,31 @@ export default class SearchPage extends Component {
   }
 
   render() {
-    const { pokemonList, searchText } = this.state;
+    const { pokemonList, searchText, isLoading } = this.state;
     const filteredList = filterAutocomplete(
       pokemonList,
       searchText,
       true,
       this.getSuggestionValue
     );
+    let searchResultContent;
+    if (isLoading) {
+      searchResultContent = <LinearProgress />;
+    } else if (pokemonList.length) {
+      searchResultContent = (
+        <SearchResultList
+          filteredList={filteredList}
+          onClickItem={index => this.onClickItem(filteredList, index)}
+        />
+      );
+    } else {
+      searchResultContent = <EmptyState />;
+    }
     return (
       <SearchPageLayout
         onChange={searchText => this.setState({ searchText })}
         onSubmit={this.onSubmit}
-        onClickItem={index => this.onClickItem(filteredList, index)}
-        filteredList={filteredList}
+        searchResultContent={searchResultContent}
         {...this.props}
       />
     );
