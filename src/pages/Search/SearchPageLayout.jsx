@@ -15,9 +15,11 @@ export default function SearchPageLayout(props) {
         left={<CloseButton {...props} />}
         middle="Add Pokémon to Party"
       />
+      <h2>Pokémove Finder</h2>
       <SearchInput
         onChange={props.onChange}
         onSubmit={props.onSubmit}
+        placeholder="Search by Pokemon..."
       />
       {props.searchResultContent}
     </LayoutContainer>
