@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
-import { getPokemonDetail } from 'api';
-import Learnset from './Learnset';
+import React, { Component } from "react";
+import { getPokemonDetail } from "../api";
+import Learnset from "./Learnset";
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      learnset: [],
+      learnset: []
     };
   }
 
   componentDidMount() {
-    getPokemonDetail(this.props.match.params.pokemon)
-      .then(learnset => this.setState({ learnset }));
+    getPokemonDetail(this.props.match.params.pokemon).then(learnset =>
+      this.setState({ learnset })
+    );
   }
 
   render() {

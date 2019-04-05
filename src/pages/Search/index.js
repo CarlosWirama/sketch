@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { LinearProgress } from '@material-ui/core';
-import { filterAutocomplete } from 'common/utilities/filter';
-import { getPokemons } from 'api';
-import SearchPageLayout from './SearchPageLayout';
-import SearchResultList from './SearchResultList';
-import EmptyState from './EmptyState';
+import React, { Component } from "react";
+import { LinearProgress } from "@material-ui/core";
+import { filterAutocomplete } from "../../common/utilities/filter";
+import { getPokemons } from "../../api";
+import SearchPageLayout from "./SearchPageLayout";
+import SearchResultList from "./SearchResultList";
+import EmptyState from "./EmptyState";
 
 export default class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       pokemonList: [],
-      searchText: '',
-      isLoading: true,
-    }
+      searchText: "",
+      isLoading: true
+    };
     this.onSubmit = this.onSubmit.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
   }
@@ -22,7 +22,7 @@ export default class SearchPage extends Component {
     getPokemons()
       .then(r => this.setState({ pokemonList: r }))
       .catch(e => {
-        if(e.message === 'Network request failed') {
+        if (e.message === "Network request failed") {
           // do nothing, Error message will be rendered
         } else console.error(e);
       })

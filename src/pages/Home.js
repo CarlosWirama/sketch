@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Navbar } from 'common/components';
+import { Navbar } from '../common/components';
 
 export default class Home extends Component {
   constructor(props) {
