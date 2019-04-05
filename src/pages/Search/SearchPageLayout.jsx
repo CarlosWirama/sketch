@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { IconButton } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
-import { Navbar, LayoutContainer } from "../../common/components";
-import SearchInput from "./SearchInput";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
+import { Navbar, LayoutContainer } from '../../common/components';
+import SearchInput from './SearchInput';
 
 export default function SearchPageLayout(props) {
   return (
@@ -23,7 +23,7 @@ export default function SearchPageLayout(props) {
 SearchPageLayout.propTypes = {
   searchResultContent: PropTypes.node.isRequired,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 function CloseButton({ history }) {

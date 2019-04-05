@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Paper, IconButton } from "@material-ui/core";
-import { Search, Close } from "@material-ui/icons";
-import { TextInput } from "../../common/components";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Paper, IconButton } from '@material-ui/core';
+import { Search, Close } from '@material-ui/icons';
+import { TextInput } from '../../common/components';
 
 export default class SearchInput extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class SearchInput extends Component {
 
   render() {
     return (
-      <Paper style={{ display: "flex" }}>
+      <Paper style={{ display: 'flex' }}>
         <IconButton aria-label="Search">
           <Search />
         </IconButton>
@@ -35,12 +35,12 @@ SearchInput.propTypes = {
   onSubmit: PropTypes.func,
   onChange: PropTypes.func,
   onClear: PropTypes.func,
-  defaultValue: PropTypes.string
+  defaultValue: PropTypes.string,
 };
 
 SearchInput.defaultProps = {
   onSubmit: () => {},
   onChange: () => {},
-  defaultValue: ""
+  defaultValue: '',
   // keep onClear undefined
 };
