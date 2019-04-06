@@ -16,7 +16,7 @@ export default function Navbar({ left, children, right, onClickBack }) {
   return (
     <NavbarContainer>
       <EmptySpace/>
-      <AppBar color="black">
+      <AppBar color="inherit">
         <StyledToolbar>
           {leftButton}
           <FullWidth>{styledChildren}</FullWidth>
