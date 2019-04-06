@@ -37,7 +37,7 @@ export default class TextInput extends React.Component {
     const { name, onChange, onClear } = this.props;
     this.setState({ [name]: '' });
     onClear ? onClear() : onChange('');
-    // this.focus();
+    this.focus();
   }
 
   render() {

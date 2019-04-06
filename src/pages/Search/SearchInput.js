@@ -40,7 +40,7 @@ export default class SearchInput extends Component {
           {...this.props}
         />
         <StyledIconButton
-          onClick={() => console.log('sd')}
+          onClick={this.textInput.clear}
         >
           <Close />
         </StyledIconButton>
