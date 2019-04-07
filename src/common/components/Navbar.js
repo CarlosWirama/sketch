@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-
-import { IconButton } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+} from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 
 export default function Navbar({ left, children, right, onClickBack }) {
   const leftButton = left || (
-    onClickBack ? <CloseButton onClick={onClickBack} /> : null
+    onClickBack ? <BackButton onClick={onClickBack} /> : null
   );
   const styledChildren = typeof children !== 'string'
     ? children // if typeof children === component
@@ -39,7 +42,7 @@ const FullWidth = styled.div`
 `;
 
 const EmptySpace = styled.div`
-  height: calc(110px - 32px);
+  height: calc(110px - 16px);
 `;
 
 const NavbarContainer = styled.div`
@@ -55,10 +58,10 @@ const StyledToolbar = styled(Toolbar)`
   font-size: 20px;
 `;
 
-function CloseButton() {
+function BackButton() {
   return(
-    <IconButton color="inherit" aria-label="Menu">
-      <Close />
+    <IconButton color="inherit" aria-label="Back">
+      <ArrowBack />
     </IconButton>
   );
 }

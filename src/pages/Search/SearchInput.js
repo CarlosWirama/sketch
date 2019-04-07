@@ -41,6 +41,7 @@ export default class SearchInput extends Component {
         />
         <StyledIconButton
           onClick={this.textInput.clear}
+          aria-label="Clear"
         >
           <Close />
         </StyledIconButton>
