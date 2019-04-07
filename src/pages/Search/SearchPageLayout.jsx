@@ -8,13 +8,14 @@ import SearchInput from './SearchInput';
 export default function SearchPageLayout(props) {
   return (
     <LayoutContainer>
-      <Navbar left={<CloseButton {...props} />} middle="Add Pokémon to Party" />
-      <h2>Pokémove Finder</h2>
-      <SearchInput
-        onChange={props.onChange}
-        onSubmit={props.onSubmit}
-        placeholder="Search by Pokemon..."
-      />
+      <Navbar>
+        Pokémove Finder
+        <SearchInput
+          onChange={props.onChange}
+          onSubmit={props.onSubmit}
+          placeholder="Search by Pokemon..."
+        />
+      </Navbar>
       {props.searchResultContent}
     </LayoutContainer>
   );
@@ -25,11 +26,3 @@ SearchPageLayout.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
-
-function CloseButton({ history }) {
-  return (
-    <IconButton onClick={history.goBack} color="inherit" aria-label="Menu">
-      <Close />
-    </IconButton>
-  );
-}
