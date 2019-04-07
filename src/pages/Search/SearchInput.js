@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IconButton } from '@material-ui/core';
 import { Search, Close } from '@material-ui/icons';
-import { TextInput } from 'common/components';
+import { TextInput } from '../../common/components';
 
 export default class SearchInput extends Component {
   constructor(props) {

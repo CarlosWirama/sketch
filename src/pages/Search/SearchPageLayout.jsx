@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Navbar,
-  LayoutContainer,
-} from 'common/components';
+import { Navbar, LayoutContainer } from '../../common/components';
 import SearchInput from './SearchInput';
 
 export default function SearchPageLayout(props) {

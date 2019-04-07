@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import { match, parse } from 'autosuggest-highlight/parse';
-import { filterAutocomplete } from 'common/utilities/filter';
+import { filterAutocomplete } from '../../utilities/filter';
 import {
   renderInputComponent,
   AutoSuggestRenderSuggestionComponent,
