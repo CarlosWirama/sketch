@@ -16,6 +16,7 @@ export default async function getPokemons() {
           .filter(i => i.template === 'rdex') // exclude header
           .map(i => ({
             kantoDex: i.list[0],
+            isAlolan: !(i.list[0] === i.list[1]),
             name: i.list[2],
             types: i.list.splice(4),
           }))
