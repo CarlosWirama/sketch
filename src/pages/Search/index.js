@@ -35,12 +35,15 @@ export default class SearchPage extends Component {
 
   onClickItem(filteredList, index) {
     const selectedPokemon = filteredList[index];
-    const pokemonName = this.getSuggestionValue(selectedPokemon);
+    const pokemonName = this.getResultItemName(selectedPokemon);
     this.props.history.push(`/pokémon/${pokemonName}`);
   }
 
-  getSuggestionValue(suggestion) {
-    return suggestion.name;
+  getResultItemName(resultItem) {
+    if (resultItem.isAlolan) {
+      return `Alolan_${resultItem.name}`;
+    }
+    return resultItem.name;
   }
 
   render() {
@@ -49,7 +52,7 @@ export default class SearchPage extends Component {
       pokemonList,
       searchText,
       true,
-      this.getSuggestionValue
+      this.getResultItemName
     );
     let searchResultContent;
     if (isLoading) {

@@ -6,9 +6,12 @@ export function filterAutocomplete(
   getItemValue = e => e // should return string
 ) {
   const defaultResult = isShowingAllByDefault ? list : [];
-  const input = rawInput.trim().toLowerCase();
-  const { length } = input;
-  return length === 0
+  const input = rawInput
+    .trim()
+    .toLowerCase()
+    .replace('_',' ');
+    // prevents alolan to be searchable by _
+  return input.length === 0
     ? defaultResult
     : list.filter(
       item => getItemValue(item).toLowerCase().includes(input)
