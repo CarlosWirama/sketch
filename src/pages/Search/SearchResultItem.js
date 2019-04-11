@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PokemonInfo from '../../common/components/PokemonInfo';
 import {
-  StyledListItem,
-  PokemonImage,
-  Texts,
-  Name,
-  Types,
-  Type,
+  ResultItem,
 } from './SearchResultItem.styled.js';
 
 export default function SearchResultItem({
@@ -14,17 +10,9 @@ export default function SearchResultItem({
   onClick,
 }) {
   return (
-    <StyledListItem button onClick={onClick}>
-      <PokemonImage>ssd</PokemonImage>
-      <Texts>
-        <Name>{name}</Name>
-        <Types>
-          {types.map((type, index) => (
-            <Type key={index}>{type}</Type>
-          ))}
-        </Types>
-      </Texts>
-    </StyledListItem>
+    <ResultItem onClick={onClick}>
+      <PokemonInfo name={name} types={types} />
+    </ResultItem>
   );
 }
 

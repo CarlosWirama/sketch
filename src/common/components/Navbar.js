@@ -39,6 +39,8 @@ Navbar.propTypes = {
 
 const FullWidth = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const EmptySpace = styled.div`
@@ -58,9 +60,9 @@ const StyledToolbar = styled(Toolbar)`
   font-size: 20px;
 `;
 
-function BackButton() {
+function BackButton(props) {
   return(
-    <IconButton color="inherit" aria-label="Back">
+    <IconButton color="inherit" aria-label="Back" {...props} >
       <ArrowBack />
     </IconButton>
   );
