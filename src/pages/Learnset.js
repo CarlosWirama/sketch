@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
-export default function Learnset({learnset}) {
+export default function Learnset({ learnset }) {
   return (
-    <div>
+    <Fragment>
       <LearnsetItem list={[
-        'level', 'move', 'type', 'category',
-        'power', 'acc', 'pp', '-', `stab ''' / ''`,
+        'level',
+        'move',
+        'type',
+        'category',
+        'power',
+        'acc',
+        'pp',
+        '-',
+        `stab (''' / '')`,
       ]} />
-      { learnset.map(({list}, i) =>
+      { learnset.map(({ list }, i) =>
         <LearnsetItem key={i} list={list} />
       )}
-    </div>
+    </Fragment>
   );
 }
 
-function LearnsetItem({list}) {
+Learnset.propTypes = {
+  learnset: PropTypes.arrayOf(
+    PropTypes.shape({
+      list: PropTypes.array.isRequired,
+    }).isRequired
+  ).isRequired,
+};
+
+function LearnsetItem({ list }) {
   function encodeDash(string) {
     return string === '&mdash;' ? '-' : string;
   }
@@ -33,3 +49,7 @@ function LearnsetItem({list}) {
     </div>
   );
 }
+
+LearnsetItem.propTypes = {
+  list: PropTypes.array.isRequired,
+};
