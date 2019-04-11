@@ -9,12 +9,12 @@ import {
   Type,
 } from './PokemonInfo.styled.js';
 
-export default function PokemonInfo({ name, types }) {
+export default function PokemonInfo({ name, types, titleColor }) {
   return (
     <Container>
       <PokemonImage />
       <Texts>
-        <Name>{name}</Name>
+        <Name titleColor={titleColor}>{name}</Name>
         <Types>
           {types.map((type, index) => (
             <Type key={index}>{type}</Type>
@@ -29,5 +29,6 @@ PokemonInfo.propTypes = {
   name: PropTypes.string.isRequired,
   types: PropTypes.arrayOf(
     PropTypes.string.isRequired
-  ).isRequired,
+    ).isRequired,
+  titleColor: PropTypes.string,
 };

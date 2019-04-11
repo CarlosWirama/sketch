@@ -19,7 +19,7 @@ export const Texts = styled.div`
 `;
 
 export const Name = styled.div`
-  color: white;
+  color: ${props => props.titleColor || 'white'};
   text-align: left;
   line-height: 20px;
 `;

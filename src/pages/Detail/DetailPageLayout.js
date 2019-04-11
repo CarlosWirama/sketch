@@ -14,7 +14,7 @@ export default function DetailPageLayout({
   return (
     <LayoutContainer>
       <Navbar onClickBack={onClickBack}>
-        <PokemonInfo name={name} types={types} />
+        <PokemonInfo name={name} types={types} titleColor="black" />
       </Navbar>
       <Learnset learnset={learnset} />
     </LayoutContainer>
