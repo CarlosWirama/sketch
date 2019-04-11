@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
-import Learnset from '../Learnset';
+import Learnset from './Learnset';
 
 export default function DetailPageLayout({
   name,

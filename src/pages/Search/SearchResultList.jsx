@@ -1,11 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { List } from '@material-ui/core';
+import List from '@material-ui/core/List';
 import SearchResultItem from './SearchResultItem';
 
 export default function SearchResultList(props) {
   return (
-    <List>
+    <StyledList>
       {props.filteredList.map((listItem, index) => (
         <SearchResultItem
           listItem={listItem}
@@ -13,7 +14,7 @@ export default function SearchResultList(props) {
           onClick={() => props.onClickItem(index)}
         />
       ))}
-    </List>
+    </StyledList>
   );
 }
 
@@ -25,3 +26,9 @@ SearchResultList.propTypes = {
 SearchResultList.defaultProps = {
   onClickItem: () => {},
 };
+
+const StyledList = styled(List)`
+  && {
+    margin-top: 16px;
+  }
+`;
