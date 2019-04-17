@@ -12,15 +12,22 @@ export default function DetailPageContainer({
   function onClickBack() {
     push('/search');
   }
+  let name = params.pokemon;
+  let isAlolan = false;
   useEffect(() => {
-    getPokemonDetail(params.pokemon)
+    getPokemonDetail(name)
     .then(learnset => setLearnset(learnset));
-  });
+  }, [ params ]);
+  const [ regularName, nameForAlolan ] = name.split('_');
+  if (nameForAlolan) {
+    name = nameForAlolan;
+    isAlolan = true;
+  }
   return (
     <DetailPageLayout
-      name={params.pokemon}
-      // types={params.types}
+      name={name}
       types={['Water', 'Dragon']}
+      isAlolan={isAlolan}
       learnset={learnset}
       onClickBack={onClickBack}
     />

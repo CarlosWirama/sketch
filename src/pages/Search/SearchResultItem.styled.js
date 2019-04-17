@@ -17,7 +17,7 @@ export const ResultItem = styled(Card)`
       right: -6px;
       bottom: -6px;
       border: 3px solid rgba(32, 129, 255, 0.3);
-      border-radius: 10px 30px;
+      border-radius: 12px 32px;
     }
   }
 `;
