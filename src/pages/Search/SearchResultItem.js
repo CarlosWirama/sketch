@@ -6,24 +6,28 @@ import {
 } from './SearchResultItem.styled.js';
 
 export default function SearchResultItem({
-  listItem: { name, types },
+  listItem: { name, types, isAlolan },
   onClick,
 }) {
   return (
     <ResultItem onClick={onClick}>
-      <PokemonInfo name={name} types={types} />
+      <PokemonInfo
+        name={name}
+        types={types}
+        isAlolan={isAlolan}
+      />
     </ResultItem>
   );
 }
 
 SearchResultItem.propTypes = {
   listItem: PropTypes.shape({
-    kantoDex: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     types: PropTypes.arrayOf(
       PropTypes.string.isRequired
-      ).isRequired,
-    }).isRequired,
+    ).isRequired,
+    isAlolan: PropTypes.bool,
+  }).isRequired,
   onClick: PropTypes.func,
 };
 

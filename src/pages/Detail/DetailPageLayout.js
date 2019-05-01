@@ -10,11 +10,17 @@ export default function DetailPageLayout({
   types,
   learnset,
   onClickBack,
+  isAlolan,
 }) {
   return (
     <LayoutContainer>
       <Navbar onClickBack={onClickBack}>
-        <PokemonInfo name={name} types={types} titleColor="black" />
+        <PokemonInfo
+          name={name}
+          types={types}
+          isAlolan={isAlolan}
+          titleColor="black"
+        />
       </Navbar>
       <Learnset learnset={learnset} />
     </LayoutContainer>
@@ -26,6 +32,7 @@ DetailPageLayout.propTypes = {
   types: PropTypes.arrayOf(
     PropTypes.string.isRequired
   ).isRequired,
+  isAlolan: PropTypes.bool,
   learnset: PropTypes.arrayOf(
     PropTypes.shape({
       list: PropTypes.array.isRequired,
