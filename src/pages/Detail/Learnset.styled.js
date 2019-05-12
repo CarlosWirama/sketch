@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
 import Card from '../../common/components/Card';
 import getTypeColor from '../../common/components/PokemonInfo/pokemonTypeColor';
 
 export const MoveSetTab = styled.div`
+  margin-top: 16px;
   font-weight: bold;
 `;
 
@@ -22,7 +24,7 @@ export const Container = styled.div`
 export const Move = styled(Card)`
   flex-direction: column;
   && {
-    background-color: ${({ type }) => getTypeColor(type)};
+    background-image: linear-gradient(white -64px, ${({ type }) => lighten(0.1, getTypeColor(type))} 32px);
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
     border: solid 3px rgba(176, 235, 255, 0.8);
     margin: 12px 0;
