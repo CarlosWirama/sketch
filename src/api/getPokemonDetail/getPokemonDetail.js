@@ -1,8 +1,6 @@
 import { fetchAndParseWiki } from '../apiHelper';
 
 export default async function getPokemonDetail(name) {
-  // get learnset table
-  console.log(name)
   const parsed = await fetchAndParseWiki({
     page: name,
   });
@@ -12,7 +10,6 @@ export default async function getPokemonDetail(name) {
     form2type1, form2type2,
     lv100exp, ability1,
   } = summarySection;
-  console.log(summarySection);
   let types = [];
   let learnsetSection = [];
   const isAlolan = name.indexOf('Alolan_') !== -1;
@@ -27,6 +24,7 @@ export default async function getPokemonDetail(name) {
     }
     types = type2 ? [type1.text, type2.text] : [type1.text];
   }
+  // get learnset table
   const learnset = learnsetSection
     .filter(i => i.template === 'learnlist/level7');
 
