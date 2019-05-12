@@ -9,6 +9,7 @@ export default function DetailPageContainer({
   // history: { goBack },
 }) {
   const [ learnset, setLearnset ] = useState([]);
+  const [ types, setTypes ] = useState([]);
   function onClickBack() {
     push('/search');
   }
@@ -16,7 +17,10 @@ export default function DetailPageContainer({
   let isAlolan = false;
   useEffect(() => {
     getPokemonDetail(name)
-    .then(learnset => setLearnset(learnset));
+    .then(({ types, learnset }) => {
+      setTypes(types);
+      setLearnset(learnset);
+    });
   }, [ params ]);
   const [ regularName, nameForAlolan ] = name.split('_');
   if (nameForAlolan) {
@@ -26,8 +30,8 @@ export default function DetailPageContainer({
   return (
     <DetailPageLayout
       name={name}
-      types={['Water', 'Dragon']}
       isAlolan={isAlolan}
+      types={types}
       learnset={learnset}
       onClickBack={onClickBack}
     />
