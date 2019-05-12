@@ -13,8 +13,7 @@ export default function DetailPageContainer({
   function onClickBack() {
     push('/search');
   }
-  let name = params.pokemon;
-  let isAlolan = false;
+  const name = params.pokemon;
   useEffect(() => {
     getPokemonDetail(name)
     .then(({ types, learnset }) => {
@@ -22,15 +21,15 @@ export default function DetailPageContainer({
       setLearnset(learnset);
     });
   }, [ params ]);
-  const [ regularName, nameForAlolan ] = name.split('_');
-  if (nameForAlolan) {
-    name = nameForAlolan;
-    isAlolan = true;
+  const alolanSeparatorIndex = name.indexOf('_');
+  let nameForAlolan = '';
+  if (alolanSeparatorIndex !== -1) {
+    nameForAlolan = name.substr(alolanSeparatorIndex + 1);
   }
   return (
     <DetailPageLayout
-      name={name}
-      isAlolan={isAlolan}
+      name={nameForAlolan || name}
+      isAlolan={nameForAlolan !== ''}
       types={types}
       learnset={learnset}
       onClickBack={onClickBack}
@@ -42,7 +41,6 @@ DetailPageContainer.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       pokemon: PropTypes.string.isRequired,
-      // types: PropTypes.array.isRequired,
     }).isRequired,
   }).isRequired,
   history: PropTypes.shape({
