@@ -5,14 +5,15 @@ import Search from './pages/Search';
 import Detail from './pages/Detail';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-export default function() {
+export default function App() {
   return (
     <Body>
       <BrowserRouter>
         <Switch>
           <Route path='/search' component={Search}/>
           <Route path='/pokémon/:pokemon' component={Detail}/>
-          <Route path='/' component={Home}/>
+          {/* <Route path='/' component={Home}/> */}
+          <Route path='/' component={Search}/>
           <Route component={NotFound}/>
         </Switch>
       </BrowserRouter>

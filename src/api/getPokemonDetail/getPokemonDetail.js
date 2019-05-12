@@ -1,18 +1,35 @@
 import { fetchAndParseWiki } from '../apiHelper';
 
 export default async function getPokemonDetail(name) {
-  // get learnset table
-  const parsedWikitext = await fetchAndParseWiki({
+  const parsed = await fetchAndParseWiki({
     page: name,
   });
-  let { templates } = parsedWikitext.sections('By leveling up').json();
-  if (!templates) {
-    // const isAlolan = name.indexOf('Alolan_') !== -1;
+  const summarySection = parsed.sections("").json().infoboxes[0];
+  const {
+    type1, type2,
+    form2type1, form2type2,
+    lv100exp, ability1,
+  } = summarySection;
+  let types = [];
+  let learnsetSection = [];
+  const isAlolan = name.indexOf('Alolan_') !== -1;
+  if (isAlolan) {
     name = name.replace('_',' '); // for alolans
-    templates = parsedWikitext.sections(`=${name}`).json().templates;
+    learnsetSection = parsed.sections(`=${name}`).json().templates;
+    types = form2type2 ? [form2type1.text, form2type2.text] : [form2type1.text];
+  } else {
+    learnsetSection = parsed.sections('By leveling up').json().templates;
+    if (!learnsetSection) {
+      learnsetSection = parsed.sections(`=${name}`).json().templates;
+    }
+    types = type2 ? [type1.text, type2.text] : [type1.text];
   }
-  const learnsetTable = templates
+  // get learnset table
+  const learnset = learnsetSection
     .filter(i => i.template === 'learnlist/level7');
 
-  return await learnsetTable;
+  return {
+    types,
+    learnset,
+  };
 }
