@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Types from '../Types';
 import {
   Container,
   SpriteContainer,
   PokemonSprite,
   Texts,
   Name,
-  Types,
-  Type,
 } from './PokemonInfo.styled.js';
-import getTypeColor from './pokemonTypeColor';
 import getImageUrl from './spriteApi';
 
 export default function PokemonInfo({
@@ -27,13 +25,7 @@ export default function PokemonInfo({
       </SpriteContainer>
       <Texts>
         <Name titleColor={titleColor}>{name}</Name>
-        <Types>
-          {types.map((type, index) => (
-            <Type key={index} color={getTypeColor(type)}>
-              {type}
-            </Type>
-          ))}
-        </Types>
+        <Types types={types} />
       </Texts>
     </Container>
   );

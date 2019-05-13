@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import Types, { getTypeColor } from '../../common/components/Types';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import {
   MoveSetTab,
   Container,
@@ -7,7 +9,10 @@ import {
   Header,
   Level,
   Name,
-  Details,
+  Collapse,
+  // ExpandIcon,
+  ShowDetails,
+  ExpandIconContainer,
 } from './Learnset.styled';
 
 export default function Learnset({ learnset }) {
@@ -41,13 +46,16 @@ function LearnsetItem({ list }) {
     }
   }
   const [isExpanded, setIsExpanded] = useState(false);
+  function toggleExpanded() {
+    setIsExpanded(!isExpanded);
+  }
   const [
     level,
     moveName,
     type,
     category,
     power,
-    acc,
+    accuracy,
     pp,
     _,
     stabIndicator,
@@ -55,17 +63,31 @@ function LearnsetItem({ list }) {
   return (
     <Container>
       <Level>{level}</Level>
-      <Move type={type} onClick={() => setIsExpanded(!isExpanded)}>
+      <Move
+        color={getTypeColor(type)}
+        onClick={toggleExpanded}
+      >
         <Header>
           <Name>{moveName}</Name>
           <div>{category}</div>
-          {category !== 'Status' && <div>{encodeDash(power)}</div>}
+          {category !== 'Status' && <div>&nbsp;{encodeDash(power)}</div>}
         </Header>
-        <Details isExpanded={isExpanded}>
-          {/* <div>Type: {type}</div> */}
-          <div>Accuracy: {encodeDash(acc)}</div>
-          <div>PP: {pp}</div>
-        </Details>
+        <Types types={[type]} />
+        <ShowDetails>
+          {isExpanded ? 'hide' : 'show'} details...
+          <ExpandIconContainer isExpanded={isExpanded}>
+            <ExpandMore/>
+          </ExpandIconContainer>
+        </ShowDetails>
+        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+          <div>
+            <div>Power: {encodeDash(power)}</div>
+            <div>Accuracy: {encodeDash(accuracy)}%</div>
+            <div>PP: {pp}</div>
+            <div>Type: {type}</div>
+            <div>Category: {category}</div>
+          </div>
+        </Collapse>
       </Move>
     </Container>
   );
