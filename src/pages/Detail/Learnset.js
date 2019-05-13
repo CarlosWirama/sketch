@@ -1,5 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import Types, { getTypeColor } from '../../common/components/Types';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import {
   MoveSetTab,
   Container,
@@ -7,8 +9,10 @@ import {
   Header,
   Level,
   Name,
-  Type,
-  Category,
+  Collapse,
+  // ExpandIcon,
+  ShowDetails,
+  ExpandIconContainer,
 } from './Learnset.styled';
 
 export default function Learnset({ learnset }) {
@@ -41,32 +45,49 @@ function LearnsetItem({ list }) {
       default: return 0;
     }
   }
+  const [isExpanded, setIsExpanded] = useState(false);
+  function toggleExpanded() {
+    setIsExpanded(!isExpanded);
+  }
   const [
     level,
     moveName,
     type,
     category,
     power,
-    acc,
+    accuracy,
     pp,
     _,
     stabIndicator,
   ] = list;
-
   return (
     <Container>
       <Level>{level}</Level>
-      <Move type={type}>
+      <Move
+        color={getTypeColor(type)}
+        onClick={toggleExpanded}
+      >
         <Header>
           <Name>{moveName}</Name>
-          <Type>{type}</Type>
-          <Category>{category}</Category>
+          <div>{category}</div>
+          {category !== 'Status' && <div>&nbsp;{encodeDash(power)}</div>}
         </Header>
-        <Header>
-          <div>Power: {encodeDash(power)}</div>
-          <div>Accuracy: {encodeDash(acc)}</div>
-          <div>PP: {pp}</div>
-        </Header>
+        <Types types={[type]} />
+        <ShowDetails>
+          {isExpanded ? 'hide' : 'show'} details...
+          <ExpandIconContainer isExpanded={isExpanded}>
+            <ExpandMore/>
+          </ExpandIconContainer>
+        </ShowDetails>
+        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+          <div>
+            <div>Power: {encodeDash(power)}</div>
+            <div>Accuracy: {encodeDash(accuracy)}%</div>
+            <div>PP: {pp}</div>
+            <div>Type: {type}</div>
+            <div>Category: {category}</div>
+          </div>
+        </Collapse>
       </Move>
     </Container>
   );

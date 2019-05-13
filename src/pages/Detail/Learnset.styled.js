@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
+import { default as CollapseMaterialUi } from '@material-ui/core/Collapse';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Card from '../../common/components/Card';
-import getTypeColor from '../../common/components/PokemonInfo/pokemonTypeColor';
 
 export const MoveSetTab = styled.div`
+  margin-top: 16px;
   font-weight: bold;
 `;
 
@@ -21,8 +24,12 @@ export const Container = styled.div`
 
 export const Move = styled(Card)`
   flex-direction: column;
+  text-align: left;
   && {
-    background-color: ${({ type }) => getTypeColor(type)};
+    background-image: linear-gradient(
+      white -64px,
+      ${props => lighten(0.1, props.color)} 32px
+    );
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
     border: solid 3px rgba(176, 235, 255, 0.8);
     margin: 12px 0;
@@ -33,8 +40,8 @@ export const Move = styled(Card)`
 
 export const Header = styled.div`
   display: flex;
-  text-align: left;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Level = styled.div`
@@ -56,9 +63,31 @@ export const Name = styled.div`
   flex: 3;
 `;
 
-export const Type = styled.div`
-  flex: 1;
+export const Collapse = styled(CollapseMaterialUi)`
+  margin-top: 4px;
 `;
 
-export const Category = styled.div`
+export const ExpandIcon = styled(ExpandMore)`
+  transition: transform 400ms;
+  transform: rotate(0deg);
+  &:hover {
+    transform: rotate(${props => props.isExpanded ? '180deg' : '180deg'});
+  }
+`;
+
+export const ShowDetails = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 10px;
+  margin: 0 8px 5px 0;
+`;
+
+export const ExpandIconContainer = styled.div`
+  transition: transform 400ms;
+  transform: rotate(${props => props.isExpanded ? '180deg' : '0deg'});
+  &:hover {
+  }
 `;

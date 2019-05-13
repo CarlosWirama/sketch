@@ -2,7 +2,7 @@ export default function getTypeColor(type) {
   switch (type.toLowerCase()) {
     case 'normal': return '#A8A878';
     case 'fire': return '#F08030';
-    case 'fighting': return '#C03028'; case 'fight': return '#C03028';
+    case 'fighting': case 'fight': return '#C03028';
     case 'water': return '#6890F0';
     case 'flying': return '#A890F0';
     case 'grass': return '#78C850';
