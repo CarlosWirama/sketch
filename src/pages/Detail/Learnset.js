@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   MoveSetTab,
@@ -7,8 +7,7 @@ import {
   Header,
   Level,
   Name,
-  Type,
-  Category,
+  Details,
 } from './Learnset.styled';
 
 export default function Learnset({ learnset }) {
@@ -41,6 +40,7 @@ function LearnsetItem({ list }) {
       default: return 0;
     }
   }
+  const [isExpanded, setIsExpanded] = useState(false);
   const [
     level,
     moveName,
@@ -52,21 +52,20 @@ function LearnsetItem({ list }) {
     _,
     stabIndicator,
   ] = list;
-
   return (
     <Container>
       <Level>{level}</Level>
-      <Move type={type}>
+      <Move type={type} onClick={() => setIsExpanded(!isExpanded)}>
         <Header>
           <Name>{moveName}</Name>
-          <Type>{type}</Type>
-          <Category>{category}</Category>
+          <div>{category}</div>
+          {category !== 'Status' && <div>{encodeDash(power)}</div>}
         </Header>
-        <Header>
-          <div>Power: {encodeDash(power)}</div>
+        <Details isExpanded={isExpanded}>
+          {/* <div>Type: {type}</div> */}
           <div>Accuracy: {encodeDash(acc)}</div>
           <div>PP: {pp}</div>
-        </Header>
+        </Details>
       </Move>
     </Container>
   );

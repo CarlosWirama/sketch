@@ -23,6 +23,7 @@ export const Container = styled.div`
 
 export const Move = styled(Card)`
   flex-direction: column;
+  text-align: left;
   && {
     background-image: linear-gradient(white -64px, ${({ type }) => lighten(0.1, getTypeColor(type))} 32px);
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
@@ -35,8 +36,8 @@ export const Move = styled(Card)`
 
 export const Header = styled.div`
   display: flex;
-  text-align: left;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Level = styled.div`
@@ -58,9 +59,7 @@ export const Name = styled.div`
   flex: 3;
 `;
 
-export const Type = styled.div`
-  flex: 1;
-`;
-
-export const Category = styled.div`
+export const Details = styled.div`
+  display: ${props => props.isExpanded ? 'block' : 'none'};
+  margin-top: 4px;
 `;
