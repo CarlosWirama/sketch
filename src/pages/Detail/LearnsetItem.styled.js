@@ -20,6 +20,7 @@ export const Container = styled.div`
 export const Move = styled(Card)`
   flex-direction: column;
   text-align: left;
+  width: 100%;
   && {
     background-image: linear-gradient(
       white -64px,
@@ -37,6 +38,7 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 11px;
 `;
 
 export const Level = styled.div`
@@ -77,14 +79,14 @@ export const ExpandIcon = styled(ExpandMore)`
   }
 `;
 
-export const ShowDetails = styled.div`
+export const ExpansionToggle = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: 0;
+  bottom: 12px;
   right: 0;
   font-size: 10px;
-  margin: 0 8px 5px 0;
+  margin-right: 8px;
 `;
 
 export const ExpandIconContainer = styled.div`

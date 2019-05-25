@@ -9,7 +9,7 @@ import {
   Level,
   Name,
   Collapse,
-  ShowDetails,
+  ExpansionToggle,
   ExpandIconContainer,
   DetailGrid,
   DetailLabels,
@@ -41,12 +41,12 @@ export default function LearnsetItem({ list: [
           {category !== 'Status' && <div>&nbsp;{encodeDash(power)}</div>}
         </Header>
         <Types types={[type]} />
-        <ShowDetails>
+        <ExpansionToggle>
           {isExpanded ? 'hide' : 'show'} details...
           <ExpandIconContainer isExpanded={isExpanded}>
             <ExpandMore/>
           </ExpandIconContainer>
-        </ShowDetails>
+        </ExpansionToggle>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <DetailGrid>
             <DetailLabels>
