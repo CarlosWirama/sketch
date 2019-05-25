@@ -4,11 +4,6 @@ import { default as CollapseMaterialUi } from '@material-ui/core/Collapse';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Card from '../../common/components/Card';
 
-export const MoveSetTab = styled.div`
-  margin-top: 16px;
-  font-weight: bold;
-`;
-
 export const Container = styled.div`
   display: flex;
   position: relative;
@@ -61,6 +56,13 @@ export const Level = styled.div`
 export const Name = styled.div`
   font-size: 20px;
   flex: 3;
+  ${(props) => {
+    switch (props.stabIndicator) {
+      case `''`: return 'font-style: italic;'; // get STAB after evolve
+      case `'''`: return 'font-weight: bold;'; // get stab
+      default: return; // dont get stab
+    }
+  }}
 `;
 
 export const Collapse = styled(CollapseMaterialUi)`
@@ -90,4 +92,17 @@ export const ExpandIconContainer = styled.div`
   transform: rotate(${props => props.isExpanded ? '180deg' : '0deg'});
   &:hover {
   }
+`;
+
+export const DetailGrid = styled.div`
+  display: flex;
+  font-size: 14px;
+`;
+
+export const DetailLabels = styled.div`
+  font-weight: bold;
+`;
+
+export const DetailValues = styled.div`
+  margin-left: 8px;
 `;
