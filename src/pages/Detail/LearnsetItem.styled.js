@@ -4,11 +4,6 @@ import { default as CollapseMaterialUi } from '@material-ui/core/Collapse';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Card from '../../common/components/Card';
 
-export const MoveSetTab = styled.div`
-  margin-top: 16px;
-  font-weight: bold;
-`;
-
 export const Container = styled.div`
   display: flex;
   position: relative;
@@ -25,6 +20,7 @@ export const Container = styled.div`
 export const Move = styled(Card)`
   flex-direction: column;
   text-align: left;
+  width: 100%;
   && {
     background-image: linear-gradient(
       white -64px,
@@ -42,6 +38,7 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 11px;
 `;
 
 export const Level = styled.div`
@@ -61,6 +58,13 @@ export const Level = styled.div`
 export const Name = styled.div`
   font-size: 20px;
   flex: 3;
+  ${(props) => {
+    switch (props.stabIndicator) {
+      case `''`: return 'font-style: italic;'; // get STAB after evolve
+      case `'''`: return 'font-weight: bold;'; // get stab
+      default: return; // dont get stab
+    }
+  }}
 `;
 
 export const Collapse = styled(CollapseMaterialUi)`
@@ -75,14 +79,14 @@ export const ExpandIcon = styled(ExpandMore)`
   }
 `;
 
-export const ShowDetails = styled.div`
+export const ExpansionToggle = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: 0;
+  bottom: 12px;
   right: 0;
   font-size: 10px;
-  margin: 0 8px 5px 0;
+  margin-right: 8px;
 `;
 
 export const ExpandIconContainer = styled.div`
@@ -90,4 +94,17 @@ export const ExpandIconContainer = styled.div`
   transform: rotate(${props => props.isExpanded ? '180deg' : '0deg'});
   &:hover {
   }
+`;
+
+export const DetailGrid = styled.div`
+  display: flex;
+  font-size: 14px;
+`;
+
+export const DetailLabels = styled.div`
+  font-weight: bold;
+`;
+
+export const DetailValues = styled.div`
+  margin-left: 8px;
 `;
