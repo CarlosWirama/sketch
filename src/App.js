@@ -7,15 +7,15 @@ import Detail from './pages/Detail';
 import {
   SCREEN_MIN_WIDTH,
   CONTENT_MAX_WIDTH,
-  FRAME_RIGHT_CALC,
   CONTENT_RIGHT_CALC,
   FRAME_VERTICAL_PADDING,
-} from './common/constants/pokedexCssCalculation.js';
+} from './common/constants/pokedexCssCalculation';
+import PokedexFrame from './common/components/PokedexFrame';
 
 export default function App() {
   return (
     <Container>
-      <PokedexFrame />
+      <PokedexFrame/>
       <Body>
         <BrowserRouter>
           <Switch>
@@ -42,16 +42,6 @@ const Container = styled.div`
     height: 100vh;
     width: 100vw;
     position: relative;
-  }
-`;
-
-const PokedexFrame = styled.div`
-  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
-    height: 100%;
-    background-color: #fc5849;
-    position: fixed;
-    left: ${FRAME_RIGHT_CALC};
-    right: ${FRAME_RIGHT_CALC};
   }
 `;
 
