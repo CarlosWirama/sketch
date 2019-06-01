@@ -10,6 +10,7 @@ export default function PokedexFrame() {
     <Container>
       <LeftFrame>
         <PokeballLogo/>
+        <Recess />
       </LeftFrame>
       <RightFrame>
         <LedWire/>
@@ -40,21 +41,20 @@ const FrameTemplate = styled.div`
   border-radius: 16px;
   flex: 1;
   position: relative;
+  box-shadow: inset -2px -4px 2px 4px #c0362d;
 `;
 
 const LeftFrame = styled(FrameTemplate)`
-  border-right: 1px solid black;
+  border-right: 1px solid #14aa9f;
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
-
-const RightFrame = styled(FrameTemplate)``;
 
 const PokeballLogo = styled.div`
   position: relative;
-  align-self: center;
-  left: 100px;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   background-color: #c0362d;
   border-radius: 50%;
   display: flex;
@@ -62,25 +62,35 @@ const PokeballLogo = styled.div`
   align-items: center;
   &:before {
     content: "";
-    width: 20px;
+    width: 10%;
     height: 100%;
     background-color: #fc5849;
   }
   &:after {
     content: "";
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 30%;
+    height: 30%;
     background-color: #c0362d;
-    border: 20px solid #fc5849;
+    border: 18px solid #fc5849;
     border-radius: 50%;
   }
 `;
 
+const Recess = styled.div`
+  position: absolute;
+  right: 48px;
+  width: 24px;
+  height: 100%;
+  box-shadow: inset 1px 0px 6px 2px #c0362d;
+`;
+
+const RightFrame = styled(FrameTemplate)``;
+
 const LedWire = styled.div`
   position: absolute;
   top: 8px;
-  right: 15px;
+  right: 18px;
   width: 2px;
   height: 110px;
   background-color: black;
@@ -91,7 +101,7 @@ const TemplateLED = styled.div`
   position: absolute;
   height: 12px;
   width: 12px;
-  right: 10px;
+  right: 13px;
   border-radius: 50%;
   /*background: radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #000000 100%);*/
   box-shadow: 1px 1px 2px black;
@@ -127,7 +137,7 @@ const LargeLED = styled(TemplateLED)`
   height: 20px;
   width: 20px;
   top: 8px;
-  right: 6px;
+  right: 9px;
 `;
 
 const SmallLED = styled(TemplateLED)`

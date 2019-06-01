@@ -55,6 +55,7 @@ const Body = styled.div`
     top: ${FRAME_VERTICAL_PADDING};
     height: calc(100% - 2 * ${FRAME_VERTICAL_PADDING});
     overflow: scroll;
+    box-shadow: inset 1px 2px 3px 1px grey;
   }
   background-image:
     repeating-linear-gradient(90deg,

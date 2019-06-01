@@ -61,6 +61,9 @@ const AppBarWithPokedex = styled(AppBar)`
     && {
       top: ${FRAME_VERTICAL_PADDING};
       right: ${CONTENT_RIGHT_CALC};
+      & > div {
+        box-shadow: inset 1px 2px 3px 1px grey;
+      }
     }
   }
 `;
