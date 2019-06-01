@@ -1,23 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import Home from './pages/Home';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+// import Home from './pages/Home';
 import Search from './pages/Search';
 import Detail from './pages/Detail';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+  SCREEN_MIN_WIDTH,
+  CONTENT_MAX_WIDTH,
+  CONTENT_RIGHT_CALC,
+  FRAME_VERTICAL_PADDING,
+} from './common/constants/pokedexCssCalculation';
+import PokedexFrame from './common/components/PokedexFrame';
 
 export default function App() {
   return (
-    <Body>
-      <BrowserRouter>
-        <Switch>
-          <Route path='/search' component={Search}/>
-          <Route path='/pokémon/:pokemon' component={Detail}/>
-          {/* <Route path='/' component={Home}/> */}
-          <Route path='/' component={Search}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </BrowserRouter>
-    </Body>
+    <Container>
+      <PokedexFrame/>
+      <Body>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/search' component={Search}/>
+            <Route path='/pokémon/:pokemon' component={Detail}/>
+            {/* <Route path='/' component={Home}/> */}
+            <Route path='/' component={Search}/>
+            <Route component={NotFound}/>
+          </Switch>
+        </BrowserRouter>
+      </Body>
+    </Container>
   );
 }
 
@@ -27,10 +37,26 @@ function NotFound() {
   );
 }
 
+const Container = styled.div`
+  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-color: #14aaa0;
+  }
+`;
+
 const Body = styled.div`
-  overflow: scroll;
-  width: 100vw;
-  height: 100vh;
+  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+    position: absolute;
+    right: ${CONTENT_RIGHT_CALC};
+    max-width: ${CONTENT_MAX_WIDTH};
+    width: 100%;
+    top: ${FRAME_VERTICAL_PADDING};
+    height: calc(100% - 2 * ${FRAME_VERTICAL_PADDING});
+    overflow: scroll;
+    box-shadow: inset 1px 2px 3px 1px grey;
+  }
   background-image:
     repeating-linear-gradient(90deg,
       transparent 0 10px,
