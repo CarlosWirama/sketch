@@ -14,9 +14,9 @@ export default function PokedexFrame() {
       <RightFrame>
         <LedWire/>
         <LargeLED/>
-        <SmallLED top="75px" color="red"/>
-        <SmallLED top="100px" color="yellow" />
-        <SmallLED top="125px" color="green"/>
+        <SmallLED top="60px" color="red"/>
+        <SmallLED top="80px" color="yellow" />
+        <SmallLED top="100px" color="green"/>
         <LeftVerticalLine/>
         <RightVerticalLine/>
       </RightFrame>
@@ -32,7 +32,6 @@ const Container = styled.div`
     position: fixed;
     left: ${FRAME_RIGHT_CALC};
     right: ${FRAME_RIGHT_CALC};
-    background-color: #14aaa0;
   }
 `;
 
@@ -78,12 +77,49 @@ const PokeballLogo = styled.div`
   }
 `;
 
+const LedWire = styled.div`
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  width: 2px;
+  height: 110px;
+  background-color: black;
+  box-shadow: inset 1px 1px 2px gray;
+`;
+
 const TemplateLED = styled.div`
   position: absolute;
   height: 12px;
   width: 12px;
   right: 10px;
   border-radius: 50%;
+  /*background: radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #000000 100%);*/
+  box-shadow: 1px 1px 2px black;
+  &:before { /* bottom light */
+    content: "";
+    position: absolute;
+    background: radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    bottom: 2.5%;
+    left: 5%;
+    opacity: 0.6;
+    height: 100%;
+    width: 90%;
+    filter: blur(1px);
+    z-index: 2;
+  }
+  &:after { /* shine */
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) 14%, rgba(255, 255, 255, 0) 24%);
+    transform: translateX(-32%) translateY(-32%) skewX(-20deg);
+    filter: blur(1px);
+  }
 `;
 
 const LargeLED = styled(TemplateLED)`
@@ -99,28 +135,34 @@ const SmallLED = styled(TemplateLED)`
   top: ${props => props.top};
 `;
 
-const LedWire = styled.div`
-  position: absolute;
-  top: 8px;
-  right: 15px;
-  width: 2px;
-  height: 140px;
-  background-color: black;
-`;
-
 const BezelDecorationLine = styled.div`
   position: absolute;
   background-color: #7ff6f3;
   width: 2px;
+  height: 100%;
+  &:after {
+    content: "";
+    position: absolute;
+    background-color: #7ff6f3;
+    width: 2px;
+    height: 16px;
+    transform: rotate(-45deg);
+  }
 `;
 
 const LeftVerticalLine = styled(BezelDecorationLine)`
-  top: 50%;
-  right: 19px;
-  height: 100%;
+  bottom: 50%;
+  left: 15px;
+  &:after {
+    left: 6px;
+    bottom: -13px;
+  }
 `;
 const RightVerticalLine = styled(BezelDecorationLine)`
-  bottom: 50%;
-  left: 19px;
-  height: 100%;
+  top: 50%;
+  right: 20px;
+  &:after {
+    top: -13px;
+    left: -6px;
+  }
 `;

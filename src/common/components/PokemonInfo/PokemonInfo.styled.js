@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: inline-flex;
+  display: inline-box;
 `;
 
 export const SpriteContainer = styled.div`
@@ -13,8 +13,10 @@ export const SpriteContainer = styled.div`
 `;
 
 export const PokemonSprite = styled.img`
-  max-width: 72px;
-  max-height: 72px;
+  max-width: calc(72px / .65);
+  max-height: calc(72px / .65);
+  transform: scale(.65);
+  image-rendering: auto;
 `;
 
 export const Texts = styled.div`
