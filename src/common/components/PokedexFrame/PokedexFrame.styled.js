@@ -26,8 +26,46 @@ const FrameTemplate = styled.div`
 export const LeftFrame = styled(FrameTemplate)`
   border-right: 1px solid #14aa9f;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+`;
+
+const ButtonsContainer = styled.div`
+  flex: 1;
+  display: flex;
+  width: 100%;
+`;
+
+export const TopButtonsContainer = styled(ButtonsContainer)`
+  align-items: center;
+`;
+
+export const BottomButtonsContainer = styled(ButtonsContainer)`
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const RectangleButtonsContainer = styled.div`
+  display: flex;
+`;
+
+export const PlusAndCircleButtonsContainer = styled.div`
+  display: flex;
+  padding-top: 24px;
+`;
+
+export const WhiteButton = styled.div`
+  background: linear-gradient(to right,white 30%,#e4e4e4 70%);
+  box-shadow: 1px -1px 3px #222;
+  border: 2px solid white;
+  border-radius: ${props => props.shape === 'circle' ? '50%' : '3px'};
+  width: ${props => props.width || props.size};
+  height: ${props => props.height || props.size};
+  left: ${props => props.left};
+  ${props => props.top && `top: ${props.top};`}
+  position: relative;
 `;
 
 export const LeftFrameLines = styled.div`
@@ -36,8 +74,8 @@ export const LeftFrameLines = styled.div`
   display: flex;
   align-items: center;
   background-color: #fc5849;
-  width: 14.5%;
-  height: 33%;
+  width: 15.5%;
+  height: 275px;
   border: 8px solid #c0362d;
   border-width: 8px 0;
   &:before {
@@ -138,7 +176,6 @@ const TemplateLED = styled.div`
     height: 100%;
     width: 90%;
     filter: blur(1px);
-    z-index: 2;
   }
   &:after { /* shine */
     content: "";
