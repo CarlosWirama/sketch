@@ -4,13 +4,17 @@ import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
 import Learnset from './Learnset';
+import TypeEffectiveness from './TypeEffectiveness';
 
 export default function DetailPageLayout({
   name,
-  types,
-  learnset,
-  onClickBack,
   isAlolan,
+  details: {
+    types,
+    learnset,
+    typeEffectiveness,
+  },
+  onClickBack,
 }) {
   return (
     <LayoutContainer>
@@ -22,6 +26,7 @@ export default function DetailPageLayout({
           titleColor="black"
         />
       </Navbar>
+      <TypeEffectiveness {...typeEffectiveness} />
       <Learnset learnset={learnset} />
     </LayoutContainer>
   );
@@ -29,14 +34,17 @@ export default function DetailPageLayout({
 
 DetailPageLayout.propTypes = {
   name: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(
-    PropTypes.string.isRequired
-  ).isRequired,
   isAlolan: PropTypes.bool,
-  learnset: PropTypes.arrayOf(
-    PropTypes.shape({
-      list: PropTypes.array.isRequired,
-    }).isRequired
-  ).isRequired,
+  details: PropTypes.shape({
+    types: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+    ).isRequired,
+    learnset: PropTypes.arrayOf(
+      PropTypes.shape({
+        list: PropTypes.array.isRequired,
+      }).isRequired
+    ).isRequired,
+    typeEffectiveness: PropTypes.shape({}).isRequired,
+  }).isRequired,
   onClickBack: PropTypes.func.isRequired,
 };
