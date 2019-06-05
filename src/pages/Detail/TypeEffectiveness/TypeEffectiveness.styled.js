@@ -9,4 +9,5 @@ export const Row = styled.div`
 export const Item = styled.div`
   display: flex;
   margin-left: 4px;
+  padding: 2px 0;
 `;
