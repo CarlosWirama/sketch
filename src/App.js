@@ -19,10 +19,10 @@ export default function App() {
       <Body>
         <BrowserRouter>
           <Switch>
-            <Route path='/search' component={Search}/>
-            <Route path='/pokémon/:pokemon' component={Detail}/>
-            {/* <Route path='/' component={Home}/> */}
-            <Route path='/' component={Search}/>
+            <Route path={process.env.PUBLIC_URL + '/search'} component={Search}/>
+            <Route path={process.env.PUBLIC_URL + '/pokémon/:pokemon'} component={Detail}/>
+            {/* <Route path={process.env.PUBLIC_URL + '/'} component={Home}/> */}
+            <Route path={process.env.PUBLIC_URL + '/'} component={Search}/>
             <Route component={NotFound}/>
           </Switch>
         </BrowserRouter>
