@@ -38,8 +38,10 @@ function NotFound() {
 }
 
 const Container = styled.div`
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
-    height: 100vh;
     width: 100vw;
     position: relative;
     background-color: #14aaa0;
@@ -47,6 +49,7 @@ const Container = styled.div`
 `;
 
 const Body = styled.div`
+  flex: 1 0 auto;
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
     position: absolute;
     right: ${CONTENT_RIGHT_CALC};
@@ -69,5 +72,5 @@ const Body = styled.div`
       transparent 16px 26px
     ),
     radial-gradient(circle at 50% 0, #2cffff, #69fffe 35%, #008dee);
-  background-attachment: local;
+  background-attachment: fixed;
 `;
