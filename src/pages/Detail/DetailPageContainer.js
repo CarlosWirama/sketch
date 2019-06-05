@@ -8,18 +8,22 @@ export default function DetailPageContainer({
   history: { push },
   // history: { goBack },
 }) {
-  const [ learnset, setLearnset ] = useState([]);
-  const [ types, setTypes ] = useState([]);
+  const [ details, setDetails ] = useState({
+    types: [],
+    learnset: [],
+    typeEffectiveness: {
+      normal: [],
+      weak: [],
+      resistant: [],
+      immune: [],
+    },
+  });
   function onClickBack() {
     push('/search');
   }
   const name = params.pokemon;
   useEffect(() => {
-    getPokemonDetail(name)
-    .then(({ types, learnset }) => {
-      setTypes(types);
-      setLearnset(learnset);
-    });
+    getPokemonDetail(name).then(details => setDetails(details));
   }, [ params ]);
   const alolanSeparatorIndex = name.indexOf('_');
   let nameForAlolan = '';
@@ -30,8 +34,7 @@ export default function DetailPageContainer({
     <DetailPageLayout
       name={nameForAlolan || name}
       isAlolan={nameForAlolan !== ''}
-      types={types}
-      learnset={learnset}
+      details={details}
       onClickBack={onClickBack}
     />
   );

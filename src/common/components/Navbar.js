@@ -20,9 +20,9 @@ export default function Navbar({ left, children, right, onClickBack }) {
   const leftButton = left || (
     onClickBack ? <BackButton onClick={onClickBack} /> : null
   );
-  const styledChildren = typeof children !== 'string'
-    ? children // if typeof children === component
-    : <Typography variant="h2" color="inherit">{children}</Typography>;
+  const styledChildren = typeof children === 'string'
+    ? <Typography variant="h2" color="inherit">{children}</Typography>
+    : children;
   return (
     <NavbarContainer>
       <EmptySpace/>

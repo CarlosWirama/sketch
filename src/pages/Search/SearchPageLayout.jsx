@@ -7,7 +7,7 @@ export default function SearchPageLayout(props) {
   return (
     <LayoutContainer>
       <Navbar>
-        Pokémove Finder
+        Search Pokémon name
         <SearchInput
           onChange={props.onChange}
           onSubmit={props.onSubmit}

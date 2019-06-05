@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
-import Learnset from './Learnset';
+import LearnsetItem from './LearnsetItem';
+import TypeEffectiveness from './TypeEffectiveness';
+import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
   name,
-  types,
-  learnset,
-  onClickBack,
   isAlolan,
+  details: {
+    types,
+    learnset,
+    typeEffectiveness,
+  },
+  onClickBack,
 }) {
   return (
     <LayoutContainer>
@@ -22,21 +27,29 @@ export default function DetailPageLayout({
           titleColor="black"
         />
       </Navbar>
-      <Learnset learnset={learnset} />
-    </LayoutContainer>
+      <SectionTitle>Type Effectiveness</SectionTitle>
+      <TypeEffectiveness {...typeEffectiveness} />
+      <SectionTitle>Moves by leveling up</SectionTitle>
+      { learnset.map(({ list }, i) =>
+        <LearnsetItem key={i} list={list} />
+      )}
+      </LayoutContainer>
   );
 }
 
 DetailPageLayout.propTypes = {
   name: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(
-    PropTypes.string.isRequired
-  ).isRequired,
   isAlolan: PropTypes.bool,
-  learnset: PropTypes.arrayOf(
-    PropTypes.shape({
-      list: PropTypes.array.isRequired,
-    }).isRequired
-  ).isRequired,
+  details: PropTypes.shape({
+    types: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+    ).isRequired,
+    learnset: PropTypes.arrayOf(
+      PropTypes.shape({
+        list: PropTypes.array.isRequired,
+      }).isRequired
+    ).isRequired,
+    typeEffectiveness: PropTypes.shape({}).isRequired,
+  }).isRequired,
   onClickBack: PropTypes.func.isRequired,
 };

@@ -39,6 +39,7 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 11px;
+  padding-bottom: 8px;
 `;
 
 export const Level = styled.div`
