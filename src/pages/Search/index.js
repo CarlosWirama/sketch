@@ -30,13 +30,13 @@ export default class SearchPage extends Component {
   }
 
   onSubmit(searchText) {
-    this.props.history.push(`/pokémon/${searchText}`);
+    this.props.history.push(`${process.env.PUBLIC_URL}/pokemon/${searchText}`);
   }
 
   onClickItem(filteredList, index) {
     const selectedPokemon = filteredList[index];
     const pokemonName = this.getResultItemName(selectedPokemon);
-    this.props.history.push(`/pokémon/${pokemonName}`);
+    this.props.history.push(`${process.env.PUBLIC_URL}/pokemon/${pokemonName}`);
   }
 
   getResultItemName(resultItem) {
