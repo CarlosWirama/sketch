@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
-import Learnset from './Learnset';
+import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
+import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
   name,
@@ -26,9 +27,13 @@ export default function DetailPageLayout({
           titleColor="black"
         />
       </Navbar>
+      <SectionTitle>Type Effectiveness</SectionTitle>
       <TypeEffectiveness {...typeEffectiveness} />
-      <Learnset learnset={learnset} />
-    </LayoutContainer>
+      <SectionTitle>Moves by leveling up</SectionTitle>
+      { learnset.map(({ list }, i) =>
+        <LearnsetItem key={i} list={list} />
+      )}
+      </LayoutContainer>
   );
 }
 

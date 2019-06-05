@@ -30,4 +30,5 @@ export const Name = styled.div`
   color: ${props => props.titleColor || 'white'};
   text-align: left;
   line-height: 20px;
+  padding-bottom: 8px;
 `;

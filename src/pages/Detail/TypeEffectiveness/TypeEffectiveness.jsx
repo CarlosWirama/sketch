@@ -11,12 +11,26 @@ export default function TypeEffectiveness({
 }) {
   return (
     <div>
-      <div>Weak to:</div>
-      <Row>{weak.map(formatEffectiveness)}</Row><br/>
-      <div>Resistant to:</div>
-      <Row>{resistant.map(formatEffectiveness)}</Row><br/>
-      <div>Immune to:</div>
-      <Row>{immune.map(formatEffectiveness)}</Row>
+      {weak.length > 0 && (
+        <Row>
+          <div>Weak to:</div>
+          {weak.map(formatEffectiveness)}
+        </Row>
+      )}
+      <br/>
+      {resistant.length > 0 && (
+        <Row>
+          <div>Resistant to:</div>
+          {resistant.map(formatEffectiveness)}
+        </Row>
+      )}
+      <br/>
+      {immune.length > 0 && (
+        <Row>
+          <div>Immune to:</div>
+          {immune.map(formatEffectiveness)}
+        </Row>
+      )}
     </div>
   );
 }
@@ -41,7 +55,7 @@ function formatEffectiveness([type, multiplier], key) {
   return (
     <Item key={key}>
       <Types types={[type]} />
-      ({multiplier}x)
+      {/* ({multiplier}x) */}
     </Item>
   );
 }
