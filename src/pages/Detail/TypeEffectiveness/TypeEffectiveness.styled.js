@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import { BorderedCard } from '../../../common/components/Card';
 
-export const Row = styled.div`
+export const EffectivenessCategory = styled(BorderedCard)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  padding: 16px;
 `;
 
 export const Item = styled.div`

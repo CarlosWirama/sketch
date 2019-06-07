@@ -27,10 +27,8 @@ export default function DetailPageLayout({
           name={name}
           types={types}
           isAlolan={isAlolan}
-          titleColor="black"
         />
       </Navbar>
-      <SectionTitle>Type Effectiveness</SectionTitle>
       {isLoading ? <LoadingIndicator/> : <TypeEffectiveness {...typeEffectiveness} />}
       <SectionTitle>Moves by leveling up</SectionTitle>
       {isLoading ? <LoadingIndicator/> : learnset.map(({ list }, i) =>
