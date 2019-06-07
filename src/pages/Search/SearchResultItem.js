@@ -15,6 +15,7 @@ export default function SearchResultItem({
         name={name}
         types={types}
         isAlolan={isAlolan}
+        titleColor="white"
       />
     </ResultItem>
   );

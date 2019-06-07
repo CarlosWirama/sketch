@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Types from '../../../common/components/Types';
-import { Item, Row } from './TypeEffectiveness.styled';
+import { SectionTitle } from '../DetailPageLayout.styled';
+import { EffectivenessCategory, Item } from './TypeEffectiveness.styled';
 
 export default function TypeEffectiveness({
   normal,
@@ -12,24 +13,28 @@ export default function TypeEffectiveness({
   return (
     <div>
       {weak.length > 0 && (
-        <Row>
-          <div>Weak to:</div>
-          {weak.map(formatEffectiveness)}
-        </Row>
+        <div>
+          <SectionTitle>Weak to</SectionTitle>
+          <EffectivenessCategory>
+            {weak.map(formatEffectiveness)}
+          </EffectivenessCategory>
+        </div>
       )}
-      <br/>
       {resistant.length > 0 && (
-        <Row>
-          <div>Resistant to:</div>
-          {resistant.map(formatEffectiveness)}
-        </Row>
+        <div>
+          <SectionTitle>Resistant to:</SectionTitle>
+          <EffectivenessCategory>
+            {resistant.map(formatEffectiveness)}
+          </EffectivenessCategory>
+        </div>
       )}
-      <br/>
       {immune.length > 0 && (
-        <Row>
-          <div>Immune to:</div>
-          {immune.map(formatEffectiveness)}
-        </Row>
+        <div>
+          <SectionTitle>Immune to:</SectionTitle>
+          <EffectivenessCategory>
+            {immune.map(formatEffectiveness)}
+          </EffectivenessCategory>
+        </div>
       )}
     </div>
   );

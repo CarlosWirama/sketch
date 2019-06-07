@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
 export const SectionTitle = styled.div`
-  margin: 16px 0 4px;
+  margin: 24px 0 16px;
   font-weight: bold;
 `;

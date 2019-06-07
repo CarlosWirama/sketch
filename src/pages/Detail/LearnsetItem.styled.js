@@ -28,7 +28,7 @@ export const Move = styled(Card)`
     );
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
     border: solid 3px rgba(176, 235, 255, 0.8);
-    margin: 12px 0;
+    margin-bottom: 24px;
     padding: 12px 24px;
     align-items: normal;
   }
@@ -49,7 +49,7 @@ export const Level = styled.div`
   background-color: black;
   font-size: 16px;
   color: white;
-  margin: 16px 8px 0 0;
+  margin-right: 8px;
   z-index: 1;
   justify-content: center;
   display: flex;
