@@ -52,7 +52,7 @@ const NavbarContainer = styled.div`
 `;
 
 const EmptySpace = styled.div`
-  height: calc(104px - 16px);
+  height: 104px;
 `;
 
 const AppBarWithPokedex = styled(AppBar)`
