@@ -8,6 +8,7 @@ export default function DetailPageContainer({
   history: { push },
   // history: { goBack },
 }) {
+  const [ isLoading, setIsLoading ] = useState(false);
   const [ details, setDetails ] = useState({
     types: [],
     learnset: [],
@@ -23,7 +24,11 @@ export default function DetailPageContainer({
   }
   const name = params.pokemon;
   useEffect(() => {
-    getPokemonDetail(name).then(details => setDetails(details));
+    setIsLoading(true);
+    getPokemonDetail(name).then(details => {
+      setDetails(details);
+      setIsLoading(false);
+    });
   }, [ params ]);
   const alolanSeparatorIndex = name.indexOf('_');
   let nameForAlolan = '';
@@ -32,6 +37,7 @@ export default function DetailPageContainer({
   }
   return (
     <DetailPageLayout
+      isLoading={isLoading}
       name={nameForAlolan || name}
       isAlolan={nameForAlolan !== ''}
       details={details}

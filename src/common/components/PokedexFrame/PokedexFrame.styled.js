@@ -112,10 +112,7 @@ export const BigCircleBorder = styled.div`
 `;
 
 export const PokeballLogo = styled(Pokeball)`
-  width: 180px;
-  height: 180px;
   transform: rotate(90deg);
-  background-color: #c0362d;
 `;
 
 export const Recess = styled.div`

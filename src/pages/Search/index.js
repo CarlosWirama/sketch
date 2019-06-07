@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { LinearProgress } from '@material-ui/core';
 import { filterAutocomplete } from '../../common/utilities/filter';
 import { getPokemons } from '../../api';
+import PokeballLoadingIndicator from '../../common/components/PokeballLoadingIndicator';
 import SearchPageLayout from './SearchPageLayout';
 import SearchResultList from './SearchResultList';
 import EmptyState from './EmptyState';
@@ -56,7 +56,7 @@ export default class SearchPage extends Component {
     );
     let searchResultContent;
     if (isLoading) {
-      searchResultContent = <LinearProgress />;
+      searchResultContent = <PokeballLoadingIndicator/>;
     } else if (pokemonList.length) {
       searchResultContent = (
         <SearchResultList

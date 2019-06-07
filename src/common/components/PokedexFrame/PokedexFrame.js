@@ -31,7 +31,7 @@ export default function PokedexFrame() {
         </TopButtonsContainer>
         <LeftFrameLines/>
         <BigCircleBorder>
-          <PokeballLogo/>
+          <PokeballLogo size={180} color="#c0362d" background="#fc5849"/>
         </BigCircleBorder>
         <BottomButtonsContainer>
           <RectangleButtonsContainer>
