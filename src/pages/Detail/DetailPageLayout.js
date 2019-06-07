@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
+import { default as LoadingIndicator }
+  from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
+  isLoading,
   name,
   isAlolan,
   details: {
@@ -28,9 +31,9 @@ export default function DetailPageLayout({
         />
       </Navbar>
       <SectionTitle>Type Effectiveness</SectionTitle>
-      <TypeEffectiveness {...typeEffectiveness} />
+      {isLoading ? <LoadingIndicator/> : <TypeEffectiveness {...typeEffectiveness} />}
       <SectionTitle>Moves by leveling up</SectionTitle>
-      { learnset.map(({ list }, i) =>
+      {isLoading ? <LoadingIndicator/> : learnset.map(({ list }, i) =>
         <LearnsetItem key={i} list={list} />
       )}
       </LayoutContainer>

@@ -11,6 +11,7 @@ import {
   FRAME_VERTICAL_PADDING,
 } from './common/constants/pokedexCssCalculation';
 import PokedexFrame from './common/components/PokedexFrame';
+import backgroundTile from './common/components/backgroundTile';
 
 export default function App() {
   return (
@@ -60,17 +61,5 @@ const Body = styled.div`
     overflow: scroll;
     box-shadow: inset 1px 2px 3px 1px grey;
   }
-  background-image:
-    repeating-linear-gradient(90deg,
-      transparent 0 10px,
-      rgba(0, 0, 121, 0.03) 12px 14px,
-      transparent 16px 26px
-    ),
-    repeating-linear-gradient(0deg,
-      transparent 0 10px,
-      rgba(0, 0, 121, 0.03) 12px 14px,
-      transparent 16px 26px
-    ),
-    radial-gradient(circle at 50% 0, #2cffff, #69fffe 35%, #008dee);
-  background-attachment: fixed;
+  background: ${backgroundTile};
 `;

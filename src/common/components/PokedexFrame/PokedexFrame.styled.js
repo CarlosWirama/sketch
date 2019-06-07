@@ -3,6 +3,7 @@ import {
   SCREEN_MIN_WIDTH,
   FRAME_RIGHT_CALC,
 } from '../../constants/pokedexCssCalculation.js';
+import Pokeball from '../Pokeball';
 
 export const Container = styled.div`
   display: none;
@@ -110,30 +111,8 @@ export const BigCircleBorder = styled.div`
   }
 `;
 
-export const PokeballLogo = styled.div`
-  position: relative;
-  width: 180px;
-  height: 180px;
-  background-color: #c0362d;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:before {
-    content: "";
-    width: 10%;
-    height: 100%;
-    background-color: #fc5849;
-  }
-  &:after {
-    content: "";
-    position: absolute;
-    width: 30%;
-    height: 30%;
-    background-color: #c0362d;
-    border: 18px solid #fc5849;
-    border-radius: 50%;
-  }
+export const PokeballLogo = styled(Pokeball)`
+  transform: rotate(90deg);
 `;
 
 export const Recess = styled.div`
