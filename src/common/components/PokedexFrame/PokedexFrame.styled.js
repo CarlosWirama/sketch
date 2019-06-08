@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {
   SCREEN_MIN_WIDTH,
   FRAME_RIGHT_CALC,
+  PAGE_PADDING,
 } from '../../constants/pokedexCssCalculation.js';
 import Pokeball from '../Pokeball';
 
@@ -9,7 +10,8 @@ export const Container = styled.div`
   display: none;
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
     display: flex;
-    height: 100%;
+    padding: ${PAGE_PADDING};
+    height: calc(100% - 2 * ${PAGE_PADDING});
     position: fixed;
     left: ${FRAME_RIGHT_CALC};
     right: ${FRAME_RIGHT_CALC};
@@ -22,13 +24,13 @@ const FrameTemplate = styled.div`
   flex: 1;
   position: relative;
   box-shadow: inset -2px -4px 2px 4px #c0362d;
+  overflow: hidden;
 `;
 
 export const LeftFrame = styled(FrameTemplate)`
   border-right: 1px solid #14aa9f;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 const FrameSectionContainer = styled.div`
@@ -86,8 +88,8 @@ export const LeftFrameLines = styled.div`
   border-width: 8px 0;
   &:before {
     content: "";
-    width: 60%;
-    height: 30%;
+    width: 80%;
+    height: 25%;
     border: 8px solid #c0362d;
     border-width: 8px 0;
   }
@@ -188,7 +190,6 @@ export const BezelDecorationLine = styled.div`
   position: absolute;
   background-color: #7ff6f3;
   width: 2px;
-  height: 100%;
   &:after {
     content: "";
     position: absolute;
@@ -202,6 +203,7 @@ export const BezelDecorationLine = styled.div`
 export const LeftVerticalLine = styled(BezelDecorationLine)`
   bottom: 50%;
   left: 15px;
+  height: 50%;
   &:after {
     left: 6px;
     bottom: -13px;
@@ -210,6 +212,7 @@ export const LeftVerticalLine = styled(BezelDecorationLine)`
 export const RightVerticalLine = styled(BezelDecorationLine)`
   top: 50%;
   right: 20px;
+  height: calc(50% - 8px);
   &:after {
     top: -13px;
     left: -6px;
