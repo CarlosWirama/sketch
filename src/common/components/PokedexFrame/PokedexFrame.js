@@ -7,6 +7,7 @@ import {
   WhiteButton,
   RectangleButtonsContainer,
   PlusAndCircleButtonsContainer,
+  MiddleShapesContainer,
   LeftFrameLines,
   BigCircleBorder,
   PokeballLogo,
@@ -27,12 +28,15 @@ export default function PokedexFrame() {
           <WhiteButton shape="circle" size="24px" left="40px" />
           <WhiteButton shape="circle" size="72px" left="55px" />
           <WhiteButton shape="circle" size="24px" left="70px" />
-          <WhiteButton width="9px" height="48px" left="145px" top="-30px"/>
+          <WhiteButton width="9px" height="48px" left="66%"
+            top="4%" position="absolute" />
         </TopButtonsContainer>
-        <LeftFrameLines/>
-        <BigCircleBorder>
-          <PokeballLogo size={180} color="#c0362d" background="#fc5849"/>
-        </BigCircleBorder>
+        <MiddleShapesContainer>
+          <BigCircleBorder>
+            <PokeballLogo size={180} color="#c0362d" background="#fc5849"/>
+          </BigCircleBorder>
+          <LeftFrameLines/>
+        </MiddleShapesContainer>
         <BottomButtonsContainer>
           <RectangleButtonsContainer>
             <WhiteButton width="45px" height="24px" left="40px" />

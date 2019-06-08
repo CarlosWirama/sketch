@@ -28,22 +28,28 @@ export const LeftFrame = styled(FrameTemplate)`
   border-right: 1px solid #14aa9f;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 `;
 
-const ButtonsContainer = styled.div`
-  flex: 1;
+const FrameSectionContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 75%;
 `;
 
-export const TopButtonsContainer = styled(ButtonsContainer)`
+export const TopButtonsContainer = styled(FrameSectionContainer)`
+  flex: 1;
   align-items: center;
 `;
 
-export const BottomButtonsContainer = styled(ButtonsContainer)`
+export const MiddleShapesContainer = styled(FrameSectionContainer)`
+  flex: 3;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+`;
+
+export const BottomButtonsContainer = styled(FrameSectionContainer)`
+  flex: 1;
   flex-direction: column;
   justify-content: center;
 `;
@@ -66,22 +72,21 @@ export const WhiteButton = styled.div`
   height: ${props => props.height || props.size};
   left: ${props => props.left};
   ${props => props.top && `top: ${props.top};`}
-  position: relative;
+  position: ${props => props.position || 'relative'};
 `;
 
 export const LeftFrameLines = styled.div`
-  position: absolute;
-  left: 0;
   display: flex;
   align-items: center;
   background-color: #fc5849;
-  width: 15.5%;
-  height: 275px;
+  position: absolute;
+  width: 17.5%;
+  height: 64%;
   border: 8px solid #c0362d;
   border-width: 8px 0;
   &:before {
     content: "";
-    width: 80%;
+    width: 60%;
     height: 30%;
     border: 8px solid #c0362d;
     border-width: 8px 0;
@@ -89,39 +94,35 @@ export const LeftFrameLines = styled.div`
   &:after {
     content: "";
     position: absolute;
-    width: 300px;
+    width: 557%;
     height: 0;
     border: 4px solid #c0362d;
   }
 `;
 
 export const BigCircleBorder = styled.div`
-  width: 100%;
+  width: 120%;
+  height: calc(100% - 16px);
+  position: absolute;
   display: flex;
   border: 8px solid #c0362d;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
-  &:before {
-    content: "";
-    padding-bottom: 100%;
-  }
-  &:after {
-    content: "";
-  }
 `;
 
 export const PokeballLogo = styled(Pokeball)`
   transform: rotate(90deg);
+  z-index: 1;
 `;
 
 export const Recess = styled.div`
   position: absolute;
-  right: 40px;
-  width: 36px;
+  left: 75%;
+  width: 7.5%;
   height: 100%;
   background-color: #fc5849;  
-  box-shadow: inset 1px 0px 6px 2px #c0362d;
+  box-shadow: inset 2px 0px 8px 5px #c0362d;
 `;
 
 export const RightFrame = styled(FrameTemplate)``;
