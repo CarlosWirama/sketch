@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Types, { getTypeColor } from '../../common/components/Types';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+// import StabInfo from './StabInfo';
 import {
   Container,
   Move,
-  Header,
   Level,
   Name,
+  SubInfo,
   Collapse,
   ExpansionToggle,
   ExpandIconContainer,
@@ -35,36 +36,32 @@ export default function LearnsetItem({ list: [
     <Container>
       <Level>{level}</Level>
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
-        <Header>
-          <Name stabIndicator={stabIndicator}>{moveName}</Name>
-          <div>{category}</div>
-          {category !== 'Status' && <div>&nbsp;{encodeDash(power)}</div>}
-        </Header>
-        <Types types={[type]} />
+        <Name>{moveName}</Name>
+        <SubInfo>
+          <Types types={[type]} />
+          <div>
+            &nbsp;&nbsp;{category}
+            {category !== 'Status' && <span>:&nbsp;{encodeDash(power)}</span>}
+          </div>
+        </SubInfo>
+        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+          <DetailGrid>
+            <DetailLabels>
+              <div>Accuracy</div>
+              <div>PP</div>
+            </DetailLabels>
+            <DetailValues>
+              <div>{encodeDash(accuracy)}%</div>
+              <div>{pp}</div>
+            </DetailValues>
+          </DetailGrid>
+        </Collapse>
         <ExpansionToggle>
           {isExpanded ? 'hide' : 'show'} details...
           <ExpandIconContainer isExpanded={isExpanded}>
             <ExpandMore/>
           </ExpandIconContainer>
         </ExpansionToggle>
-        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-          <DetailGrid>
-            <DetailLabels>
-              <div>Power</div>
-              <div>Accuracy</div>
-              <div>PP</div>
-              <div>Type</div>
-              <div>Category</div>
-            </DetailLabels>
-            <DetailValues>
-              <div>{encodeDash(power)}</div>
-              <div>{encodeDash(accuracy)}%</div>
-              <div>{pp}</div>
-              <div>{type}</div>
-              <div>{category}</div>
-            </DetailValues>
-          </DetailGrid>
-        </Collapse>
       </Move>
     </Container>
   );

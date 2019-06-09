@@ -1,7 +1,5 @@
 export default {
-  text: {
-    color: {
-      black: '#0a4342',
-    },
+  color: {
+    black: '#0a4342',
   },
 };

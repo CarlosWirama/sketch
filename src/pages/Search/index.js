@@ -61,6 +61,7 @@ export default class SearchPage extends Component {
       searchResultContent = (
         <SearchResultList
           filteredList={filteredList}
+          searchText={searchText}
           onClickItem={index => this.onClickItem(filteredList, index)}
         />
       );

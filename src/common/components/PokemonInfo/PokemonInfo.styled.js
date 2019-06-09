@@ -27,7 +27,7 @@ export const Texts = styled.div`
 `;
 
 export const Name = styled.div`
-  color: ${props => props.titleColor || props.theme.text.color.black};
+  color: ${props => props.titleColor || props.theme.color.black};
   text-align: left;
   line-height: 20px;
   padding-bottom: 8px;
