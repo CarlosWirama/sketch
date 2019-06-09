@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Types, { getTypeColor } from '../../common/components/Types';
 import { TypeBaloon } from '../../common/components/Types/Types.styled';
+import MoveCategoryIcon from '../../common/components/MoveCategoryIcon';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 // import StabInfo from './StabInfo';
 import {
@@ -41,6 +42,7 @@ export default function LearnsetItem({ list: [
         <SubInfo>
           <Types types={[type]} />
           <TypeBaloon color={getCategoryColor(category)}>
+            <MoveCategoryIcon category={category} />
             {category}
             {category !== 'Status' && <span>:&nbsp;{encodeDash(power)}</span>}
           </TypeBaloon>
