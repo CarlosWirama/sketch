@@ -22,7 +22,7 @@ export default function TypeEffectiveness({
       )}
       {resistant.length > 0 && (
         <div>
-          <SectionTitle>Resistant to:</SectionTitle>
+          <SectionTitle>Resistant to</SectionTitle>
           <EffectivenessCategory>
             {resistant.map(formatEffectiveness)}
           </EffectivenessCategory>
@@ -30,7 +30,7 @@ export default function TypeEffectiveness({
       )}
       {immune.length > 0 && (
         <div>
-          <SectionTitle>Immune to:</SectionTitle>
+          <SectionTitle>Immune to</SectionTitle>
           <EffectivenessCategory>
             {immune.map(formatEffectiveness)}
           </EffectivenessCategory>

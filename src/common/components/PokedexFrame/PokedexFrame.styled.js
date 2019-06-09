@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {
   SCREEN_MIN_WIDTH,
   FRAME_RIGHT_CALC,
+  PAGE_PADDING,
 } from '../../constants/pokedexCssCalculation.js';
 import Pokeball from '../Pokeball';
 
@@ -9,7 +10,8 @@ export const Container = styled.div`
   display: none;
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
     display: flex;
-    height: 100%;
+    padding: ${PAGE_PADDING};
+    height: calc(100% - 2 * ${PAGE_PADDING});
     position: fixed;
     left: ${FRAME_RIGHT_CALC};
     right: ${FRAME_RIGHT_CALC};
@@ -22,28 +24,34 @@ const FrameTemplate = styled.div`
   flex: 1;
   position: relative;
   box-shadow: inset -2px -4px 2px 4px #c0362d;
+  overflow: hidden;
 `;
 
 export const LeftFrame = styled(FrameTemplate)`
   border-right: 1px solid #14aa9f;
   display: flex;
   flex-direction: column;
+`;
+
+const FrameSectionContainer = styled.div`
+  display: flex;
+  width: 75%;
+`;
+
+export const TopButtonsContainer = styled(FrameSectionContainer)`
+  flex: 1;
   align-items: center;
-  justify-content: center;
+`;
+
+export const MiddleShapesContainer = styled(FrameSectionContainer)`
+  flex: 3;
+  align-items: center;
+  position: relative;
   overflow: hidden;
 `;
 
-const ButtonsContainer = styled.div`
+export const BottomButtonsContainer = styled(FrameSectionContainer)`
   flex: 1;
-  display: flex;
-  width: 100%;
-`;
-
-export const TopButtonsContainer = styled(ButtonsContainer)`
-  align-items: center;
-`;
-
-export const BottomButtonsContainer = styled(ButtonsContainer)`
   flex-direction: column;
   justify-content: center;
 `;
@@ -66,62 +74,57 @@ export const WhiteButton = styled.div`
   height: ${props => props.height || props.size};
   left: ${props => props.left};
   ${props => props.top && `top: ${props.top};`}
-  position: relative;
+  position: ${props => props.position || 'relative'};
 `;
 
 export const LeftFrameLines = styled.div`
-  position: absolute;
-  left: 0;
   display: flex;
   align-items: center;
   background-color: #fc5849;
-  width: 15.5%;
-  height: 275px;
+  position: absolute;
+  width: 17.5%;
+  height: 64%;
   border: 8px solid #c0362d;
   border-width: 8px 0;
   &:before {
     content: "";
     width: 80%;
-    height: 30%;
+    height: 25%;
     border: 8px solid #c0362d;
     border-width: 8px 0;
   }
   &:after {
     content: "";
     position: absolute;
-    width: 300px;
+    width: 557%;
     height: 0;
     border: 4px solid #c0362d;
   }
 `;
 
 export const BigCircleBorder = styled.div`
-  width: 100%;
+  width: 120%;
+  height: calc(100% - 16px);
+  position: absolute;
   display: flex;
   border: 8px solid #c0362d;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
-  &:before {
-    content: "";
-    padding-bottom: 100%;
-  }
-  &:after {
-    content: "";
-  }
 `;
 
 export const PokeballLogo = styled(Pokeball)`
   transform: rotate(90deg);
+  z-index: 1;
 `;
 
 export const Recess = styled.div`
   position: absolute;
-  right: 40px;
-  width: 36px;
+  left: 75%;
+  width: 7.5%;
   height: 100%;
   background-color: #fc5849;  
-  box-shadow: inset 1px 0px 6px 2px #c0362d;
+  box-shadow: inset 2px 0px 8px 5px #c0362d;
 `;
 
 export const RightFrame = styled(FrameTemplate)``;
@@ -187,7 +190,6 @@ export const BezelDecorationLine = styled.div`
   position: absolute;
   background-color: #7ff6f3;
   width: 2px;
-  height: 100%;
   &:after {
     content: "";
     position: absolute;
@@ -201,6 +203,7 @@ export const BezelDecorationLine = styled.div`
 export const LeftVerticalLine = styled(BezelDecorationLine)`
   bottom: 50%;
   left: 15px;
+  height: 50%;
   &:after {
     left: 6px;
     bottom: -13px;
@@ -209,6 +212,7 @@ export const LeftVerticalLine = styled(BezelDecorationLine)`
 export const RightVerticalLine = styled(BezelDecorationLine)`
   top: 50%;
   right: 20px;
+  height: calc(50% - 8px);
   &:after {
     top: -13px;
     left: -6px;
