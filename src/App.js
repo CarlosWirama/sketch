@@ -55,7 +55,7 @@ const Container = styled.div`
 const Body = styled.div`
   flex: 1 0 auto;
   background: ${backgroundTile};
-  color: ${props => props.theme.text.color.black};
+  color: ${props => props.theme.color.black};
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
     position: absolute;
     right: ${CONTENT_RIGHT_CALC};
