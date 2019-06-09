@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Types, { getTypeColor } from '../../common/components/Types';
+import { TypeBaloon } from '../../common/components/Types/Types.styled';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 // import StabInfo from './StabInfo';
 import {
@@ -39,10 +40,10 @@ export default function LearnsetItem({ list: [
         <Name>{moveName}</Name>
         <SubInfo>
           <Types types={[type]} />
-          <div>
-            &nbsp;&nbsp;{category}
+          <TypeBaloon color={getCategoryColor(category)}>
+            {category}
             {category !== 'Status' && <span>:&nbsp;{encodeDash(power)}</span>}
-          </div>
+          </TypeBaloon>
         </SubInfo>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <DetailGrid>
@@ -73,4 +74,13 @@ LearnsetItem.propTypes = {
 
 function encodeDash(string) {
   return string === '&mdash;' ? '-' : string;
+}
+
+function getCategoryColor(category) {
+  switch (category) {
+    case 'Physical': return '#ff4400';
+    case 'Special': return '#2266cc';
+    case 'Status': return '#999999';
+    default: return 'transparent';
+  }
 }

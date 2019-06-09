@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const TypeBaloon = styled.div`
   color: white;
-  width: 72px;
+  min-width: 72px;
   text-align: center;
   text-transform: uppercase;
   background-color: ${props => props.color};
