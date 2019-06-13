@@ -17,6 +17,8 @@ export const TypeBaloon = styled.div`
   letter-spacing: -0.3px;
   border-radius: 5px;
   border: 2px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: center;
 
   &:not(:first-child) {
     margin-left: 4px;
