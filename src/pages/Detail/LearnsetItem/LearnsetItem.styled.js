@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { lighten, darken } from 'polished';
 import { default as CollapseMaterialUi } from '@material-ui/core/Collapse';
-import Card from '../../common/components/Card';
+import Card from '../../../common/components/Card';
 
 export const Container = styled.div`
   display: flex;
@@ -62,6 +62,7 @@ export const SubInfo = styled.div`
 
 export const Collapse = styled(CollapseMaterialUi)`
   margin-top: 4px;
+  font-size: 14px;
 `;
 
 export const ExpansionToggle = styled.div`
@@ -76,9 +77,12 @@ export const ExpandIconContainer = styled.div`
   transform: rotate(${props => props.isExpanded ? 180 : 0}deg);
 `;
 
+export const Description = styled.div`
+  margin: 16px 0;
+`;
+
 export const DetailGrid = styled.div`
   display: flex;
-  font-size: 14px;
 `;
 
 export const DetailLabels = styled.div`

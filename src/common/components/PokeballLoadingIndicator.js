@@ -5,16 +5,13 @@ import backgroundTile from './backgroundTile';
 
 const shakingAnimation = keyframes`
   0% { transform: rotate(0deg) }
-  15% { transform: rotate(22deg) }
-  35% { transform: rotate(-22deg) }
-  50% { transform: rotate(0deg) }
+  10% { transform: rotate(22deg) }
+  30% { transform: rotate(-22deg) }
+  40% { transform: rotate(0deg) }
 `;
 
-const ShakingPokeball = styled(Pokeball).attrs({
-  size: 100,
-  background: backgroundTile,
-})`
-  margin: 32px auto;
+const ShakingPokeball = styled(Pokeball)`
+  margin: ${props => props.size / 4}px auto;
   animation: 1s ${shakingAnimation} ease-in-out infinite;
 `;
 
@@ -28,4 +25,9 @@ export default function PokeballLoadingIndicator(props) {
       <ShakingPokeball {...props} />
     </Container>
   );
+}
+
+PokeballLoadingIndicator.defaultProps = {
+  size: 128,
+  background: backgroundTile,
 }
