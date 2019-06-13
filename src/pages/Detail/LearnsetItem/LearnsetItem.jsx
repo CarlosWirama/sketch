@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Types, { getTypeColor } from '../../common/components/Types';
-import { TypeBaloon } from '../../common/components/Types/Types.styled';
-import MoveCategoryIcon from '../../common/components/MoveCategoryIcon';
+import Types, { getTypeColor } from '../../../common/components/Types';
+import { TypeBaloon } from '../../../common/components/Types/Types.styled';
+import MoveCategoryIcon from '../../../common/components/MoveCategoryIcon';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 // import StabInfo from './StabInfo';
 import {

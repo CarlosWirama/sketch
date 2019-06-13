@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { lighten, darken } from 'polished';
 import { default as CollapseMaterialUi } from '@material-ui/core/Collapse';
-import Card from '../../common/components/Card';
+import Card from '../../../common/components/Card';
 
 export const Container = styled.div`
   display: flex;
