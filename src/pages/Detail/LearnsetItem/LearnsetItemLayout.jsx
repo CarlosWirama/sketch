@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
 import { TypeBaloon } from '../../../common/components/Types/Types.styled';
 import MoveCategoryIcon from '../../../common/components/MoveCategoryIcon';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import { default as LoadingIndicator }
+  from '../../../common/components/PokeballLoadingIndicator';
 // import StabInfo from './StabInfo';
 import {
   Container,
@@ -14,12 +16,13 @@ import {
   Collapse,
   ExpansionToggle,
   ExpandIconContainer,
+  Description,
   DetailGrid,
   DetailLabels,
   DetailValues,
 } from './LearnsetItem.styled';
 
-export default function LearnsetItem({ list: [
+export default function LearnsetItemLayout({
   level,
   moveName,
   type,
@@ -27,13 +30,11 @@ export default function LearnsetItem({ list: [
   power,
   accuracy,
   pp,
-  _,
   stabIndicator,
-] }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  function toggleExpanded() {
-    setIsExpanded(!isExpanded);
-  }
+  description,
+  toggleExpanded,
+  isExpanded,
+}) {
   return (
     <Container>
       <Level>{level}</Level>
@@ -48,6 +49,9 @@ export default function LearnsetItem({ list: [
           </TypeBaloon>
         </SubInfo>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+          <Description>
+            {description || <LoadingIndicator size={48} background={getTypeColor(type)} />}
+          </Description>
           <DetailGrid>
             <DetailLabels>
               <div>Accuracy</div>
@@ -70,8 +74,18 @@ export default function LearnsetItem({ list: [
   );
 }
 
-LearnsetItem.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+LearnsetItemLayout.propTypes = {
+  level: PropTypes.string.isRequired,
+  moveName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  power: PropTypes.string.isRequired,
+  accuracy: PropTypes.string.isRequired,
+  pp: PropTypes.string.isRequired,
+  stabIndicator: PropTypes.string,
+  description: PropTypes.string.isRequired,
+  toggleExpanded: PropTypes.func.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
 };
 
 function encodeDash(string) {

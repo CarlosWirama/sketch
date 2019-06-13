@@ -1,1 +1,1 @@
-export { default } from './getMoveDetail';
+export { default, getMoveDescription } from './getMoveDetail';
