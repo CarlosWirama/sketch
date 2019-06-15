@@ -15,19 +15,20 @@ export const Container = styled.div`
     left: 14px;
   }
 `;
-
+// ${props => lighten(0.1, props.color)} 32px
 export const Move = styled(Card)`
   flex-direction: column;
   text-align: left;
   width: 100%;
   cursor: pointer;
+  color: white;
   && {
     background-image: linear-gradient(
       white -64px,
-      ${props => lighten(0.1, props.color)} 32px
+      ${props => props.color} 32px
     );
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
-    border: solid 3px ${props => darken(0.1, props.color)};
+    border: 2px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 24px;
     padding: 12px 24px;
     align-items: normal;
