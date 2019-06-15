@@ -6,7 +6,7 @@ export default async function getPokemons() {
   const wikitextResult = await fetchAndParseWiki({
     page: POKEMON_LIST_PAGE,
   });
-  return [].concat( // flatten arrays, combine all pokemons from all sections
+  const unsortedList = [].concat( // flatten arrays, combine all pokemons from all sections
     ...wikitextResult.sections() // sections() will produce list of sections in page
       .filter(i => i.depth === 2) // filter only sections with pokemon list
       .map(section =>
@@ -22,4 +22,8 @@ export default async function getPokemons() {
           }))
       )
   );
+  return unsortedList.sort(function (a, b) {
+    // make alolan to be sorted by kantoDex no.
+    return a.kantoDex - b.kantoDex;
+  })
 }
