@@ -22,10 +22,10 @@ export default function App() {
         <Body>
           <HashRouter>
             <Switch>
-              <Route path={process.env.PUBLIC_URL + '/search'} component={Search}/>
-              <Route path={process.env.PUBLIC_URL + '/pokemon/:pokemon'} component={Detail}/>
-              {/* <Route path={process.env.PUBLIC_URL + '/'} component={Home}/> */}
-              <Route path={process.env.PUBLIC_URL + '/'} component={Search}/>
+              <Route path="/search" component={Search}/>
+              <Route path="/pokemon/:pokemon" component={Detail}/>
+              {/* <Route path="/" component={Home}/> */}
+              <Route path="/" component={Search}/>
               <Route component={NotFound}/>
             </Switch>
           </HashRouter>
