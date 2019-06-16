@@ -55,6 +55,7 @@ const Container = styled.div`
 const Body = styled.div`
   flex: 1 0 auto;
   color: ${props => props.theme.color.black};
+  z-index: 1;
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
     position: absolute;
     right: ${CONTENT_RIGHT_CALC};
@@ -73,6 +74,7 @@ const Body = styled.div`
       width: 100%;
       height: 100%;
       background: ${backgroundTile};
+      z-index: -1;
     }
   }
 `;
