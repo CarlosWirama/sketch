@@ -30,7 +30,7 @@ export const Move = styled(Card)`
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
     border: 2px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 24px;
-    padding: 12px 24px;
+    padding: 12px 16px;
     align-items: normal;
   }
 `;
