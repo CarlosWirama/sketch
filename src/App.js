@@ -54,7 +54,6 @@ const Container = styled.div`
 
 const Body = styled.div`
   flex: 1 0 auto;
-  background: ${backgroundTile};
   color: ${props => props.theme.color.black};
   @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
     position: absolute;
@@ -65,5 +64,15 @@ const Body = styled.div`
     height: calc(100% - 2 * ${FRAME_VERTICAL_PADDING});
     overflow: scroll;
     box-shadow: inset 1px 2px 3px 1px grey;
+    background: ${backgroundTile};
+  }
+  @media only screen and (max-width: calc(${SCREEN_MIN_WIDTH} - 1px)) {
+    &:before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: ${backgroundTile};
+    }
   }
 `;
