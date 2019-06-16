@@ -51,14 +51,12 @@ export default class SearchInput extends Component {
 }
 
 SearchInput.propTypes = {
-  onSubmit: PropTypes.func,
   onChange: PropTypes.func,
   onClear: PropTypes.func,
   defaultValue: PropTypes.string,
 };
 
 SearchInput.defaultProps = {
-  onSubmit: () => {},
   onChange: () => {},
   defaultValue: '',
   // keep onClear undefined

@@ -14,7 +14,6 @@ export default class SearchPage extends Component {
       searchText: '',
       isLoading: true,
     };
-    this.onSubmit = this.onSubmit.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
   }
 
@@ -29,14 +28,10 @@ export default class SearchPage extends Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
-  onSubmit(searchText) {
-    this.props.history.push(`${process.env.PUBLIC_URL}/pokemon/${searchText}`);
-  }
-
   onClickItem(filteredList, index) {
     const selectedPokemon = filteredList[index];
     const pokemonName = this.getResultItemName(selectedPokemon);
-    this.props.history.push(`${process.env.PUBLIC_URL}/pokemon/${pokemonName}`);
+    this.props.history.push(`/pokemon/${pokemonName}`);
   }
 
   getResultItemName(resultItem) {
@@ -71,7 +66,6 @@ export default class SearchPage extends Component {
     return (
       <SearchPageLayout
         onChange={searchText => this.setState({ searchText })}
-        onSubmit={this.onSubmit}
         searchResultContent={searchResultContent}
         {...this.props}
       />

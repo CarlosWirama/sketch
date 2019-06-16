@@ -20,7 +20,7 @@ export default function DetailPageContainer({
     },
   });
   function onClickBack() {
-    push(process.env.PUBLIC_URL + '/search');
+    push('/search');
   }
   const name = params.pokemon;
   useEffect(() => {

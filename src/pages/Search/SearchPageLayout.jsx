@@ -10,7 +10,6 @@ export default function SearchPageLayout(props) {
         Search Pokémon name
         <SearchInput
           onChange={props.onChange}
-          onSubmit={props.onSubmit}
           placeholder="Search by Pokemon..."
         />
       </Navbar>
@@ -22,5 +21,4 @@ export default function SearchPageLayout(props) {
 SearchPageLayout.propTypes = {
   searchResultContent: PropTypes.node.isRequired,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };
