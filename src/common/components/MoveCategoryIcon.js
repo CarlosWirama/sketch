@@ -25,6 +25,7 @@ const boxShadow = `inset ${shadow}, ${shadow}`;
 
 const Template = styled.span`
   margin-right: 4px;
+  top: 1px;
 `;
 
 const PhysicalContainer = styled(Template)`
