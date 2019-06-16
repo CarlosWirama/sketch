@@ -14,7 +14,6 @@ export default class SearchPage extends Component {
       searchText: '',
       isLoading: true,
     };
-    this.onSubmit = this.onSubmit.bind(this);
     this.onClickItem = this.onClickItem.bind(this);
   }
 
@@ -27,10 +26,6 @@ export default class SearchPage extends Component {
         } else console.error(e);
       })
       .finally(() => this.setState({ isLoading: false }));
-  }
-
-  onSubmit(searchText) {
-    this.props.history.push(`/pokemon/${searchText}`);
   }
 
   onClickItem(filteredList, index) {
@@ -71,7 +66,6 @@ export default class SearchPage extends Component {
     return (
       <SearchPageLayout
         onChange={searchText => this.setState({ searchText })}
-        onSubmit={this.onSubmit}
         searchResultContent={searchResultContent}
         {...this.props}
       />
