@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 // import Home from './pages/Home';
 import Search from './pages/Search';
 import Detail from './pages/Detail';
@@ -20,7 +20,7 @@ export default function App() {
       <Container>
         <PokedexFrame/>
         <Body>
-          <BrowserRouter>
+          <HashRouter>
             <Switch>
               <Route path={process.env.PUBLIC_URL + '/search'} component={Search}/>
               <Route path={process.env.PUBLIC_URL + '/pokemon/:pokemon'} component={Detail}/>
@@ -28,7 +28,7 @@ export default function App() {
               <Route path={process.env.PUBLIC_URL + '/'} component={Search}/>
               <Route component={NotFound}/>
             </Switch>
-          </BrowserRouter>
+          </HashRouter>
         </Body>
       </Container>
     </ThemeProvider>
