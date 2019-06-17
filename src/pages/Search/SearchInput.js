@@ -39,12 +39,11 @@ export default class SearchInput extends Component {
           onBlur={this.onBlur}
           {...this.props}
         />
-        <StyledIconButton
-          onClick={this.textInput.clear}
-          aria-label="Clear"
-        >
-          <Close />
-        </StyledIconButton>
+        {this.props.searchText && (
+          <StyledIconButton onClick={this.textInput.clear} aria-label="Clear">
+            <Close />
+          </StyledIconButton>
+        )}
       </Container>
     );
   }
