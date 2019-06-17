@@ -16,7 +16,7 @@ export default function SearchResultList(props) {
           for <b>"{props.searchText}"</b>
         </ResultOverview>
       )}
-      <StyledList>
+      <List>
         {props.filteredList.map((listItem, index) => (
           <SearchResultItem
             listItem={listItem}
@@ -24,7 +24,7 @@ export default function SearchResultList(props) {
             onClick={() => props.onClickItem(index)}
           />
         ))}
-      </StyledList>
+      </List>
     </Fragment>
   );
 }
@@ -37,12 +37,6 @@ SearchResultList.propTypes = {
 SearchResultList.defaultProps = {
   onClickItem: () => {},
 };
-
-const StyledList = styled(List)`
-  && {
-    margin-top: 8px;
-  }
-`;
 
 const ResultOverview = styled.div`
   margin-top: 24px;

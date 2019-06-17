@@ -2,12 +2,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Pokeball = styled.div`
-  position: relative;
-  ${props => props.size && `
-    width: ${.5 * props.size}px;
-    height: ${.5 * props.size}px;
-  `};
-  background-color: ${props => props.background};
+  width: ${props => .5 * props.size}px;
+  height: ${props => .5 * props.size}px;
   border: ${props => `${.25 * props.size}px solid ${props.color}`};
   border-radius: 50%;
   display: flex;
@@ -15,10 +11,12 @@ const Pokeball = styled.div`
   align-items: center;
   &:before {
     content: "";
-    position: absolute;
+    position: fixed;
     width: 200%;
     height: 20%;
     background: ${props => props.background};
+    background-position: 0vh 0vw;
+    background-size: 100vh 100vh;
   }
   &:after {
     content: "";
