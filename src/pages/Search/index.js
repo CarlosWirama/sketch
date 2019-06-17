@@ -65,6 +65,7 @@ export default class SearchPage extends Component {
     }
     return (
       <SearchPageLayout
+        searchText={searchText}
         onChange={searchText => this.setState({ searchText })}
         searchResultContent={searchResultContent}
         {...this.props}

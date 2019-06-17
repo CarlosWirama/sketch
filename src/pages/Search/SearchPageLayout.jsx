@@ -9,6 +9,7 @@ export default function SearchPageLayout(props) {
       <Navbar>
         Search Pokémon name
         <SearchInput
+          searchText={props.searchText}
           onChange={props.onChange}
           placeholder="Search by Pokemon..."
         />
