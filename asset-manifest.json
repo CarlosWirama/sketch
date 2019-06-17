@@ -1,13 +1,13 @@
 {
   "main.css": "/pokeplanner/static/css/main.f73bb69e.chunk.css",
-  "main.js": "/pokeplanner/static/js/main.68718b4c.chunk.js",
-  "main.js.map": "/pokeplanner/static/js/main.68718b4c.chunk.js.map",
+  "main.js": "/pokeplanner/static/js/main.f3f4f613.chunk.js",
+  "main.js.map": "/pokeplanner/static/js/main.f3f4f613.chunk.js.map",
   "runtime~main.js": "/pokeplanner/static/js/runtime~main.1b3e0fdf.js",
   "runtime~main.js.map": "/pokeplanner/static/js/runtime~main.1b3e0fdf.js.map",
   "static/js/2.a66487a7.chunk.js": "/pokeplanner/static/js/2.a66487a7.chunk.js",
   "static/js/2.a66487a7.chunk.js.map": "/pokeplanner/static/js/2.a66487a7.chunk.js.map",
   "index.html": "/pokeplanner/index.html",
-  "precache-manifest.13f42256ba4c3e0ed41fdb88bee63364.js": "/pokeplanner/precache-manifest.13f42256ba4c3e0ed41fdb88bee63364.js",
+  "precache-manifest.861e250847a9c7c1af2635c985fa384d.js": "/pokeplanner/precache-manifest.861e250847a9c7c1af2635c985fa384d.js",
   "service-worker.js": "/pokeplanner/service-worker.js",
   "static/css/main.f73bb69e.chunk.css.map": "/pokeplanner/static/css/main.f73bb69e.chunk.css.map",
   "static/media/index.css": "/pokeplanner/static/media/RobotoMono-Regular.a3649815.ttf"
