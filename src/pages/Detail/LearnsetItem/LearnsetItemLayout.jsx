@@ -50,7 +50,9 @@ export default function LearnsetItemLayout({
         </SubInfo>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <Description>
-            {description || <LoadingIndicator size={57} background={getTypeColor(type)} />}
+            {description || (
+              <LoadingIndicator size={57} background={getTypeColor(type)} color="white"/>
+            )}
           </Description>
           <DetailGrid>
             <DetailLabels>
