@@ -18,6 +18,7 @@ export default function DetailPageContainer({
       resistant: [],
       immune: [],
     },
+    evolutionaryLine: [],
   });
   function onClickBack() {
     push('/search');
