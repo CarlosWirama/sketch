@@ -21,6 +21,7 @@ export default function DetailPageLayout({
     evolutionaryLine,
   },
   onClickBack,
+  onClickEvolutionStage,
 }) {
   return (
     <LayoutContainer>
@@ -34,7 +35,10 @@ export default function DetailPageLayout({
       {isLoading ? <LoadingIndicator/> : (
         <>
           <TypeEffectiveness {...typeEffectiveness} />
-          <EvolutionaryLine stages={evolutionaryLine} />
+          <EvolutionaryLine
+            stages={evolutionaryLine}
+            onClickStage={onClickEvolutionStage}
+          />
           <SectionTitle>Moves by leveling up</SectionTitle>
           {learnset.map(({ list }, i) =>
             <LearnsetItem key={i} list={list} />
