@@ -7,6 +7,7 @@ import { default as LoadingIndicator }
   from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
+import EvolutionaryLine from './EvolutionaryLine';
 import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
@@ -33,9 +34,7 @@ export default function DetailPageLayout({
       {isLoading ? <LoadingIndicator/> : (
         <>
           <TypeEffectiveness {...typeEffectiveness} />
-          {evolutionaryLine.map(({ name, evolutionMethod, type }, key) => (
-            <div key={key}>{name} {evolutionMethod} {type}</div>
-          ))}
+          <EvolutionaryLine stages={evolutionaryLine} />
           <SectionTitle>Moves by leveling up</SectionTitle>
           {learnset.map(({ list }, i) =>
             <LearnsetItem key={i} list={list} />

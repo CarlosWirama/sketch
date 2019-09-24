@@ -21,7 +21,6 @@ function getEvolutionaryLine(parsed, isAlolan) {
   // evolution data structure will be vary from here
   // e.g. Squirtle will be different from Eevee, Gloom, Slowking etc.
   const evolutionData = parsed.sections('Evolution').json().templates;
-  console.log(JSON.parse(JSON.stringify(evolutionData)))
   const lastNode = evolutionData.pop();
   switch (lastNode.template) {
     case 'evobox-1': return []; // no evolutionary line. e.g: Tauros
