@@ -5,13 +5,70 @@ export default async function getPokemonDetail(name) {
     page: name,
   });
   const isAlolan = name.indexOf('Alolan_') !== -1;
+  const evolutionaryLine = getEvolutionaryLine(parsed, isAlolan);
   const { types, learnset } = getTypesAndLearnset(parsed, name, isAlolan);
   const typeEffectiveness = getTypeEffectiveness(parsed, isAlolan);
   return {
     types,
     learnset,
     typeEffectiveness,
+    evolutionaryLine,
   };
+}
+
+// TODO: eevee, alolan, secondary evolution, item-holding trade, babies
+function getEvolutionaryLine(parsed, isAlolan) {
+  // evolution data structure will be vary from here
+  // e.g. Squirtle will be different from Eevee, Gloom, Slowking etc.
+  const evolutionData = parsed.sections('Evolution').json().templates;
+  const lastNode = evolutionData.pop();
+  switch (lastNode.template) {
+    case 'evobox-1': return []; // no evolutionary line. e.g: Tauros
+    case 'evobox/1branch7': return []; // Eevee!
+    case 'evobox': // custom evo, all evo info will present in this node
+    default: // 'evobox-2' | 'evobox-3' normal evolutionary line
+  }
+
+  function composeEvolutionMethod(item, method) {
+    if (method === undefined) return null;
+    const [a, methodType, levelText] = method.list;
+    if (levelText) return levelText; // methodType should be "Level" or "Pokémon breeding"
+    // if (methodType === 'Trade') {
+    //   const [itemName] = item.list;
+    //   return `Trade${itemName !== 'Pal Pad' ? ` with ${itemName}` : ''}`;
+    // }
+    return methodType;
+  }
+  const [item2, method2, item3, method3] = evolutionData;
+  const evolution = [
+    null,
+    null,
+    composeEvolutionMethod(item2, method2),
+    composeEvolutionMethod(item3, method3),
+  ];
+
+  function getEvotype(i) {
+    switch (lastNode[`evotype${i-1}`]) {
+      case undefined: return 'unevolved';
+      case 'Level': return `Level ${lastNode[`level${i-1}`]}`;
+      case 'Stone': return lastNode[`evostone${i-1}`];
+      // case 'Trade': return lastNode[`held${i-1}`];
+      // case 'Friendship': ;
+      default: return lastNode[`evotype${i-1}`];
+    }
+  }
+  const evolutionaryLine = [];
+  let i = 1; // vary from 1-3 (sometimes 3a, etc)
+  do {
+    const type1 = lastNode[`type1-${i}`];
+    const type2 = lastNode[`type2-${i}`];
+    const type = [type1, type2].filter(a => a); // removes undefineds
+    const evolutionMethod = evolution[i] || getEvotype(i);
+    const name = lastNode[`name${i}`];
+    evolutionaryLine.push({ name, type, evolutionMethod });
+    i++;
+  } while (lastNode[`name${i}`] !== undefined);
+  return evolutionaryLine;
 }
 
 function getTypesAndLearnset(parsed, name, isAlolan) {

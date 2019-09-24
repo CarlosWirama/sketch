@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
@@ -7,6 +7,7 @@ import { default as LoadingIndicator }
   from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
+import EvolutionaryLine from './EvolutionaryLine';
 import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
@@ -17,6 +18,7 @@ export default function DetailPageLayout({
     types,
     learnset,
     typeEffectiveness,
+    evolutionaryLine,
   },
   onClickBack,
 }) {
@@ -30,13 +32,14 @@ export default function DetailPageLayout({
         />
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
-        <Fragment>
+        <>
           <TypeEffectiveness {...typeEffectiveness} />
+          <EvolutionaryLine stages={evolutionaryLine} />
           <SectionTitle>Moves by leveling up</SectionTitle>
           {learnset.map(({ list }, i) =>
             <LearnsetItem key={i} list={list} />
           )}
-        </Fragment>
+        </>
       )}
       </LayoutContainer>
   );
