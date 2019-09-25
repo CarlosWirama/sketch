@@ -23,7 +23,6 @@ export default function DetailPageContainer({
     goBack();
   }
   function onClickEvolutionStage(pokemonName) {
-    console.log('pressed onClickEvolutionStage', pokemonName)
     pokemonName.replace(' ', '_'); // for alolan
     push(`/pokemon/${pokemonName}`);
   }

@@ -23,7 +23,7 @@ function getEvolutionaryLine(parsed, isAlolan) {
   const evolutionData = parsed.sections('Evolution').json().templates;
   const lastNode = evolutionData.pop();
   switch (lastNode.template) {
-    case 'evobox-1': return []; // no evolutionary line. e.g: Tauros
+    // case 'evobox-1': return []; // no evolutionary line. e.g: Tauros
     case 'evobox/1branch7': return []; // Eevee!
     case 'evobox': // custom evo, all evo info will present in this node
     default: // 'evobox-2' | 'evobox-3' normal evolutionary line
@@ -49,7 +49,7 @@ function getEvolutionaryLine(parsed, isAlolan) {
 
   function getEvotype(i) {
     switch (lastNode[`evotype${i-1}`]) {
-      case undefined: return 'unevolved';
+      case undefined: return '';
       case 'Level': return `Level ${lastNode[`level${i-1}`]}`;
       case 'Stone': return lastNode[`evostone${i-1}`];
       // case 'Trade': return lastNode[`held${i-1}`];
@@ -62,10 +62,10 @@ function getEvolutionaryLine(parsed, isAlolan) {
   do {
     const type1 = lastNode[`type1-${i}`];
     const type2 = lastNode[`type2-${i}`];
-    const type = [type1, type2].filter(a => a); // removes undefineds
+    const types = [type1, type2].filter(a => a); // removes undefineds
     const evolutionMethod = evolution[i] || getEvotype(i);
     const name = lastNode[`name${i}`];
-    evolutionaryLine.push({ name, type, evolutionMethod });
+    evolutionaryLine.push({ name, types, evolutionMethod });
     i++;
   } while (lastNode[`name${i}`] !== undefined);
   return evolutionaryLine;
