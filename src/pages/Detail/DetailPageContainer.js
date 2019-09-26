@@ -5,7 +5,7 @@ import DetailPageLayout from './DetailPageLayout';
 
 export default function DetailPageContainer({
   match: { params },
-  history: { push, goBack },
+  history: { push },
 }) {
   const [ isLoading, setIsLoading ] = useState(false);
   const [ details, setDetails ] = useState({
@@ -20,7 +20,7 @@ export default function DetailPageContainer({
     evolutionaryLine: [],
   });
   function onClickBack() {
-    goBack();
+    push('/search');
   }
   function onClickEvolutionStage(pokemonName) {
     pokemonName.replace(' ', '_'); // for alolan
@@ -59,6 +59,5 @@ DetailPageContainer.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };

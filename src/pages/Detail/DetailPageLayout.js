@@ -36,6 +36,7 @@ export default function DetailPageLayout({
         <>
           <TypeEffectiveness {...typeEffectiveness} />
           <EvolutionaryLine
+            pokemonName={name}
             stages={evolutionaryLine}
             onClickStage={onClickEvolutionStage}
           />
