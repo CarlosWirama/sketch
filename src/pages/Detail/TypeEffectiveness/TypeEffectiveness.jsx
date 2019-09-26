@@ -11,7 +11,7 @@ export default function TypeEffectiveness({
   immune,
 }) {
   return (
-    <div>
+    <>
       {weak.length > 0 && (
         <div>
           <SectionTitle>Weak to</SectionTitle>
@@ -36,7 +36,7 @@ export default function TypeEffectiveness({
           </EffectivenessCategory>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

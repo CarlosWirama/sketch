@@ -5,8 +5,7 @@ import DetailPageLayout from './DetailPageLayout';
 
 export default function DetailPageContainer({
   match: { params },
-  history: { push },
-  // history: { goBack },
+  history: { push, goBack },
 }) {
   const [ isLoading, setIsLoading ] = useState(false);
   const [ details, setDetails ] = useState({
@@ -18,9 +17,14 @@ export default function DetailPageContainer({
       resistant: [],
       immune: [],
     },
+    evolutionaryLine: [],
   });
   function onClickBack() {
-    push('/search');
+    goBack();
+  }
+  function onClickEvolutionStage(pokemonName) {
+    pokemonName.replace(' ', '_'); // for alolan
+    push(`/pokemon/${pokemonName}`);
   }
   const name = params.pokemon;
   useEffect(() => {
@@ -42,6 +46,7 @@ export default function DetailPageContainer({
       isAlolan={nameForAlolan !== ''}
       details={details}
       onClickBack={onClickBack}
+      onClickEvolutionStage={onClickEvolutionStage}
     />
   );
 }
@@ -54,6 +59,6 @@ DetailPageContainer.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-    // goBack: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
   }).isRequired,
 };
