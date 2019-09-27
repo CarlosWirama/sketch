@@ -10,5 +10,13 @@ if you find any issue, please report it here: https://github.com/CarlosWirama/po
 
 
 Bootstrapped with [Create React App]
-Most of the images (other than pokemon sprites and material icons) were built with CSS
-Has 2 different layout for desktop screen and mobile screen
+
+Disclaimer:
+- Data by bulbapedia.bulbagarden.net and the community
+- Animated Pokémon sprites by https://projectpokemon.org
+- Pokémon pixel sprites by luqipower https://www.deviantart.com/luqipower
+- © 2002-2019 Pokémon. © 1995-2019 Nintendo/Creatures Inc./GAME FREAK inc. TM, ® and Pokémon character names are trademarks of Nintendo.
+
+No copyright or trademark infringement is intended in using any Pokémon content on this site.
+
+image copyright
