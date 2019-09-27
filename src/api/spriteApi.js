@@ -1,5 +1,4 @@
 import { pixelSprite } from '../common/constants/urls';
-import { getPokemons } from '.';
 
 export function getAnimatedPokemonImage(pokemonName, isAlolan) {
   const baseUrl = 'https://projectpokemon.org/images';
@@ -25,7 +24,6 @@ export function getPixelImage(pokemonName, isAlolan) {
   const TOTAL_COLUMN = 25;
   const x = -1 * (index % TOTAL_COLUMN) * WIDTH;
   const y = -1 * Math.floor(index / TOTAL_COLUMN) * HEIGHT - 4;
-  console.log(x, y)
   return `url(${pixelSprite}) ${x}px ${y}px`;
 }
 
