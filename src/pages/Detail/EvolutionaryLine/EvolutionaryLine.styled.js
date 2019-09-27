@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import Card from '../../../common/components/Card';
+import { getPixelImage } from '../../../api/spriteApi';
 
 export const SectionContent = styled.div`
   display: flex;
   text-align: center;
+`;
+
+export const PixelImage = styled.div`
+  width: 32px;
+  height: 32px;
+  background: ${props => getPixelImage(props.pokemonName, props.isAlolan)};
 `;
 
 export const StageCard = styled(Card)`
@@ -11,6 +18,9 @@ export const StageCard = styled(Card)`
   margin: 0 4px;
   cursor: pointer;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   && {
     background-image: linear-gradient(
       white -64px,

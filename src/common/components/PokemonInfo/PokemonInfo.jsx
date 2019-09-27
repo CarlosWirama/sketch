@@ -8,7 +8,7 @@ import {
   Texts,
   Name,
 } from './PokemonInfo.styled.js';
-import getImageUrl from './spriteApi';
+import { getAnimatedPokemonImage } from '../../../api/spriteApi';
 
 export default function PokemonInfo({
   name,
@@ -20,7 +20,7 @@ export default function PokemonInfo({
     <Container>
       <SpriteContainer>
         <PokemonSprite
-          src={getImageUrl(name, isAlolan)}
+          src={getAnimatedPokemonImage(name, isAlolan)}
         />
       </SpriteContainer>
       <Texts>
