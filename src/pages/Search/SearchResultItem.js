@@ -10,7 +10,7 @@ export default function SearchResultItem({
   onClick,
 }) {
   return (
-    <ResultItem onClick={() => onClick(name)}>
+    <ResultItem onClick={() => onClick(name, isAlolan)}>
       <PokemonInfo
         name={name}
         types={types}
