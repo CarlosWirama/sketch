@@ -27,9 +27,14 @@ export default function SearchResultList({
             <SearchResultItem
               key={key}
               onClick={onClickItem}
-              listItem={filteredList.find(e =>
-                e.name.toLowerCase() === storedName.toLowerCase()
-              )}
+              listItem={filteredList.find(e => {
+                if (storedName.includes('alolan')) {
+                  const realName = storedName
+                    .slice(storedName.indexOf('_') + 1);
+                  return e.isAlolan === true && e.name.toLowerCase() === realName;
+                }
+                return e.name.toLowerCase() === storedName;
+              })}
             />
           ))}
           Pokédex

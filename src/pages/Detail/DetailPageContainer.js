@@ -73,5 +73,5 @@ async function updateRecentlyViewed(name) {
   }
   prevList.unshift(name); // add to the most recent
   const result = prevList.slice(0, 4).join(','); // get the first 5
-  localStorage.setItem('recentlyViewed', result);
+  localStorage.setItem('recentlyViewed', result.toLowerCase());
 }
