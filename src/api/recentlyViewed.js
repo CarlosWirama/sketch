@@ -4,14 +4,15 @@ export async function getRecentlyViewed() {
 }
 
 export async function updateRecentlyViewed(name) {
+  const lowerCasedName = name.toLowerCase();
   const rawPrevList = await localStorage.getItem('recentlyViewed') || '';
   const prevList = rawPrevList.split(',').filter(e => e);
-  const existingIndexForThisPokemon = prevList.indexOf(name);
+  const existingIndexForThisPokemon = prevList.indexOf(lowerCasedName);
   if (existingIndexForThisPokemon !== -1) {
     // remove this pokemon from list
     prevList.splice(existingIndexForThisPokemon, 1);
   }
-  prevList.unshift(name); // add to the most recent
+  prevList.unshift(lowerCasedName); // add to the most recent
   const result = prevList.slice(0, 4).join(','); // get the first 5
-  localStorage.setItem('recentlyViewed', result.toLowerCase());
+  localStorage.setItem('recentlyViewed', result);
 }
