@@ -33,6 +33,7 @@ export default function DetailPageContainer({
       setDetails(details);
       setIsLoading(false);
     });
+    updateRecentlyViewed(name);
   }, [ params ]);
   const alolanSeparatorIndex = name.indexOf('_');
   let nameForAlolan = '';
@@ -61,3 +62,16 @@ DetailPageContainer.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+async function updateRecentlyViewed(name) {
+  const rawPrevList = await localStorage.getItem('recentlyViewed') || '';
+  const prevList = rawPrevList.split(',').filter(e => e);
+  const existingIndexForThisPokemon = prevList.indexOf(name);
+  if (existingIndexForThisPokemon !== -1) {
+    // remove this pokemon from list
+    prevList.splice(existingIndexForThisPokemon, 1);
+  }
+  prevList.unshift(name); // add to the most recent
+  const result = prevList.slice(0, 4).join(','); // get the first 5
+  localStorage.setItem('recentlyViewed', result);
+}

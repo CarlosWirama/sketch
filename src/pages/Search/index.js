@@ -28,17 +28,13 @@ export default class SearchPage extends Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
-  onClickItem(filteredList, index) {
-    const selectedPokemon = filteredList[index];
-    const pokemonName = this.getResultItemName(selectedPokemon);
+  onClickItem(name, isAlolan) {
+    const pokemonName = addAlolanPrefix(name, isAlolan);
     this.props.history.push(`/pokemon/${pokemonName}`);
   }
 
   getResultItemName(resultItem) {
-    if (resultItem.isAlolan) {
-      return `Alolan_${resultItem.name}`;
-    }
-    return resultItem.name;
+    return addAlolanPrefix(resultItem.name, resultItem.isAlolan);
   }
 
   render() {
@@ -57,7 +53,7 @@ export default class SearchPage extends Component {
         <SearchResultList
           filteredList={filteredList}
           searchText={searchText}
-          onClickItem={index => this.onClickItem(filteredList, index)}
+          onClickItem={this.onClickItem}
         />
       );
     } else {
@@ -72,4 +68,8 @@ export default class SearchPage extends Component {
       />
     );
   }
+}
+
+function addAlolanPrefix(name, isAlolan) {
+  return isAlolan ? `Alolan_${name}` : name;
 }

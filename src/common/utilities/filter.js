@@ -14,6 +14,6 @@ export function filterAutocomplete(
   return input.length === 0
     ? defaultResult
     : list.filter(
-      item => getItemValue(item).toLowerCase().includes(input)
-    );
+        item => getItemValue(item).toLowerCase().includes(input)
+      );
 }
