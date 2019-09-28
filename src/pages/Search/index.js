@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { filterAutocomplete } from '../../common/utilities/filter';
-import { getPokemons } from '../../api';
-import PokeballLoadingIndicator from '../../common/components/PokeballLoadingIndicator';
+import { getPokemons, getRecentlyViewed } from '../../api';
+import PokeballLoadingIndicator
+  from '../../common/components/PokeballLoadingIndicator';
 import SearchPageLayout from './SearchPageLayout';
 import SearchResultList from './SearchResultList';
 import EmptyState from './EmptyState';
@@ -13,6 +14,7 @@ export default class SearchPage extends Component {
       pokemonList: [],
       searchText: '',
       isLoading: true,
+      recentlyViewed: [],
     };
     this.onClickItem = this.onClickItem.bind(this);
   }
@@ -26,19 +28,16 @@ export default class SearchPage extends Component {
         } else console.error(e);
       })
       .finally(() => this.setState({ isLoading: false }));
+    getRecentlyViewed().then(r => this.setState({ recentlyViewed: r }));
   }
 
-  onClickItem(filteredList, index) {
-    const selectedPokemon = filteredList[index];
-    const pokemonName = this.getResultItemName(selectedPokemon);
+  onClickItem(name, isAlolan) {
+    const pokemonName = addAlolanPrefix(name, isAlolan);
     this.props.history.push(`/pokemon/${pokemonName}`);
   }
 
   getResultItemName(resultItem) {
-    if (resultItem.isAlolan) {
-      return `Alolan_${resultItem.name}`;
-    }
-    return resultItem.name;
+    return addAlolanPrefix(resultItem.name, resultItem.isAlolan);
   }
 
   render() {
@@ -57,7 +56,8 @@ export default class SearchPage extends Component {
         <SearchResultList
           filteredList={filteredList}
           searchText={searchText}
-          onClickItem={index => this.onClickItem(filteredList, index)}
+          onClickItem={this.onClickItem}
+          recentlyViewed={this.state.recentlyViewed}
         />
       );
     } else {
@@ -72,4 +72,8 @@ export default class SearchPage extends Component {
       />
     );
   }
+}
+
+function addAlolanPrefix(name, isAlolan) {
+  return isAlolan ? `Alolan_${name}` : name;
 }

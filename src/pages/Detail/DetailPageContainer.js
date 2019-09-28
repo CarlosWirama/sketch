@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getPokemonDetail } from '../../api';
+import { getPokemonDetail, updateRecentlyViewed } from '../../api';
 import DetailPageLayout from './DetailPageLayout';
 
 export default function DetailPageContainer({
@@ -33,6 +33,7 @@ export default function DetailPageContainer({
       setDetails(details);
       setIsLoading(false);
     });
+    updateRecentlyViewed(name);
   }, [ params ]);
   const alolanSeparatorIndex = name.indexOf('_');
   let nameForAlolan = '';
