@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import UnfavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
@@ -8,7 +10,7 @@ import { default as LoadingIndicator }
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
-import { SectionTitle } from './DetailPageLayout.styled';
+import { SectionTitle, FixedActionButton } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
   isLoading,
@@ -20,7 +22,9 @@ export default function DetailPageLayout({
     typeEffectiveness,
     evolutionaryLine,
   },
+  isFavorite,
   onClickBack,
+  onClickFloatingButton,
   onClickEvolutionStage,
 }) {
   return (
@@ -41,9 +45,14 @@ export default function DetailPageLayout({
             onClickStage={onClickEvolutionStage}
           />
           <SectionTitle>Moves by leveling up</SectionTitle>
-          {learnset.map(({ list }, i) =>
-            <LearnsetItem key={i} list={list} />
-          )}
+          <div>
+            {learnset.map(({ list }, i) =>
+              <LearnsetItem key={i} list={list} />
+            )}
+          </div>
+          <FixedActionButton onClick={onClickFloatingButton} aria-label="add" >
+            {isFavorite ? <FavoriteIcon /> : <UnfavoriteIcon />}
+          </FixedActionButton>
         </>
       )}
       </LayoutContainer>

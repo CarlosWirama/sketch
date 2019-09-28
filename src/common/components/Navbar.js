@@ -13,7 +13,8 @@ import {
   CONTENT_MAX_WIDTH,
   CONTENT_RIGHT_CALC,
   FRAME_VERTICAL_PADDING,
-} from '../constants/pokedexCssCalculation.js';
+} from '../constants/pokedexCssCalculation';
+import { color } from '../theme';
 
 
 export default function Navbar({ left, children, right, onClickBack }) {
@@ -69,7 +70,7 @@ const AppBarWithPokedex = styled(AppBar)`
 `;
 
 const StyledToolbar = styled(Toolbar)`
-  background-color: #4eedfa;
+  background-color: ${color.primary};
   padding: 16px;
   font-size: 20px;
 `;

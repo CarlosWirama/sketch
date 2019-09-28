@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getPokemonDetail, updateRecentlyViewed } from '../../api';
+import {
+  getPokemonDetail,
+  updateRecentlyViewed,
+  checkFavorite,
+  toggleFavorite,
+} from '../../api';
 import DetailPageLayout from './DetailPageLayout';
 
 export default function DetailPageContainer({
@@ -19,22 +24,32 @@ export default function DetailPageContainer({
     },
     evolutionaryLine: [],
   });
+  const [ isFavorite, setIsFavorite ] = useState(false);
+  const name = params.pokemon;
+
+  useEffect(() => {
+    setIsLoading(true);
+    getPokemonDetail(name)
+      .then(setDetails)
+      .finally(() => setIsLoading(false));
+    checkFavorite(name).then(setIsFavorite);
+    updateRecentlyViewed(name);
+  }, [ params ]);
+
   function onClickBack() {
     push('/search');
   }
+
+  function onClickFloatingButton() {
+    toggleFavorite(name, !isFavorite);
+    setIsFavorite(!isFavorite);
+  }
+
   function onClickEvolutionStage(pokemonName) {
     pokemonName.replace(' ', '_'); // for alolan
     push(`/pokemon/${pokemonName}`);
   }
-  const name = params.pokemon;
-  useEffect(() => {
-    setIsLoading(true);
-    getPokemonDetail(name).then(details => {
-      setDetails(details);
-      setIsLoading(false);
-    });
-    updateRecentlyViewed(name);
-  }, [ params ]);
+
   const alolanSeparatorIndex = name.indexOf('_');
   let nameForAlolan = '';
   if (alolanSeparatorIndex !== -1) {
@@ -46,7 +61,9 @@ export default function DetailPageContainer({
       name={nameForAlolan || name}
       isAlolan={nameForAlolan !== ''}
       details={details}
+      isFavorite={isFavorite}
       onClickBack={onClickBack}
+      onClickFloatingButton={onClickFloatingButton}
       onClickEvolutionStage={onClickEvolutionStage}
     />
   );
