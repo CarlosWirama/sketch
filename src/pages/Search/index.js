@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { filterAutocomplete } from '../../common/utilities/filter';
-import { getPokemons } from '../../api';
-import PokeballLoadingIndicator from '../../common/components/PokeballLoadingIndicator';
+import { getPokemons, getRecentlyViewed } from '../../api';
+import PokeballLoadingIndicator
+  from '../../common/components/PokeballLoadingIndicator';
 import SearchPageLayout from './SearchPageLayout';
 import SearchResultList from './SearchResultList';
 import EmptyState from './EmptyState';
@@ -27,10 +28,7 @@ export default class SearchPage extends Component {
         } else console.error(e);
       })
       .finally(() => this.setState({ isLoading: false }));
-    (async () => { // get recently viewed
-      const storedRaw = await localStorage.getItem('recentlyViewed');
-      storedRaw && this.setState({ recentlyViewed: storedRaw.split(',') });
-    })();
+    getRecentlyViewed().then(r => this.setState({ recentlyViewed: r }));
   }
 
   onClickItem(name, isAlolan) {

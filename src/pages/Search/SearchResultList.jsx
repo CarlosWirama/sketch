@@ -20,7 +20,7 @@ export default function SearchResultList({
           }
           for <b>"{searchText}"</b>
         </ResultOverview>
-      ) : recentlyViewed.length ? (
+      ) : recentlyViewed.length && filteredList.length ? (
         <RecentlyViewedSection>
           Recenty Viewed
           {recentlyViewed.map((storedName, key) => (
