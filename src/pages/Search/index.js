@@ -13,6 +13,7 @@ export default class SearchPage extends Component {
       pokemonList: [],
       searchText: '',
       isLoading: true,
+      recentlyViewed: [],
     };
     this.onClickItem = this.onClickItem.bind(this);
   }
@@ -26,6 +27,10 @@ export default class SearchPage extends Component {
         } else console.error(e);
       })
       .finally(() => this.setState({ isLoading: false }));
+    (async () => { // get recently viewed
+      const storedRaw = await localStorage.getItem('recentlyViewed');
+      storedRaw && this.setState({ recentlyViewed: storedRaw.split(',') });
+    })();
   }
 
   onClickItem(name, isAlolan) {
@@ -54,6 +59,7 @@ export default class SearchPage extends Component {
           filteredList={filteredList}
           searchText={searchText}
           onClickItem={this.onClickItem}
+          recentlyViewed={this.state.recentlyViewed}
         />
       );
     } else {

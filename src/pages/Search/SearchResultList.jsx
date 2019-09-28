@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
@@ -8,15 +8,8 @@ export default function SearchResultList({
   filteredList,
   searchText,
   onClickItem,
+  recentlyViewed,
 }) {
-  const [recentlyViewed, setRecentlyViewed] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const storedRaw = await localStorage.getItem('recentlyViewed');
-      storedRaw && setRecentlyViewed(storedRaw.split(','));
-    })();
-  }, []);
   return (
     <>
       {searchText ? (
@@ -58,6 +51,8 @@ export default function SearchResultList({
 SearchResultList.propTypes = {
   filteredList: PropTypes.array.isRequired,
   onClickItem: PropTypes.func,
+  searchText: PropTypes.string,
+  recentlyViewed: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 SearchResultList.defaultProps = {
