@@ -8,38 +8,59 @@ export default function SearchResultList({
   filteredList,
   searchText,
   onClickItem,
+  favorite,
   recentlyViewed,
 }) {
+  function findPokemonByName(name) {
+    return filteredList.find(e => {
+      if (name.includes('alolan')) {
+        const realName = name
+          .slice(name.indexOf('_') + 1);
+        return e.isAlolan === true && e.name.toLowerCase() === realName;
+      }
+      return e.name.toLowerCase() === name;
+    });
+  }
+
   return (
     <>
       {searchText ? (
-        <ResultOverview>
+        <Section>
           {filteredList.length 
             ? <span>Showing <b>{filteredList.length}</b> results </span>
             : <span>No result </span>
           }
           for <b>"{searchText}"</b>
-        </ResultOverview>
-      ) : recentlyViewed.length && filteredList.length ? (
-        <RecentlyViewedSection>
-          Recenty Viewed
-          {recentlyViewed.map((storedName, key) => (
-            <SearchResultItem
-              key={key}
-              onClick={onClickItem}
-              listItem={filteredList.find(e => {
-                if (storedName.includes('alolan')) {
-                  const realName = storedName
-                    .slice(storedName.indexOf('_') + 1);
-                  return e.isAlolan === true && e.name.toLowerCase() === realName;
-                }
-                return e.name.toLowerCase() === storedName;
-              })}
-            />
-          ))}
-          Pokédex
-        </RecentlyViewedSection>
-      ) : null}
+        </Section>
+      ) : (
+        <>
+          {filteredList.length && favorite.length !== 0 && (
+            <Section>
+              Favorite
+              {favorite.map((storedName, key) => (
+                <SearchResultItem
+                  key={key}
+                  onClick={onClickItem}
+                  listItem={findPokemonByName(storedName)}
+                />
+              ))}
+            </Section>
+          )}
+          {filteredList.length && recentlyViewed.length !== 0 && (
+            <Section>
+              Recenty Viewed
+              {recentlyViewed.map((storedName, key) => (
+                <SearchResultItem
+                  key={key}
+                  onClick={onClickItem}
+                  listItem={findPokemonByName(storedName)}
+                />
+              ))}
+              Pokédex
+            </Section>
+          )}
+        </>
+      )}
       <List>
         {filteredList.map((listItem, index) => (
           <SearchResultItem
@@ -64,10 +85,6 @@ SearchResultList.defaultProps = {
   onClickItem: () => {},
 };
 
-const ResultOverview = styled.div`
-  margin-top: 24px;
-`;
-
-const RecentlyViewedSection = styled.div`
+const Section = styled.div`
   margin-top: 24px;
 `;

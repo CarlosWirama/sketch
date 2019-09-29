@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PokemonInfo from '../../common/components/PokemonInfo';
-import {
-  ResultItem,
-} from './SearchResultItem.styled.js';
+import { ResultItem } from './SearchResultItem.styled';
 
 export default function SearchResultItem({
   listItem: { name, types, isAlolan },

@@ -1,18 +1,11 @@
+import { getLocalStorageListItem, addLocalStorageListItem } from './util';
+
+const RECENTLY_VIEWED_STORAGE_KEY = 'recentlyViewed';
+
 export async function getRecentlyViewed() {
-  const storedRaw = await localStorage.getItem('recentlyViewed');
-  return storedRaw ? storedRaw.split(',') : [];
+  return await getLocalStorageListItem(RECENTLY_VIEWED_STORAGE_KEY);
 }
 
 export async function updateRecentlyViewed(name) {
-  const lowerCasedName = name.toLowerCase();
-  const rawPrevList = await localStorage.getItem('recentlyViewed') || '';
-  const prevList = rawPrevList.split(',').filter(e => e);
-  const existingIndexForThisPokemon = prevList.indexOf(lowerCasedName);
-  if (existingIndexForThisPokemon !== -1) {
-    // remove this pokemon from list
-    prevList.splice(existingIndexForThisPokemon, 1);
-  }
-  prevList.unshift(lowerCasedName); // add to the most recent
-  const result = prevList.slice(0, 4).join(','); // get the first 5
-  localStorage.setItem('recentlyViewed', result);
+  addLocalStorageListItem(RECENTLY_VIEWED_STORAGE_KEY, name);
 }

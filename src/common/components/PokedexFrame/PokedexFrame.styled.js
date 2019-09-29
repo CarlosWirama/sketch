@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import {
-  SCREEN_MIN_WIDTH,
+  isPokedexLayout,
   FRAME_RIGHT_CALC,
   PAGE_PADDING,
-} from '../../constants/pokedexCssCalculation.js';
+} from '../../constants/pokedexCssCalculation';
 import Pokeball from '../Pokeball';
 
 export const Container = styled.div`
   display: none;
-  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+  ${isPokedexLayout} {
     display: flex;
     padding: ${PAGE_PADDING};
     height: calc(100% - 2 * ${PAGE_PADDING});

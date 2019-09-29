@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { filterAutocomplete } from '../../common/utilities/filter';
-import { getPokemons, getRecentlyViewed } from '../../api';
+import { getPokemons, getFavorite, getRecentlyViewed } from '../../api';
 import PokeballLoadingIndicator
   from '../../common/components/PokeballLoadingIndicator';
 import SearchPageLayout from './SearchPageLayout';
@@ -15,6 +15,7 @@ export default class SearchPage extends Component {
       searchText: '',
       isLoading: true,
       recentlyViewed: [],
+      favorite: [],
     };
     this.onClickItem = this.onClickItem.bind(this);
   }
@@ -28,6 +29,7 @@ export default class SearchPage extends Component {
         } else console.error(e);
       })
       .finally(() => this.setState({ isLoading: false }));
+    getFavorite().then(r => this.setState({ favorite: r }));
     getRecentlyViewed().then(r => this.setState({ recentlyViewed: r }));
   }
 
@@ -57,6 +59,7 @@ export default class SearchPage extends Component {
           filteredList={filteredList}
           searchText={searchText}
           onClickItem={this.onClickItem}
+          favorite={this.state.favorite}
           recentlyViewed={this.state.recentlyViewed}
         />
       );

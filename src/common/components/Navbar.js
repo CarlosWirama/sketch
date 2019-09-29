@@ -9,11 +9,12 @@ import {
 } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import {
-  SCREEN_MIN_WIDTH,
+  isPokedexLayout,
   CONTENT_MAX_WIDTH,
   CONTENT_RIGHT_CALC,
   FRAME_VERTICAL_PADDING,
-} from '../constants/pokedexCssCalculation.js';
+} from '../constants/pokedexCssCalculation';
+import { color } from '../theme';
 
 
 export default function Navbar({ left, children, right, onClickBack }) {
@@ -56,7 +57,7 @@ const EmptySpace = styled.div`
 `;
 
 const AppBarWithPokedex = styled(AppBar)`
-  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+  ${isPokedexLayout} {
     max-width: ${CONTENT_MAX_WIDTH};
     && {
       top: ${FRAME_VERTICAL_PADDING};
@@ -69,7 +70,7 @@ const AppBarWithPokedex = styled(AppBar)`
 `;
 
 const StyledToolbar = styled(Toolbar)`
-  background-color: #4eedfa;
+  background-color: ${color.primary};
   padding: 16px;
   font-size: 20px;
 `;
