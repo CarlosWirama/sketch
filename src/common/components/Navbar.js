@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import {
-  SCREEN_MIN_WIDTH,
+  isPokedexLayout,
   CONTENT_MAX_WIDTH,
   CONTENT_RIGHT_CALC,
   FRAME_VERTICAL_PADDING,
@@ -57,7 +57,7 @@ const EmptySpace = styled.div`
 `;
 
 const AppBarWithPokedex = styled(AppBar)`
-  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+  ${isPokedexLayout} {
     max-width: ${CONTENT_MAX_WIDTH};
     && {
       top: ${FRAME_VERTICAL_PADDING};

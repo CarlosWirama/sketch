@@ -5,7 +5,8 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import Detail from './pages/Detail';
 import {
-  SCREEN_MIN_WIDTH,
+  isPokedexLayout,
+  isMobileLayout,
   CONTENT_MAX_WIDTH,
   CONTENT_RIGHT_CALC,
   FRAME_VERTICAL_PADDING,
@@ -44,7 +45,7 @@ function NotFound() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+  ${isPokedexLayout} {
     width: 100vw;
     min-height: 100vh;
     position: relative;
@@ -54,7 +55,7 @@ const Container = styled.div`
 
 const Body = styled.div`
   color: ${props => props.theme.color.black};
-  @media only screen and (max-width: calc(${SCREEN_MIN_WIDTH} - 1px)) {
+  ${isMobileLayout} {
     &:before {
       content: "";
       position: fixed;
@@ -64,7 +65,7 @@ const Body = styled.div`
       z-index: -1;
     }
   }
-  @media only screen and (min-width: ${SCREEN_MIN_WIDTH}) {
+  ${isPokedexLayout} {
     position: absolute;
     top: ${FRAME_VERTICAL_PADDING};
     right: ${CONTENT_RIGHT_CALC};

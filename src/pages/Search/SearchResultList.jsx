@@ -11,6 +11,17 @@ export default function SearchResultList({
   favorite,
   recentlyViewed,
 }) {
+  function findPokemonByName(name) {
+    return filteredList.find(e => {
+      if (name.includes('alolan')) {
+        const realName = name
+          .slice(name.indexOf('_') + 1);
+        return e.isAlolan === true && e.name.toLowerCase() === realName;
+      }
+      return e.name.toLowerCase() === name;
+    });
+  }
+
   return (
     <>
       {searchText ? (
@@ -30,14 +41,7 @@ export default function SearchResultList({
                 <SearchResultItem
                   key={key}
                   onClick={onClickItem}
-                  listItem={filteredList.find(e => {
-                    if (storedName.includes('alolan')) {
-                      const realName = storedName
-                        .slice(storedName.indexOf('_') + 1);
-                      return e.isAlolan === true && e.name.toLowerCase() === realName;
-                    }
-                    return e.name.toLowerCase() === storedName;
-                  })}
+                  listItem={findPokemonByName(storedName)}
                 />
               ))}
             </Section>
@@ -49,14 +53,7 @@ export default function SearchResultList({
                 <SearchResultItem
                   key={key}
                   onClick={onClickItem}
-                  listItem={filteredList.find(e => {
-                    if (storedName.includes('alolan')) {
-                      const realName = storedName
-                        .slice(storedName.indexOf('_') + 1);
-                      return e.isAlolan === true && e.name.toLowerCase() === realName;
-                    }
-                    return e.name.toLowerCase() === storedName;
-                  })}
+                  listItem={findPokemonByName(storedName)}
                 />
               ))}
               Pokédex
