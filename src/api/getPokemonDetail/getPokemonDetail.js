@@ -75,5 +75,5 @@ function getTypeEffectivenessSectionData(parsed, isAlolan) {
       templates = nextSection.json().templates;
     }
   }
-  return templates[0];
+  return templates.pop();
 }
