@@ -9,7 +9,8 @@ import { getTypeColor } from '../../../common/components/Types';
 
 export default function EditOverviewModal({ savedMoves, onCancel, onSave }) {
   function constructOnSavedMoveClicked(name) {
-    return () => document.querySelector(`.${name}`).scrollIntoView({
+    const className = `.${name.replace(' ', '-')}`;
+    return () => document.querySelector(className).scrollIntoView({
       behavior: 'smooth',
       block: 'center',
     });

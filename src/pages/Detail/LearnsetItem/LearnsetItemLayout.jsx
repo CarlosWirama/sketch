@@ -47,7 +47,7 @@ export default function LearnsetItemLayout({
     toggleSaveMove({ name, type });
   }
   return (
-    <Container className={name}>
+    <Container className={name.replace(' ', '-')}>
       <Level>{level}</Level>
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
         <Headline>

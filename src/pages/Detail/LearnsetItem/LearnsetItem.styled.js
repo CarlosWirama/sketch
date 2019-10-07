@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { lighten, darken } from 'polished';
-import { default as CollapseMaterialUi } from '@material-ui/core/Collapse';
+import {
+  Collapse as CollapseMaterialUi,
+  IconButton as IconButtonMaterialUi,
+} from '@material-ui/core';
 import Card from '../../../common/components/Card';
 
 export const Container = styled.div`
@@ -60,16 +63,16 @@ export const Name = styled.div`
   padding-bottom: 8px;
 `;
 
-export const IconButton = styled.div`
-  width: 44px;
-  height: 44px;
-  display: flex;
-  justify-content: flex-end;
+export const IconButton = styled(IconButtonMaterialUi)`
+  top: 0;
+  right: 0;
+  && {
+    position: absolute;
+  }
 `;
 
 export const SubInfo = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 `;
 

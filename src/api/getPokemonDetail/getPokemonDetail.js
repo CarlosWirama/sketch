@@ -7,10 +7,9 @@ export default async function getPokemonDetail(name) {
   });
   const isAlolan = name.indexOf('Alolan_') !== -1;
   const evolutionaryLine = getEvolutionaryLine(parsed, isAlolan);
-  const { types, learnset, ndex } = getSummary(parsed, name, isAlolan);
+  const { types, learnset } = getSummary(parsed, name, isAlolan);
   const typeEffectiveness = getTypeEffectiveness(parsed, isAlolan);
   return {
-    ndex,
     types,
     learnset,
     typeEffectiveness,
@@ -26,9 +25,8 @@ function getSummary(parsed, name, isAlolan) {
     type1, type2,
     form2type1, form2type2,
     lv100exp, ability1,
-    ndex: { text: ndexText },
+    ndex,
   } = summarySection;
-  const ndex = isAlolan ? `${ndexText}A` : ndexText;
   if (isAlolan) {
     name = name.replace('_',' '); // for alolans
     learnsetSection = parsed.sections(`=${name}`).json().templates;
@@ -43,7 +41,7 @@ function getSummary(parsed, name, isAlolan) {
   // get learnset table
   const learnset = learnsetSection
     .filter(i => i.template === 'learnlist/level7');
-  return {  types, learnset, ndex };
+  return { types, learnset };
 }
 
 function getTypeEffectiveness(parsed, isAlolan) {

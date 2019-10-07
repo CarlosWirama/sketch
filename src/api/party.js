@@ -10,7 +10,7 @@ export async function getPartyList() {
   */
   const rawPartyList = await localStorage.getItem(PARTY_STORAGE_KEY) || '[]';
   return JSON.parse(rawPartyList).map(
-    ([pokeDex, givenName, moves]) => ({ pokeDex, givenName, moves })
+    ([species, givenName, moves]) => ({ species, givenName, moves })
   );
 }
 
@@ -18,17 +18,16 @@ export async function savePartyList(partyList) {
   /* party will have structure like this:
     [
       {
-        pokeDex: "026a",
+        species: "alolan_raichu",
         givenName: "AlolanRaichu123",
         moves: ["Thunder", "Thunder Wave"]
       }
     ]
   */
-  const arrayStructured = partyList.map(({ pokeDex, givenName, moves }) => [
-    pokeDex, givenName, moves,
+  const arrayStructured = partyList.map(({ species, givenName, moves }) => [
+    species, givenName, moves,
   ]);
   const stringified = JSON.stringify(arrayStructured);
-  console.log('save party list',stringified);
   return await localStorage.setItem(PARTY_STORAGE_KEY, stringified);
 }
 
@@ -41,7 +40,7 @@ export async function getSavedMove(name) {
 export async function saveToParty(newPokemon) {
   const partyList = await getPartyList() || [];
   const newParty = partyList.filter(i => i.givenName !== newPokemon.givenName);
-  newParty.push(newPokemon);
+  newParty.unshift(newPokemon);
   return await savePartyList(newParty);
 }
 

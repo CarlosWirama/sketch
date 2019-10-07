@@ -16,7 +16,6 @@ export default function DetailPageContainer({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
-    ndex: '',
     types: [],
     learnset: [],
     typeEffectiveness: {
@@ -54,9 +53,9 @@ export default function DetailPageContainer({
     const newSavedMoves = savedMoves
       .filter(({ name }) => name !== move.name);
     if (newSavedMoves.length === savedMoves.length) {
-      newSavedMoves.push(move);
+      newSavedMoves.unshift(move);
     }
-    setSavedMoves(newSavedMoves.slice(-4)); // get the latest 4;
+    setSavedMoves(newSavedMoves.slice(0, 4)); // get the latest 4;
   }
 
   const alolanSeparatorIndex = name.indexOf('_');
@@ -66,7 +65,7 @@ export default function DetailPageContainer({
   }
 
   // TODO: should be user-generated
-  const givenName = nameForAlolan || name;
+  const givenName = name;
 
   useEffect(() => {
     setIsLoading(true);
@@ -104,7 +103,7 @@ export default function DetailPageContainer({
     setIsEditingActive(false);
     saveToParty({
       givenName,
-      pokeDex: details.ndex,
+      species: name,
       moves: savedMoves,
     });
   }
