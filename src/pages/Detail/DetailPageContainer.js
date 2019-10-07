@@ -5,6 +5,8 @@ import {
   updateRecentlyViewed,
   checkFavorite,
   toggleFavorite,
+  getSavedMove,
+  saveToParty,
 } from '../../api';
 import DetailPageLayout from './DetailPageLayout';
 
@@ -12,8 +14,9 @@ export default function DetailPageContainer({
   match: { params },
   history: { push },
 }) {
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ details, setDetails ] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [details, setDetails] = useState({
+    ndex: '',
     types: [],
     learnset: [],
     typeEffectiveness: {
@@ -24,9 +27,46 @@ export default function DetailPageContainer({
     },
     evolutionaryLine: [],
   });
-  const [ isFavorite, setIsFavorite ] = useState(false);
-  const [ isEditingActive, setIsEditingActive ] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isEditingActive, setIsEditingActive] = useState(false);
+  const [savedMoves, setSavedMoves] = useState([]);
+  // [
+  //   {
+  //     name: 'Bite',
+  //     type: 'dark',
+  //   },
+  //   {
+  //     name: 'Double-Edge',
+  //     type: 'normal',
+  //   },
+  //   {
+  //     name: 'Dig',
+  //     type: 'ground',
+  //   },
+  //   {
+  //     name: 'Extreme Speed',
+  //     type: 'normal',
+  //   },
+  // ]
   const name = params.pokemon;
+
+  function toggleSaveMove(move) {
+    const newSavedMoves = savedMoves
+      .filter(({ name }) => name !== move.name);
+    if (newSavedMoves.length === savedMoves.length) {
+      newSavedMoves.push(move);
+    }
+    setSavedMoves(newSavedMoves.slice(-4)); // get the latest 4;
+  }
+
+  const alolanSeparatorIndex = name.indexOf('_');
+  let nameForAlolan = '';
+  if (alolanSeparatorIndex !== -1) {
+    nameForAlolan = name.substr(alolanSeparatorIndex + 1);
+  }
+
+  // TODO: should be user-generated
+  const givenName = nameForAlolan || name;
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,6 +74,7 @@ export default function DetailPageContainer({
       .then(setDetails)
       .finally(() => setIsLoading(false));
     checkFavorite(name).then(setIsFavorite);
+    getSavedMove(givenName).then(setSavedMoves);
     updateRecentlyViewed(name);
   }, [ params ]);
 
@@ -51,18 +92,21 @@ export default function DetailPageContainer({
     push(`/pokemon/${pokemonName}`);
   }
 
-  const alolanSeparatorIndex = name.indexOf('_');
-  let nameForAlolan = '';
-  if (alolanSeparatorIndex !== -1) {
-    nameForAlolan = name.substr(alolanSeparatorIndex + 1);
-  }
-
   function setEditingOn() {
     setIsEditingActive(true);
   }
 
   function setEditingOff() {
     setIsEditingActive(false);
+  }
+
+  function saveEditing() {
+    setIsEditingActive(false);
+    saveToParty({
+      givenName,
+      pokeDex: details.ndex,
+      moves: savedMoves,
+    });
   }
 
   return (
@@ -74,10 +118,13 @@ export default function DetailPageContainer({
       isFavorite={isFavorite}
       isEditingActive={isEditingActive}
       onClickBack={onClickBack}
+      savedMoves={savedMoves}
       onClickEdit={setEditingOn}
       onClickFloatingButton={onClickFloatingButton}
       onClickEvolutionStage={onClickEvolutionStage}
-      closeEditingOverviewModal={setEditingOff}
+      onCancelEditing={setEditingOff}
+      onSubmitEditing={saveEditing}
+      toggleSaveMove={toggleSaveMove}
     />
   );
 }

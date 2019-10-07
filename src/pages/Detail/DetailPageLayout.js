@@ -30,7 +30,10 @@ export default function DetailPageLayout({
   onClickEvolutionStage,
   onClickEdit,
   onClickFloatingButton,
-  closeEditingOverviewModal,
+  savedMoves,
+  onCancelEditing,
+  onSubmitEditing,
+  toggleSaveMove,
 }) {
   return (
     <LayoutContainer>
@@ -51,15 +54,25 @@ export default function DetailPageLayout({
           />
           <SectionTitle>Moves by leveling up</SectionTitle>
           <div>
-            {learnset.map(({ list }, i) =>
-              <LearnsetItem key={i} list={list} />
-            )}
+            {learnset.map(({ list }, i) => (
+              <LearnsetItem
+                key={i}
+                list={list}
+                isEditingActive={isEditingActive}
+                // list[1] contains move's name
+                isMoveSaved={savedMoves.reduce(
+                  (result, savedMove) => savedMove.name === list[1] || result,
+                  false,
+                )}
+                toggleSaveMove={toggleSaveMove}
+              />
+            ))}
           </div>
           {isEditingActive ? (
             <EditOverviewModal
-              name={name}
-              isAlolan={isAlolan}
-              closeModal={closeEditingOverviewModal}
+              savedMoves={savedMoves}
+              onCancel={onCancelEditing}
+              onSave={onSubmitEditing}
             />
           ) : (
             <>
@@ -105,5 +118,7 @@ DetailPageLayout.propTypes = {
   onClickEvolutionStage: PropTypes.func.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onClickFloatingButton: PropTypes.func.isRequired,
-  closeEditingOverviewModal: PropTypes.func.isRequired,
+  onCancelEditing: PropTypes.func.isRequired,
+  onSubmitEditing: PropTypes.func.isRequired,
+  toggleSaveMove: PropTypes.func.isRequired,
 };

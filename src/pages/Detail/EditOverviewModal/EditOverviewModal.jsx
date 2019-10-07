@@ -7,58 +7,34 @@ import { Modal } from './EditOverviewModal.styled';
 import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import { getTypeColor } from '../../../common/components/Types';
 
-export default function EditOverviewModal({
-  name,
-  isAlolan,
-  closeModal,
-}) {
-  function onClickDone() {
-    console.log(name, isAlolan);
-    closeModal();
+export default function EditOverviewModal({ savedMoves, onCancel, onSave }) {
+  function constructOnSavedMoveClicked(name) {
+    return () => document.querySelector(`.${name}`).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
   }
-
-  const savedMoves = [
-    {
-      name: 'Bite',
-      type: 'dark',
-    },
-    {
-      name: 'Double-Edge',
-      type: 'normal',
-    },
-    {
-      name: 'Dig',
-      type: 'ground',
-    },
-    {
-      name: 'Extreme Speed',
-      type: 'normal',
-    },
-  ];
 
   return (
     <Modal>
-      {savedMoves.map(({ name, type }, index) =>
+      {savedMoves.map(({ name, type }, index) => (
         <TypeBalloon
           key={index}
           color={getTypeColor(type)}
           style={{ minWidth: '18%' }}
-          onClick={() => document.querySelector(`.${name}`).scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-          })}
+          onClick={constructOnSavedMoveClicked(name)}
         >
           {name}
         </TypeBalloon>
-      )}
+      ))}
       <FixedActionButton
-        onClick={closeModal}
+        onClick={onCancel}
         style={{ bottom: 56, right: 88 }}
       >
         <CloseIcon />
       </FixedActionButton>
       <FixedActionButton
-        onClick={onClickDone}
+        onClick={onSave}
         style={{ bottom: 56 }}
       >
         <DoneIcon />
@@ -68,7 +44,10 @@ export default function EditOverviewModal({
 }
 
 EditOverviewModal.propTypes = {
-  name: PropTypes.string.isRequired,
-  isAlolan: PropTypes.bool,
-  closeModal: PropTypes.func.isRequired,
+  savedMoves: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })).isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
 };

@@ -6,12 +6,16 @@ import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import MoveCategoryIcon from '../../../common/components/MoveCategoryIcon';
 import { default as LoadingIndicator }
   from '../../../common/components/PokeballLoadingIndicator';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 // import StabInfo from './StabInfo';
 import {
   Container,
   Move,
   Level,
+  Headline,
   Name,
+  IconButton,
   SubInfo,
   Collapse,
   ExpansionToggle,
@@ -24,7 +28,7 @@ import {
 
 export default function LearnsetItemLayout({
   level,
-  moveName,
+  name,
   type,
   category,
   power,
@@ -34,12 +38,26 @@ export default function LearnsetItemLayout({
   description,
   toggleExpanded,
   isExpanded,
+  isEditingActive,
+  isMoveSaved,
+  toggleSaveMove,
 }) {
+  function onSaveMoveClick(event) {
+    event.stopPropagation();
+    toggleSaveMove({ name, type });
+  }
   return (
-    <Container className={moveName}>
+    <Container className={name}>
       <Level>{level}</Level>
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
-        <Name>{moveName}</Name>
+        <Headline>
+          <Name>{name}</Name>
+          {isEditingActive && (
+            <IconButton onClick={onSaveMoveClick}>
+              {isMoveSaved ? <StarIcon /> : <StarBorderIcon />}
+            </IconButton>
+          )}
+        </Headline>
         <SubInfo>
           <Types types={[type]} />
           <TypeBalloon color={getCategoryColor(category)}>
@@ -78,7 +96,7 @@ export default function LearnsetItemLayout({
 
 LearnsetItemLayout.propTypes = {
   level: PropTypes.string.isRequired,
-  moveName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   power: PropTypes.string.isRequired,
@@ -88,6 +106,9 @@ LearnsetItemLayout.propTypes = {
   description: PropTypes.string.isRequired,
   toggleExpanded: PropTypes.func.isRequired,
   isExpanded: PropTypes.bool.isRequired,
+  isEditingActive: PropTypes.bool.isRequired,
+  isMoveSaved: PropTypes.bool.isRequired,
+  toggleSaveMove: PropTypes.func.isRequired,
 };
 
 function encodeDash(string) {

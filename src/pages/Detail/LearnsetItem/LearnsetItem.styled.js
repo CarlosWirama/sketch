@@ -49,10 +49,22 @@ export const Level = styled.div`
   align-items: center;
 `;
 
+export const Headline = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const Name = styled.div`
   font-size: 20px;
   flex: 3;
   padding-bottom: 8px;
+`;
+
+export const IconButton = styled.div`
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export const SubInfo = styled.div`
