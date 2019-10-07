@@ -36,7 +36,7 @@ export default function LearnsetItemLayout({
   isExpanded,
 }) {
   return (
-    <Container>
+    <Container className={moveName}>
       <Level>{level}</Level>
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
         <Name>{moveName}</Name>

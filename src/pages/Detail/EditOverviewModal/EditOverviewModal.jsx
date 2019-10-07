@@ -19,12 +19,12 @@ export default function EditOverviewModal({
 
   const savedMoves = [
     {
-      name: 'Vine Whip',
-      type: 'grass',
+      name: 'Bite',
+      type: 'dark',
     },
     {
-      name: 'High Jump Kick',
-      type: 'fighting',
+      name: 'Double-Edge',
+      type: 'normal',
     },
     {
       name: 'Dig',
@@ -38,13 +38,17 @@ export default function EditOverviewModal({
 
   return (
     <Modal>
-      {savedMoves.map((move, index) =>
+      {savedMoves.map(({ name, type }, index) =>
         <TypeBalloon
           key={index}
-          color={getTypeColor(move.type)}
+          color={getTypeColor(type)}
           style={{ minWidth: '18%' }}
+          onClick={() => document.querySelector(`.${name}`).scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          })}
         >
-          {move.name}
+          {name}
         </TypeBalloon>
       )}
       <FixedActionButton
@@ -66,4 +70,5 @@ export default function EditOverviewModal({
 EditOverviewModal.propTypes = {
   name: PropTypes.string.isRequired,
   isAlolan: PropTypes.bool,
+  closeModal: PropTypes.func.isRequired,
 };
