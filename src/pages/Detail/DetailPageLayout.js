@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import UnfavoriteIcon from '@material-ui/icons/FavoriteBorder';
+import EditIcon from '@material-ui/icons/Edit';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
@@ -10,6 +11,7 @@ import { default as LoadingIndicator }
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
+import EditOverviewModal from './EditOverviewModal';
 import { SectionTitle, FixedActionButton } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
@@ -22,10 +24,13 @@ export default function DetailPageLayout({
     typeEffectiveness,
     evolutionaryLine,
   },
+  isEditingActive = false,
   isFavorite,
   onClickBack,
-  onClickFloatingButton,
   onClickEvolutionStage,
+  onClickEdit,
+  onClickFloatingButton,
+  closeEditingOverviewModal,
 }) {
   return (
     <LayoutContainer>
@@ -50,9 +55,29 @@ export default function DetailPageLayout({
               <LearnsetItem key={i} list={list} />
             )}
           </div>
-          <FixedActionButton onClick={onClickFloatingButton} aria-label="add" >
-            {isFavorite ? <FavoriteIcon /> : <UnfavoriteIcon />}
-          </FixedActionButton>
+          {isEditingActive ? (
+            <EditOverviewModal
+              name={name}
+              isAlolan={isAlolan}
+              closeModal={closeEditingOverviewModal}
+            />
+          ) : (
+            <>
+              <FixedActionButton
+                onClick={onClickEdit}
+                aria-label="edit"
+                style={{ right: 88 }}
+              >
+                <EditIcon />
+              </FixedActionButton>
+              <FixedActionButton
+                onClick={onClickFloatingButton}
+                aria-label="favorite"
+              >
+                {isFavorite ? <FavoriteIcon /> : <UnfavoriteIcon />}
+              </FixedActionButton>
+            </>
+          )}
         </>
       )}
       </LayoutContainer>
@@ -73,5 +98,12 @@ DetailPageLayout.propTypes = {
     ).isRequired,
     typeEffectiveness: PropTypes.shape({}).isRequired,
   }).isRequired,
+  isLoading: PropTypes.bool,
+  isEditingActive: PropTypes.bool,
+  isFavorite: PropTypes.bool,
   onClickBack: PropTypes.func.isRequired,
+  onClickEvolutionStage: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func.isRequired,
+  onClickFloatingButton: PropTypes.func.isRequired,
+  closeEditingOverviewModal: PropTypes.func.isRequired,
 };

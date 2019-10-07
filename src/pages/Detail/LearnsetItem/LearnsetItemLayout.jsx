@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
-import { TypeBaloon } from '../../../common/components/Types/Types.styled';
+import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import MoveCategoryIcon from '../../../common/components/MoveCategoryIcon';
 import { default as LoadingIndicator }
   from '../../../common/components/PokeballLoadingIndicator';
@@ -42,11 +42,11 @@ export default function LearnsetItemLayout({
         <Name>{moveName}</Name>
         <SubInfo>
           <Types types={[type]} />
-          <TypeBaloon color={getCategoryColor(category)}>
+          <TypeBalloon color={getCategoryColor(category)}>
             <MoveCategoryIcon category={category} />
             {category}
             {category !== 'Status' && <span>:&nbsp;{encodeDash(power)}</span>}
-          </TypeBaloon>
+          </TypeBalloon>
         </SubInfo>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <Description>

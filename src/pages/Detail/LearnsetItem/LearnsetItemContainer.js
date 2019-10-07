@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getMoveDescription } from '../../../api/getMoveDetail';
-import Types, { getTypeColor } from '../../../common/components/Types';
-import { TypeBaloon } from '../../../common/components/Types/Types.styled';
 import LearnsetItemLayout from './LearnsetItemLayout';
 
 export default function LearnsetItemContainer({ list: [

@@ -25,6 +25,7 @@ export default function DetailPageContainer({
     evolutionaryLine: [],
   });
   const [ isFavorite, setIsFavorite ] = useState(false);
+  const [ isEditingActive, setIsEditingActive ] = useState(false);
   const name = params.pokemon;
 
   useEffect(() => {
@@ -55,6 +56,15 @@ export default function DetailPageContainer({
   if (alolanSeparatorIndex !== -1) {
     nameForAlolan = name.substr(alolanSeparatorIndex + 1);
   }
+
+  function setEditingOn() {
+    setIsEditingActive(true);
+  }
+
+  function setEditingOff() {
+    setIsEditingActive(false);
+  }
+
   return (
     <DetailPageLayout
       isLoading={isLoading}
@@ -62,9 +72,12 @@ export default function DetailPageContainer({
       isAlolan={nameForAlolan !== ''}
       details={details}
       isFavorite={isFavorite}
+      isEditingActive={isEditingActive}
       onClickBack={onClickBack}
+      onClickEdit={setEditingOn}
       onClickFloatingButton={onClickFloatingButton}
       onClickEvolutionStage={onClickEvolutionStage}
+      closeEditingOverviewModal={setEditingOff}
     />
   );
 }
