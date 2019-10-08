@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FixedActionButton } from '../DetailPageLayout.styled';
 import DoneIcon from '@material-ui/icons/Done';
-import CloseIcon from '@material-ui/icons/Close';
 import { Modal } from './EditOverviewModal.styled';
 import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import { getTypeColor } from '../../../common/components/Types';
 
-export default function EditOverviewModal({ savedMoves, onCancel, onSave }) {
+export default function EditOverviewModal({ savedMoves, onSave }) {
   function constructOnSavedMoveClicked(name) {
     const className = `.${name.replace(' ', '-')}`;
     return () => document.querySelector(className).scrollIntoView({
@@ -22,22 +21,17 @@ export default function EditOverviewModal({ savedMoves, onCancel, onSave }) {
         <TypeBalloon
           key={index}
           color={getTypeColor(type)}
-          style={{ minWidth: '18%' }}
+          style={{
+            minWidth: '18%',
+            paddingHorizontal: 4,
+            textTransform: 'capitalize',
+          }}
           onClick={constructOnSavedMoveClicked(name)}
         >
           {name}
         </TypeBalloon>
       ))}
-      <FixedActionButton
-        onClick={onCancel}
-        style={{ bottom: 56, right: 88 }}
-      >
-        <CloseIcon />
-      </FixedActionButton>
-      <FixedActionButton
-        onClick={onSave}
-        style={{ bottom: 56 }}
-      >
+      <FixedActionButton onClick={onSave} style={{ top: -28 }} >
         <DoneIcon />
       </FixedActionButton>
     </Modal>
@@ -49,6 +43,5 @@ EditOverviewModal.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })).isRequired,
-  onCancel: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
 };

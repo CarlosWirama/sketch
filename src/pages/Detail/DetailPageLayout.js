@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import UnfavoriteIcon from '@material-ui/icons/FavoriteBorder';
-import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
@@ -25,16 +23,13 @@ export default function DetailPageLayout({
     evolutionaryLine,
   },
   isEditingActive = false,
-  isFavorite,
   onClickBack,
   onClickEvolutionStage,
   onClickEdit,
-  onClickFloatingButton,
   savedMoves,
-  onCancelEditing,
   onSubmitEditing,
   toggleSaveMove,
-}) {
+}) {    
   return (
     <LayoutContainer>
       <Navbar onClickBack={onClickBack}>
@@ -43,6 +38,18 @@ export default function DetailPageLayout({
           types={types}
           isAlolan={isAlolan}
         />
+        {isEditingActive ? (
+          <EditOverviewModal
+            savedMoves={savedMoves}
+            onSave={onSubmitEditing}
+          />
+        ) : (
+          <>
+            <FixedActionButton onClick={onClickEdit} aria-label="edit">
+              <AddIcon />
+            </FixedActionButton>
+          </>
+        )}
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
@@ -68,29 +75,6 @@ export default function DetailPageLayout({
               />
             ))}
           </div>
-          {isEditingActive ? (
-            <EditOverviewModal
-              savedMoves={savedMoves}
-              onCancel={onCancelEditing}
-              onSave={onSubmitEditing}
-            />
-          ) : (
-            <>
-              <FixedActionButton
-                onClick={onClickEdit}
-                aria-label="edit"
-                style={{ right: 88 }}
-              >
-                <EditIcon />
-              </FixedActionButton>
-              <FixedActionButton
-                onClick={onClickFloatingButton}
-                aria-label="favorite"
-              >
-                {isFavorite ? <FavoriteIcon /> : <UnfavoriteIcon />}
-              </FixedActionButton>
-            </>
-          )}
         </>
       )}
       </LayoutContainer>
@@ -118,7 +102,6 @@ DetailPageLayout.propTypes = {
   onClickEvolutionStage: PropTypes.func.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onClickFloatingButton: PropTypes.func.isRequired,
-  onCancelEditing: PropTypes.func.isRequired,
   onSubmitEditing: PropTypes.func.isRequired,
   toggleSaveMove: PropTypes.func.isRequired,
 };

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Modal = styled.div`
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  top: 104px;
   left: 0;
   background-color: white;
   width: 100%;

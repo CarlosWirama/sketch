@@ -3,9 +3,9 @@ const PARTY_STORAGE_KEY = 'party';
 export async function getPartyList() {
   /* party will have structure like this:
     [
-      ["001", "Bulba", ["Vine Whip", "Poison Powder"]],
-      ["025", "Pika123", ["Volt Tackle", "Quick Attack"]],
-      ["026a", "AlolanRaichu", ["Thunder", "Thunder Wave"]],
+      ["Bulbasaur", "Bulba", ["Vine Whip", "Poison Powder"]],
+      ["Pikachu", "Pika123", ["Volt Tackle", "Quick Attack"]],
+      ["Alolan_Raichu", "AlolanRaichu", ["Thunder", "Thunder Wave"]],
     ]
   */
   const rawPartyList = await localStorage.getItem(PARTY_STORAGE_KEY) || '[]';

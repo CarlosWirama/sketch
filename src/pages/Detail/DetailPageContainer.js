@@ -95,10 +95,6 @@ export default function DetailPageContainer({
     setIsEditingActive(true);
   }
 
-  function setEditingOff() {
-    setIsEditingActive(false);
-  }
-
   function saveEditing() {
     setIsEditingActive(false);
     saveToParty({
@@ -114,14 +110,11 @@ export default function DetailPageContainer({
       name={nameForAlolan || name}
       isAlolan={nameForAlolan !== ''}
       details={details}
-      isFavorite={isFavorite}
       isEditingActive={isEditingActive}
       onClickBack={onClickBack}
       savedMoves={savedMoves}
       onClickEdit={setEditingOn}
-      onClickFloatingButton={onClickFloatingButton}
       onClickEvolutionStage={onClickEvolutionStage}
-      onCancelEditing={setEditingOff}
       onSubmitEditing={saveEditing}
       toggleSaveMove={toggleSaveMove}
     />
