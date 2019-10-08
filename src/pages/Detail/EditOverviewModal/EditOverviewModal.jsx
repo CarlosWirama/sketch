@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FixedActionButton } from '../DetailPageLayout.styled';
-import DoneIcon from '@material-ui/icons/Done';
 import { Modal } from './EditOverviewModal.styled';
 import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import { getTypeColor } from '../../../common/components/Types';
 
-export default function EditOverviewModal({ savedMoves, onSave }) {
+export default function EditOverviewModal({ savedMoves }) {
   function constructOnSavedMoveClicked(name) {
     const className = `.${name.replace(' ', '-')}`;
     return () => document.querySelector(className).scrollIntoView({
@@ -31,9 +29,6 @@ export default function EditOverviewModal({ savedMoves, onSave }) {
           {name}
         </TypeBalloon>
       ))}
-      <FixedActionButton onClick={onSave} style={{ top: -28 }} >
-        <DoneIcon />
-      </FixedActionButton>
     </Modal>
   );
 }
@@ -43,5 +38,4 @@ EditOverviewModal.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })).isRequired,
-  onSave: PropTypes.func.isRequired,
 };

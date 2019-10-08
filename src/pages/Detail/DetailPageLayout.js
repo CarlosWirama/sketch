@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
+import DoneIcon from '@material-ui/icons/Done';
 import AddIcon from '@material-ui/icons/Add';
+// import PokeballIcon from '../../common/components/Pokeball';
+// import { color } from '../../common/theme';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
-import { default as LoadingIndicator }
+import LoadingIndicator
   from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 import EditOverviewModal from './EditOverviewModal';
-import { SectionTitle, FixedActionButton } from './DetailPageLayout.styled';
+import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
   isLoading,
@@ -29,27 +33,26 @@ export default function DetailPageLayout({
   savedMoves,
   onSubmitEditing,
   toggleSaveMove,
-}) {    
+}) {
+  const RightButton = (
+    <IconButton
+      onClick={isEditingActive ? onSubmitEditing : onClickEdit}
+      aria-label="edit"
+    >
+      {isEditingActive ? <DoneIcon /> : <AddIcon />
+        // : <PokeballIcon size={254} color="gray" background={color.primary} />
+      }
+    </IconButton>
+  );
   return (
     <LayoutContainer>
-      <Navbar onClickBack={onClickBack}>
+      <Navbar onClickBack={onClickBack} right={RightButton} >
         <PokemonInfo
           name={name}
           types={types}
           isAlolan={isAlolan}
         />
-        {isEditingActive ? (
-          <EditOverviewModal
-            savedMoves={savedMoves}
-            onSave={onSubmitEditing}
-          />
-        ) : (
-          <>
-            <FixedActionButton onClick={onClickEdit} aria-label="edit">
-              <AddIcon />
-            </FixedActionButton>
-          </>
-        )}
+        {isEditingActive && <EditOverviewModal savedMoves={savedMoves} />}
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
@@ -101,7 +104,6 @@ DetailPageLayout.propTypes = {
   onClickBack: PropTypes.func.isRequired,
   onClickEvolutionStage: PropTypes.func.isRequired,
   onClickEdit: PropTypes.func.isRequired,
-  onClickFloatingButton: PropTypes.func.isRequired,
   onSubmitEditing: PropTypes.func.isRequired,
   toggleSaveMove: PropTypes.func.isRequired,
 };
