@@ -5,6 +5,7 @@ import UnfavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
+import Menu from '../../common/components/Menu';
 import { default as LoadingIndicator }
   from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
@@ -38,6 +39,7 @@ export default function DetailPageLayout({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
+          <Menu />
           <TypeEffectiveness {...typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={name}
