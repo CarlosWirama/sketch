@@ -26,6 +26,7 @@ export default class SearchInput extends Component {
 
   render() {
     const { isFocused } = this.state;
+    const { searchText, ...props } = this.props;
     return (
       <Container isFocused={isFocused}>
         <IconButton aria-label="Search" onClick={this.textInput.focus} >
@@ -37,9 +38,9 @@ export default class SearchInput extends Component {
           placeholder="Search…"
           onFocus={this.onFocus}
           onBlur={this.onBlur}
-          {...this.props}
+          {...props}
         />
-        {this.props.searchText && (
+        {searchText && (
           <StyledIconButton onClick={this.textInput.clear} aria-label="Clear">
             <Close />
           </StyledIconButton>
@@ -50,6 +51,7 @@ export default class SearchInput extends Component {
 }
 
 SearchInput.propTypes = {
+  searchText: PropTypes.string,
   onChange: PropTypes.func,
   onClear: PropTypes.func,
   defaultValue: PropTypes.string,
