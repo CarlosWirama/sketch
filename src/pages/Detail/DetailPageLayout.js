@@ -24,6 +24,8 @@ export default function DetailPageLayout({
     evolutionaryLine,
   },
   isFavorite,
+  markings,
+  onMark,
   onClickBack,
   onClickFloatingButton,
   onClickEvolutionStage,
@@ -39,7 +41,7 @@ export default function DetailPageLayout({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          <Menu />
+          <Menu markings={markings} onMark={onMark} />
           <TypeEffectiveness {...typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={name}
@@ -75,5 +77,7 @@ DetailPageLayout.propTypes = {
     ).isRequired,
     typeEffectiveness: PropTypes.shape({}).isRequired,
   }).isRequired,
+  markings: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onMark: PropTypes.func.isRequired,
   onClickBack: PropTypes.func.isRequired,
 };

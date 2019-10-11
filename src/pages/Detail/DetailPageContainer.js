@@ -25,6 +25,8 @@ export default function DetailPageContainer({
     evolutionaryLine: [],
   });
   const [ isFavorite, setIsFavorite ] = useState(false);
+  const [ markings, setMarkings ] = useState(new Array(7).fill(0));
+  const [, forceUpdate] = useState();
   const name = params.pokemon;
 
   useEffect(() => {
@@ -35,6 +37,13 @@ export default function DetailPageContainer({
     checkFavorite(name).then(setIsFavorite);
     updateRecentlyViewed(name);
   }, [ params ]);
+
+  function onMark(markingIndex) { // markingIndex: number
+    const newMarkings = markings;
+    newMarkings[markingIndex] = (newMarkings[markingIndex] + 1) % 3;
+    setMarkings(newMarkings);
+    forceUpdate();
+  }
 
   function onClickBack() {
     push('/search');
@@ -62,6 +71,8 @@ export default function DetailPageContainer({
       isAlolan={nameForAlolan !== ''}
       details={details}
       isFavorite={isFavorite}
+      markings={markings}
+      onMark={onMark}
       onClickBack={onClickBack}
       onClickFloatingButton={onClickFloatingButton}
       onClickEvolutionStage={onClickEvolutionStage}

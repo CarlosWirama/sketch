@@ -3,14 +3,40 @@ import MaterialUiMenu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import styled from 'styled-components';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { pixel } from '../../common/theme';
+import { MarkingConstant } from './Marking';
+import { Color } from 'csstype';
 
-export default function Menu() {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const handleOpen = (event: MouseEvent<HTMLElement, MouseEvent>): void => setAnchorEl(event.currentTarget);
+interface MenuProps {
+  markings: MarkingConstant[];
+  onMark: (markingIndex: number) => void;
+}
+
+export default function Menu({ markings, onMark }: MenuProps) {
+  const [anchorEl, setAnchorEl] = useState<any>(null);
+  const handleOpen = (event: any): void => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
+  const markingIcons = [ // TODO later change this strings into icons
+    'pokeball',
+    'bigstar',
+    'circle',
+    'triangle',
+    'star',
+    'heart',
+    'square',
+    'diamond',
+  ];
+  function getMarkingColor(marking: MarkingConstant): Color {
+    switch (MarkingConstant[marking]) {
+      // case MarkingConstant.BLUE_MARK: return 'blue';
+      case 'BLUE_MARK': return 'blue';
+      case 'RED_MARK': return 'red';
+      default: return 'lightgray';
+    }
+  }
   return (
     <>
       <IconButton
@@ -34,21 +60,32 @@ export default function Menu() {
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <MenuItem onClick={handleClose}>
-            choice 1
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            choice 2
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            choice 2
-          </MenuItem>
+          {markings.map((marking, key) => (
+            <IconButton onClick={() => onMark(key)} key={key}>
+              {(MarkingConstant[marking] === 'UNMARKED')
+                ? <StarBorderIcon />
+                : <StarIcon style={{ color: getMarkingColor(marking) }}/>
+              }
+            </IconButton>
+          ))}
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <MenuItem onClick={handleClose}>
+          <MenuItem
+            onClick={handleClose}
+            style={{
+              flex: 1,
+              backgroundColor: '#ff000088',
+            }}
+          >
             choice 1
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem
+            onClick={handleClose}
+            style={{
+              flex: 1,
+              backgroundColor: 'lightgreen',
+            }}
+          >
             choice 2
           </MenuItem>
         </div>
@@ -56,8 +93,3 @@ export default function Menu() {
     </>
   );
 }
-
-const Box = styled.div<{ isVisible: boolean }>`
-  background-color: yellow;
-  border-radius: ${pixel.borderRadius}px;
-`;
