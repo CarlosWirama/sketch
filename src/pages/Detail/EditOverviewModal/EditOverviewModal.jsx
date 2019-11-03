@@ -4,8 +4,8 @@ import { Modal } from './EditOverviewModal.styled';
 import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import { getTypeColor } from '../../../common/components/Types';
 
-export default function EditOverviewModal({ savedMoves }) {
-  function constructOnSavedMoveClicked(name) {
+export default function EditOverviewModal({ choosenMoves }) {
+  function constructOnChooseMoveClicked(name) {
     const className = `.${name.replace(' ', '-')}`;
     return () => document.querySelector(className).scrollIntoView({
       behavior: 'smooth',
@@ -15,7 +15,7 @@ export default function EditOverviewModal({ savedMoves }) {
 
   return (
     <Modal>
-      {savedMoves.map(({ name, type }, index) => (
+      {choosenMoves.map(({ name, type }, index) => (
         <TypeBalloon
           key={index}
           color={getTypeColor(type)}
@@ -24,7 +24,7 @@ export default function EditOverviewModal({ savedMoves }) {
             paddingHorizontal: 4,
             textTransform: 'capitalize',
           }}
-          onClick={constructOnSavedMoveClicked(name)}
+          onClick={constructOnChooseMoveClicked(name)}
         >
           {name}
         </TypeBalloon>
@@ -34,7 +34,7 @@ export default function EditOverviewModal({ savedMoves }) {
 }
 
 EditOverviewModal.propTypes = {
-  savedMoves: PropTypes.arrayOf(PropTypes.shape({
+  choosenMoves: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   })).isRequired,

@@ -30,14 +30,15 @@ export default function DetailPageLayout({
   onClickBack,
   onClickEvolutionStage,
   onClickEdit,
-  savedMoves,
+  choosenMoves,
   onSubmitEditing,
-  toggleSaveMove,
+  toggleChoosenMove,
 }) {
   const RightButton = (
     <IconButton
       onClick={isEditingActive ? onSubmitEditing : onClickEdit}
       aria-label="edit"
+      style={{ position: 'absolute', right: 0 }}
     >
       {isEditingActive ? <DoneIcon /> : <AddIcon />
         // : <PokeballIcon size={254} color="gray" background={color.primary} />
@@ -52,7 +53,7 @@ export default function DetailPageLayout({
           types={types}
           isAlolan={isAlolan}
         />
-        {isEditingActive && <EditOverviewModal savedMoves={savedMoves} />}
+        {isEditingActive && <EditOverviewModal choosenMoves={choosenMoves} />}
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
@@ -70,11 +71,11 @@ export default function DetailPageLayout({
                 list={list}
                 isEditingActive={isEditingActive}
                 // list[1] contains move's name
-                isMoveSaved={savedMoves.reduce(
-                  (result, savedMove) => savedMove.name === list[1] || result,
+                isMoveChoosen={choosenMoves.reduce(
+                  (result, choosenMove) => choosenMove.name === list[1] || result,
                   false,
                 )}
-                toggleSaveMove={toggleSaveMove}
+                toggleChoosenMove={toggleChoosenMove}
               />
             ))}
           </div>
@@ -105,5 +106,5 @@ DetailPageLayout.propTypes = {
   onClickEvolutionStage: PropTypes.func.isRequired,
   onClickEdit: PropTypes.func.isRequired,
   onSubmitEditing: PropTypes.func.isRequired,
-  toggleSaveMove: PropTypes.func.isRequired,
+  toggleChoosenMove: PropTypes.func.isRequired,
 };

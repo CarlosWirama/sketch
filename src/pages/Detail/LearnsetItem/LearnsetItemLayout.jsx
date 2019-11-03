@@ -39,12 +39,12 @@ export default function LearnsetItemLayout({
   toggleExpanded,
   isExpanded,
   isEditingActive,
-  isMoveSaved,
-  toggleSaveMove,
+  isMoveChoosen,
+  toggleChoosenMove,
 }) {
-  function onSaveMoveClick(event) {
+  function onChooseMoveClick(event) {
     event.stopPropagation();
-    toggleSaveMove({ name, type });
+    toggleChoosenMove({ name, type });
   }
   return (
     <Container className={name.replace(' ', '-')}>
@@ -53,8 +53,8 @@ export default function LearnsetItemLayout({
         <Headline>
           <Name>{name}</Name>
           {isEditingActive && (
-            <IconButton onClick={onSaveMoveClick}>
-              {isMoveSaved ? <StarIcon /> : <StarBorderIcon />}
+            <IconButton onClick={onChooseMoveClick}>
+              {isMoveChoosen ? <StarIcon /> : <StarBorderIcon />}
             </IconButton>
           )}
         </Headline>
@@ -107,8 +107,8 @@ LearnsetItemLayout.propTypes = {
   toggleExpanded: PropTypes.func.isRequired,
   isExpanded: PropTypes.bool.isRequired,
   isEditingActive: PropTypes.bool.isRequired,
-  isMoveSaved: PropTypes.bool.isRequired,
-  toggleSaveMove: PropTypes.func.isRequired,
+  isMoveChoosen: PropTypes.bool.isRequired,
+  toggleChoosenMove: PropTypes.func.isRequired,
 };
 
 function encodeDash(string) {

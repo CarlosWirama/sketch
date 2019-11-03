@@ -16,8 +16,8 @@ export default function LearnsetItemContainer({
     stabIndicator,
   ],
   isEditingActive,
-  isMoveSaved,
-  toggleSaveMove,
+  isMoveChoosen,
+  toggleChoosenMove,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [description, setDescription] = useState('');
@@ -43,8 +43,8 @@ export default function LearnsetItemContainer({
       toggleExpanded={toggleExpanded}
       isExpanded={isExpanded}
       isEditingActive={isEditingActive}
-      toggleSaveMove={toggleSaveMove}
-      isMoveSaved={isMoveSaved}
+      toggleChoosenMove={toggleChoosenMove}
+      isMoveChoosen={isMoveChoosen}
     />
   );
 }
@@ -52,6 +52,6 @@ export default function LearnsetItemContainer({
 LearnsetItemContainer.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
   isEditingActive: PropTypes.bool.isRequired,
-  isMoveSaved: PropTypes.bool.isRequired,
-  toggleSaveMove: PropTypes.func.isRequired,
+  isMoveChoosen: PropTypes.bool.isRequired,
+  toggleChoosenMove: PropTypes.func.isRequired,
 };

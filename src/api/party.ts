@@ -39,7 +39,7 @@ export function savePartyList(partyList: PartyPokemonOptimized[]) {
   return localStorage.setItem(PARTY_STORAGE_KEY, stringified);
 }
 
-export function getSavedMove(name: string): Move[] {
+export function getChoosenMove(name: string): Move[] {
   const partyList = getPartyList();
   const [matching] = partyList.filter(pokemon => pokemon.givenName === name);
   return matching

@@ -5,7 +5,7 @@ import {
   updateRecentlyViewed,
   checkFavorite,
   toggleFavorite,
-  getSavedMove,
+  getChoosenMove,
   saveToParty,
 } from '../../api';
 import DetailPageLayout from './DetailPageLayout';
@@ -28,7 +28,7 @@ export default function DetailPageContainer({
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
-  const [savedMoves, setSavedMoves] = useState([]);
+  const [choosenMoves, setChoosenMoves] = useState([]);
   // [
   //   {
   //     name: 'Bite',
@@ -49,13 +49,13 @@ export default function DetailPageContainer({
   // ]
   const name = params.pokemon;
 
-  function toggleSaveMove(move) {
-    const newSavedMoves = savedMoves
+  function toggleChoosenMove(move) {
+    const newChoosenMoves = choosenMoves
       .filter(({ name }) => name !== move.name);
-    if (newSavedMoves.length === savedMoves.length) {
-      newSavedMoves.unshift(move);
+    if (newChoosenMoves.length === choosenMoves.length) {
+      newChoosenMoves.unshift(move);
     }
-    setSavedMoves(newSavedMoves.slice(0, 4)); // get the latest 4;
+    setChoosenMoves(newChoosenMoves.slice(0, 4)); // get the latest 4;
   }
 
   const alolanSeparatorIndex = name.indexOf('_');
@@ -73,7 +73,7 @@ export default function DetailPageContainer({
       .then(setDetails)
       .finally(() => setIsLoading(false));
     checkFavorite(name).then(setIsFavorite);
-    setSavedMoves(getSavedMove(givenName));
+    setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
 
@@ -100,7 +100,7 @@ export default function DetailPageContainer({
     saveToParty({
       givenName,
       species: name,
-      moves: savedMoves,
+      moves: choosenMoves,
     });
   }
 
@@ -112,11 +112,11 @@ export default function DetailPageContainer({
       details={details}
       isEditingActive={isEditingActive}
       onClickBack={onClickBack}
-      savedMoves={savedMoves}
+      choosenMoves={choosenMoves}
       onClickEdit={setEditingOn}
       onClickEvolutionStage={onClickEvolutionStage}
       onSubmitEditing={saveEditing}
-      toggleSaveMove={toggleSaveMove}
+      toggleChoosenMove={toggleChoosenMove}
     />
   );
 }
