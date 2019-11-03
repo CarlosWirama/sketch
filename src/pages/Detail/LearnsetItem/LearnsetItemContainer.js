@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getMoveDescription } from '../../../api/getMoveDetail';
-import Types, { getTypeColor } from '../../../common/components/Types';
-import { TypeBaloon } from '../../../common/components/Types/Types.styled';
 import LearnsetItemLayout from './LearnsetItemLayout';
 
-export default function LearnsetItemContainer({ list: [
-  level,
-  moveName,
-  type,
-  category,
-  power,
-  accuracy,
-  pp,
-  _,
-  stabIndicator,
-] }) {
+export default function LearnsetItemContainer({
+  list: [
+    level,
+    name,
+    type,
+    category,
+    power,
+    accuracy,
+    pp,
+    _,
+    stabIndicator,
+  ],
+  isEditingActive,
+  isMoveChoosen,
+  toggleChoosenMove,
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [description, setDescription] = useState('');
 
   function toggleExpanded() {
     if(!isExpanded) {
-      getMoveDescription(moveName).then(setDescription);
+      getMoveDescription(name).then(setDescription);
     }
     setIsExpanded(!isExpanded);
   }
@@ -29,7 +32,7 @@ export default function LearnsetItemContainer({ list: [
   return (
     <LearnsetItemLayout
       level={level}
-      moveName={moveName}
+      name={name}
       type={type}
       category={category}
       power={power}
@@ -39,10 +42,16 @@ export default function LearnsetItemContainer({ list: [
       description={description}
       toggleExpanded={toggleExpanded}
       isExpanded={isExpanded}
+      isEditingActive={isEditingActive}
+      toggleChoosenMove={toggleChoosenMove}
+      isMoveChoosen={isMoveChoosen}
     />
   );
 }
 
 LearnsetItemContainer.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isEditingActive: PropTypes.bool.isRequired,
+  isMoveChoosen: PropTypes.bool.isRequired,
+  toggleChoosenMove: PropTypes.func.isRequired,
 };

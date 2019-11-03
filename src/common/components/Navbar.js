@@ -30,7 +30,9 @@ export default function Navbar({ left, children, right, onClickBack }) {
       <AppBarWithPokedex color="inherit">
         <StyledToolbar>
           {leftButton}
-          <FullWidth>{styledChildren}</FullWidth>
+          <FullWidth haveMarginLeft={!!left || !!onClickBack}>
+            {styledChildren}
+          </FullWidth>
           {right}
         </StyledToolbar>
       </AppBarWithPokedex>
@@ -79,12 +81,24 @@ const FullWidth = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  ${props => props.haveMarginLeft && 'margin-left: 24px;'}
+`;
+
+const BackButtonContainer = styled(IconButton)`
+  left: 0;
+  && {
+    position: absolute;
+  }
 `;
 
 function BackButton(props) {
-  return(
-    <IconButton color="inherit" aria-label="Back" {...props} >
+  return (
+    <BackButtonContainer
+      color="inherit"
+      aria-label="Back"
+      {...props}
+    >
       <ArrowBack />
-    </IconButton>
+    </BackButtonContainer>
   );
 }

@@ -5,6 +5,8 @@ import {
   updateRecentlyViewed,
   checkFavorite,
   toggleFavorite,
+  getChoosenMove,
+  saveToParty,
 } from '../../api';
 import DetailPageLayout from './DetailPageLayout';
 
@@ -12,8 +14,8 @@ export default function DetailPageContainer({
   match: { params },
   history: { push },
 }) {
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ details, setDetails ] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [details, setDetails] = useState({
     types: [],
     learnset: [],
     typeEffectiveness: {
@@ -24,8 +26,46 @@ export default function DetailPageContainer({
     },
     evolutionaryLine: [],
   });
-  const [ isFavorite, setIsFavorite ] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isEditingActive, setIsEditingActive] = useState(false);
+  const [choosenMoves, setChoosenMoves] = useState([]);
+  // [
+  //   {
+  //     name: 'Bite',
+  //     type: 'dark',
+  //   },
+  //   {
+  //     name: 'Double-Edge',
+  //     type: 'normal',
+  //   },
+  //   {
+  //     name: 'Dig',
+  //     type: 'ground',
+  //   },
+  //   {
+  //     name: 'Extreme Speed',
+  //     type: 'normal',
+  //   },
+  // ]
   const name = params.pokemon;
+
+  function toggleChoosenMove(move) {
+    const newChoosenMoves = choosenMoves
+      .filter(({ name }) => name !== move.name);
+    if (newChoosenMoves.length === choosenMoves.length) {
+      newChoosenMoves.unshift(move);
+    }
+    setChoosenMoves(newChoosenMoves.slice(0, 4)); // get the latest 4;
+  }
+
+  const alolanSeparatorIndex = name.indexOf('_');
+  let nameForAlolan = '';
+  if (alolanSeparatorIndex !== -1) {
+    nameForAlolan = name.substr(alolanSeparatorIndex + 1);
+  }
+
+  // TODO: should be user-generated
+  const givenName = name;
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,6 +73,7 @@ export default function DetailPageContainer({
       .then(setDetails)
       .finally(() => setIsLoading(false));
     checkFavorite(name).then(setIsFavorite);
+    setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
 
@@ -50,21 +91,32 @@ export default function DetailPageContainer({
     push(`/pokemon/${pokemonName}`);
   }
 
-  const alolanSeparatorIndex = name.indexOf('_');
-  let nameForAlolan = '';
-  if (alolanSeparatorIndex !== -1) {
-    nameForAlolan = name.substr(alolanSeparatorIndex + 1);
+  function setEditingOn() {
+    setIsEditingActive(true);
   }
+
+  function saveEditing() {
+    setIsEditingActive(false);
+    saveToParty({
+      givenName,
+      species: name,
+      moves: choosenMoves,
+    });
+  }
+
   return (
     <DetailPageLayout
       isLoading={isLoading}
       name={nameForAlolan || name}
       isAlolan={nameForAlolan !== ''}
       details={details}
-      isFavorite={isFavorite}
+      isEditingActive={isEditingActive}
       onClickBack={onClickBack}
-      onClickFloatingButton={onClickFloatingButton}
+      choosenMoves={choosenMoves}
+      onClickEdit={setEditingOn}
       onClickEvolutionStage={onClickEvolutionStage}
+      onSubmitEditing={saveEditing}
+      toggleChoosenMove={toggleChoosenMove}
     />
   );
 }

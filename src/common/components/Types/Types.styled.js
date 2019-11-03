@@ -5,7 +5,7 @@ export const Container = styled.div`
   color: white;
 `;
 
-export const TypeBaloon = styled.div`
+export const TypeBalloon = styled.div`
   color: white;
   min-width: 72px;
   text-align: center;

@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import UnfavoriteIcon from '@material-ui/icons/FavoriteBorder';
+import IconButton from '@material-ui/core/IconButton';
+import DoneIcon from '@material-ui/icons/Done';
+import AddIcon from '@material-ui/icons/Add';
+// import PokeballIcon from '../../common/components/Pokeball';
+// import { color } from '../../common/theme';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
-import { default as LoadingIndicator }
+import LoadingIndicator
   from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
-import { SectionTitle, FixedActionButton } from './DetailPageLayout.styled';
+import EditOverviewModal from './EditOverviewModal';
+import { SectionTitle } from './DetailPageLayout.styled';
 
 export default function DetailPageLayout({
   isLoading,
@@ -22,19 +26,34 @@ export default function DetailPageLayout({
     typeEffectiveness,
     evolutionaryLine,
   },
-  isFavorite,
+  isEditingActive = false,
   onClickBack,
-  onClickFloatingButton,
   onClickEvolutionStage,
+  onClickEdit,
+  choosenMoves,
+  onSubmitEditing,
+  toggleChoosenMove,
 }) {
+  const RightButton = (
+    <IconButton
+      onClick={isEditingActive ? onSubmitEditing : onClickEdit}
+      aria-label="edit"
+      style={{ position: 'absolute', right: 0 }}
+    >
+      {isEditingActive ? <DoneIcon /> : <AddIcon />
+        // : <PokeballIcon size={254} color="gray" background={color.primary} />
+      }
+    </IconButton>
+  );
   return (
     <LayoutContainer>
-      <Navbar onClickBack={onClickBack}>
+      <Navbar onClickBack={onClickBack} right={RightButton} >
         <PokemonInfo
           name={name}
           types={types}
           isAlolan={isAlolan}
         />
+        {isEditingActive && <EditOverviewModal choosenMoves={choosenMoves} />}
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
@@ -46,13 +65,20 @@ export default function DetailPageLayout({
           />
           <SectionTitle>Moves by leveling up</SectionTitle>
           <div>
-            {learnset.map(({ list }, i) =>
-              <LearnsetItem key={i} list={list} />
-            )}
+            {learnset.map(({ list }, i) => (
+              <LearnsetItem
+                key={i}
+                list={list}
+                isEditingActive={isEditingActive}
+                // list[1] contains move's name
+                isMoveChoosen={choosenMoves.reduce(
+                  (result, choosenMove) => choosenMove.name === list[1] || result,
+                  false,
+                )}
+                toggleChoosenMove={toggleChoosenMove}
+              />
+            ))}
           </div>
-          <FixedActionButton onClick={onClickFloatingButton} aria-label="add" >
-            {isFavorite ? <FavoriteIcon /> : <UnfavoriteIcon />}
-          </FixedActionButton>
         </>
       )}
       </LayoutContainer>
@@ -73,5 +99,12 @@ DetailPageLayout.propTypes = {
     ).isRequired,
     typeEffectiveness: PropTypes.shape({}).isRequired,
   }).isRequired,
+  isLoading: PropTypes.bool,
+  isEditingActive: PropTypes.bool,
+  isFavorite: PropTypes.bool,
   onClickBack: PropTypes.func.isRequired,
+  onClickEvolutionStage: PropTypes.func.isRequired,
+  onClickEdit: PropTypes.func.isRequired,
+  onSubmitEditing: PropTypes.func.isRequired,
+  toggleChoosenMove: PropTypes.func.isRequired,
 };
