@@ -73,7 +73,7 @@ export default function DetailPageContainer({
       .then(setDetails)
       .finally(() => setIsLoading(false));
     checkFavorite(name).then(setIsFavorite);
-    getSavedMove(givenName).then(setSavedMoves);
+    setSavedMoves(getSavedMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
 
