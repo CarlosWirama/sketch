@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/pokeplanner/precache-manifest.95d58d01a5ad483e876d7f0148deb6b8.js"
+  "/pokeplanner/precache-manifest.71a20171d064a6e941006c297f9f79cb.js"
 );
 
 workbox.clientsClaim();
