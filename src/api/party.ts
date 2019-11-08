@@ -1,27 +1,11 @@
+import {
+  PartyPokemon,
+  PartyPokemonOptimized,
+  Move,
+  StoredPartyList,
+} from '../common/types/partyType';
+
 const PARTY_STORAGE_KEY = 'party';
-
-interface PartyPokemon {
-  species: string; // pokemon's origin name,  e.g. "alolan_raichu",
-  givenName: string; // name given by the trainer,  e.g. "AlolanRaichu123",
-  moves: Move[]; // [{ name: "Haze", type: "ice" }, { name: "Bite", type: "dark"}]
-}
-
-interface PartyPokemonOptimized extends Omit<PartyPokemon, 'moves'> {
-  moves: OptimizedMoves;
-}
-
-interface Move { name: string; type: string; } // { name: "Haze", type: "ice" }
-
-type OptimizedMoves = [string, string][]; // [["Vine Whip", "grass"], ...etc ]
-
-type StoredPartyList = ([string, string, OptimizedMoves])[]
-/* StoredPartyList will have structure like this:
-  [
-    ["Bulbasaur", "Bulba", [["Haze", "ice"], ["Bite", "dark"]]],
-    ["Pikachu", "Pika123", [["Volt Tackle", "electric"]]],
-    ["Alolan_Raichu", "AloRaichu", [["Thunder", "electric"]]],
-  ]
-*/
 
 export function getPartyList(): PartyPokemonOptimized[] {
   const rawPartyList = localStorage.getItem(PARTY_STORAGE_KEY) || '[]';

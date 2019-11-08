@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Color } from 'csstype';
 
 export const Container = styled.div`
   display: inline-box;
@@ -26,7 +27,7 @@ export const Texts = styled.div`
   justify-content: center;
 `;
 
-export const Name = styled.div`
+export const Name = styled.div<{ titleColor?: Color }>`
   color: ${props => props.titleColor || props.theme.color.black};
   text-align: left;
   line-height: 20px;

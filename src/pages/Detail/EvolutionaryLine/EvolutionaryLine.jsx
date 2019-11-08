@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionTitle } from '../DetailPageLayout.styled';
+import { SectionTitle } from '../DetailPage.styled';
 import { SectionContent, StageCard, PixelImage } from './EvolutionaryLine.styled';
 import { getTypeColor } from '../../../common/components/Types';
 
