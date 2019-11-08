@@ -1,5 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { getMoveDescription } from '../../../api/getMoveDetail';
+import { Move as MoveType } from '../../../common/types/partyType';
+
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
 import { TypeBalloon } from '../../../common/components/Types/Types.styled';
@@ -26,26 +28,44 @@ import {
   DetailValues,
 } from './LearnsetItem.styled';
 
-export default function LearnsetItemLayout({
-  level,
-  name,
-  type,
-  category,
-  power,
-  accuracy,
-  pp,
-  stabIndicator,
-  description,
-  toggleExpanded,
-  isExpanded,
+type Category = 'Physical' | 'Special' | 'Status';
+
+export default function LearnsetItemContainer({
+  list: [
+    level,
+    name,
+    type,
+    category,
+    power,
+    accuracy,
+    pp,
+    _,
+    stabIndicator,
+  ],
   isEditingActive,
   isMoveChoosen,
   toggleChoosenMove,
-}) {
-  function onChooseMoveClick(event) {
+}: {
+  list: [string, string, string, Category, string, string, string, string, string];
+  isEditingActive: boolean;
+  isMoveChoosen: boolean;
+  toggleChoosenMove: (move: MoveType) => void;
+}): JSX.Element {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [description, setDescription] = useState('');
+
+  function toggleExpanded() {
+    if(!isExpanded) {
+      getMoveDescription(name).then(setDescription);
+    }
+    setIsExpanded(!isExpanded);
+  }
+
+  function onChooseMoveClick(event: any) {
     event.stopPropagation();
     toggleChoosenMove({ name, type });
   }
+
   return (
     <Container className={name.replace(' ', '-')}>
       <Level>{level}</Level>
@@ -94,28 +114,11 @@ export default function LearnsetItemLayout({
   );
 }
 
-LearnsetItemLayout.propTypes = {
-  level: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  power: PropTypes.string.isRequired,
-  accuracy: PropTypes.string.isRequired,
-  pp: PropTypes.string.isRequired,
-  stabIndicator: PropTypes.string,
-  description: PropTypes.string.isRequired,
-  toggleExpanded: PropTypes.func.isRequired,
-  isExpanded: PropTypes.bool.isRequired,
-  isEditingActive: PropTypes.bool.isRequired,
-  isMoveChoosen: PropTypes.bool.isRequired,
-  toggleChoosenMove: PropTypes.func.isRequired,
-};
-
-function encodeDash(string) {
+function encodeDash(string: string) {
   return string === '&mdash;' ? '-' : string;
 }
 
-function getCategoryColor(category) {
+function getCategoryColor(category: 'Physical' | 'Special' | 'Status') {
   switch (category) {
     case 'Physical': return '#ff4400';
     case 'Special': return '#2266cc';

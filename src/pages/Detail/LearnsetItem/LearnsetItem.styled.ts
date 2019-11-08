@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { lighten, darken } from 'polished';
+// import { lighten, darken } from 'polished';
 import {
   Collapse as CollapseMaterialUi,
   IconButton as IconButtonMaterialUi,
@@ -88,7 +88,7 @@ export const ExpansionToggle = styled.div`
   margin-right: 8px;
 `;
 
-export const ExpandIconContainer = styled.div`
+export const ExpandIconContainer = styled.div<{ isExpanded: boolean }>`
   transition: transform 400ms;
   transform: rotate(${props => props.isExpanded ? 180 : 0}deg);
 `;
