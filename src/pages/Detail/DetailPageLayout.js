@@ -5,6 +5,7 @@ import UnfavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
+import Menu from '../../common/components/Menu';
 import { default as LoadingIndicator }
   from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
@@ -23,6 +24,8 @@ export default function DetailPageLayout({
     evolutionaryLine,
   },
   isFavorite,
+  markings,
+  onMark,
   onClickBack,
   onClickFloatingButton,
   onClickEvolutionStage,
@@ -38,6 +41,7 @@ export default function DetailPageLayout({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
+          <Menu markings={markings} onMark={onMark} />
           <TypeEffectiveness {...typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={name}
@@ -73,5 +77,7 @@ DetailPageLayout.propTypes = {
     ).isRequired,
     typeEffectiveness: PropTypes.shape({}).isRequired,
   }).isRequired,
+  markings: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onMark: PropTypes.func.isRequired,
   onClickBack: PropTypes.func.isRequired,
 };
