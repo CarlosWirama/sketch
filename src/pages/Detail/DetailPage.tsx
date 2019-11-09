@@ -17,7 +17,8 @@ import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
-  from '../../common/components/PokeballLoadingIndicator';
+from '../../common/components/PokeballLoadingIndicator';
+import Menu from '../../common/components/Menu';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
@@ -54,7 +55,7 @@ export default function DetailPageContainer({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
   const [choosenMoves, setChoosenMoves] = useState<Move[]>([]);
-
+  const [markings, setMarkings] = useState([0,0,0,0,0,0,0]); // TODO make enum
   const name = params.pokemon;
 
   function toggleChoosenMove(move: Move) {
@@ -80,10 +81,16 @@ export default function DetailPageContainer({
     getPokemonDetail(name)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
-    checkFavorite(name).then(setIsFavorite);
+      checkFavorite(name).then(setIsFavorite);
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
+
+  function onMark(markingIndex: number) {
+    const newMarkings = markings;
+    newMarkings[markingIndex] = (newMarkings[markingIndex] + 1) % 3;
+    setMarkings(newMarkings);
+  }
 
   function onClickBack() {
     push('/search');
@@ -138,6 +145,7 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
+          <Menu markings={markings} onMark={onMark} />
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={pokemonName}
