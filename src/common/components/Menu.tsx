@@ -9,34 +9,66 @@ import { pixel } from '../../common/theme';
 import { MarkingConstant } from './Marking';
 import { Color } from 'csstype';
 
-interface MenuProps {
-  markings: MarkingConstant[];
-  onMark: (markingIndex: number) => void;
+interface Marking {
+  pokeball: MarkingConstant;
+  bigstar: MarkingConstant;
+  circle: MarkingConstant;
+  triangle: MarkingConstant;
+  star: MarkingConstant;
+  heart: MarkingConstant;
+  square: MarkingConstant;
+  diamond: MarkingConstant;
 }
 
-export default function Menu({ markings, onMark }: MenuProps) {
-  const [anchorEl, setAnchorEl] = useState<any>(null);
+const defaultMarking: Marking = {
+  pokeball: MarkingConstant.UNMARKED,
+  bigstar: MarkingConstant.UNMARKED,
+  circle: MarkingConstant.UNMARKED,
+  triangle: MarkingConstant.UNMARKED,
+  star: MarkingConstant.UNMARKED,
+  heart: MarkingConstant.UNMARKED,
+  square: MarkingConstant.UNMARKED,
+  diamond: MarkingConstant.UNMARKED,
+};
+
+export default function Menu() {
+  const [marks, setMarks] = useState(defaultMarking);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const handleOpen = (event: any): void => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  const markingIcons = [ // TODO later change this strings into icons
-    'pokeball',
-    'bigstar',
-    'circle',
-    'triangle',
-    'star',
-    'heart',
-    'square',
-    'diamond',
-  ];
-  function getMarkingColor(marking: MarkingConstant): Color {
-    switch (MarkingConstant[marking]) {
+  const markingIcons = { // TODO later change this strings into icons
+    pokeball: '',
+    bigstar: '',
+    circle: '',
+    triangle: '',
+    star: '',
+    heart: '',
+    square: '',
+    diamond: '',
+  };
+  function getMarkColor(markValue: MarkingConstant): Color {
+    switch (MarkingConstant[markValue]) {
       // case MarkingConstant.BLUE_MARK: return 'blue';
       case 'BLUE_MARK': return 'blue';
       case 'RED_MARK': return 'red';
       default: return 'lightgray';
     }
   }
+
+  function onMark(markName: keyof Marking): void {
+    const currMarkValue = marks[markName];
+    const newMarkValue: MarkingConstant = (currMarkValue + 1) % 3;
+    setMarks({
+      ...marks,
+      [markName]: newMarkValue,
+    });
+  }
+
+  const markEntries = Object.entries(marks) as Array<
+    [keyof Marking, MarkingConstant]
+  >;
+
   return (
     <>
       <IconButton
@@ -60,11 +92,11 @@ export default function Menu({ markings, onMark }: MenuProps) {
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          {markings.map((marking, key) => (
-            <IconButton onClick={() => onMark(key)} key={key}>
-              {(MarkingConstant[marking] === 'UNMARKED')
+          {markEntries.map(([markKey, markValue]) => (
+            <IconButton onClick={() => onMark(markKey)} key={markKey}>
+              {(markValue === MarkingConstant.UNMARKED)
                 ? <StarBorderIcon />
-                : <StarIcon style={{ color: getMarkingColor(marking) }}/>
+                : <StarIcon style={{ color: getMarkColor(markValue) }}/>
               }
             </IconButton>
           ))}

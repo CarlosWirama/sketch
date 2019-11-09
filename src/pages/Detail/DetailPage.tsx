@@ -55,7 +55,6 @@ export default function DetailPageContainer({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
   const [choosenMoves, setChoosenMoves] = useState<Move[]>([]);
-  const [markings, setMarkings] = useState([0,0,0,0,0,0,0]); // TODO make enum
   const name = params.pokemon;
 
   function toggleChoosenMove(move: Move) {
@@ -85,12 +84,6 @@ export default function DetailPageContainer({
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
-
-  function onMark(markingIndex: number) {
-    const newMarkings = markings;
-    newMarkings[markingIndex] = (newMarkings[markingIndex] + 1) % 3;
-    setMarkings(newMarkings);
-  }
 
   function onClickBack() {
     push('/search');
@@ -145,7 +138,7 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          <Menu markings={markings} onMark={onMark} />
+          <Menu />
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={pokemonName}
