@@ -19,6 +19,7 @@ import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
 import Menu from '../../common/components/Menu';
+import Marking from '../../common/components/Marking';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
@@ -74,6 +75,7 @@ export default function DetailPageContainer({
 
   // TODO: should be user-generated
   const givenName = name;
+  const isPartyPokemon: boolean = !!givenName // !== name; // TODO
 
   useEffect(() => {
     setIsLoading(true);
@@ -119,7 +121,7 @@ export default function DetailPageContainer({
       style={{ position: 'absolute', right: 0 }}
     >
       {isEditingActive ? <DoneIcon /> : <AddIcon />
-        // : <PokeballIcon size={254} color="gray" background={color.primary} />
+        // : <PokeballIcon size={254} color="gray" background={color.primary} /> // TODO
       }
     </IconButton>
   );
@@ -139,6 +141,7 @@ export default function DetailPageContainer({
       {isLoading ? <LoadingIndicator/> : (
         <>
           <Menu />
+          {isPartyPokemon && <Marking />}
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={pokemonName}

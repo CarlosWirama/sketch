@@ -1,5 +1,2 @@
-export enum MarkingConstant {
-  UNMARKED,
-  BLUE_MARK,
-  RED_MARK,
-};
+export { default } from './Marking';
+export { MarkingConstant } from './enums';
