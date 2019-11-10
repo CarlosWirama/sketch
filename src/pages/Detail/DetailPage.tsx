@@ -19,6 +19,7 @@ import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
 import Menu from '../../common/components/Menu';
+import Marking from '../../common/components/Marking';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
@@ -55,7 +56,6 @@ export default function DetailPageContainer({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
   const [choosenMoves, setChoosenMoves] = useState<Move[]>([]);
-  const [markings, setMarkings] = useState([0,0,0,0,0,0,0]); // TODO make enum
   const name = params.pokemon;
 
   function toggleChoosenMove(move: Move) {
@@ -75,6 +75,7 @@ export default function DetailPageContainer({
 
   // TODO: should be user-generated
   const givenName = name;
+  const isPartyPokemon: boolean = !!givenName // !== name; // TODO
 
   useEffect(() => {
     setIsLoading(true);
@@ -85,12 +86,6 @@ export default function DetailPageContainer({
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
-
-  function onMark(markingIndex: number) {
-    const newMarkings = markings;
-    newMarkings[markingIndex] = (newMarkings[markingIndex] + 1) % 3;
-    setMarkings(newMarkings);
-  }
 
   function onClickBack() {
     push('/search');
@@ -126,7 +121,7 @@ export default function DetailPageContainer({
       style={{ position: 'absolute', right: 0 }}
     >
       {isEditingActive ? <DoneIcon /> : <AddIcon />
-        // : <PokeballIcon size={254} color="gray" background={color.primary} />
+        // : <PokeballIcon size={254} color="gray" background={color.primary} /> // TODO
       }
     </IconButton>
   );
@@ -145,7 +140,13 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          <Menu markings={markings} onMark={onMark} />
+          <Menu />
+          {isPartyPokemon && (
+            <>
+              <SectionTitle>Marking</SectionTitle>
+              <Marking />
+            </>
+          )}
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={pokemonName}
