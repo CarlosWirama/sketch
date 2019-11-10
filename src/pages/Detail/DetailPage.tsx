@@ -18,7 +18,6 @@ import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
-import Menu from '../../common/components/Menu';
 import Marking from '../../common/components/Marking';
 import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
@@ -140,7 +139,6 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          <Menu />
           {isPartyPokemon && (
             <>
               <SectionTitle>Marking</SectionTitle>
