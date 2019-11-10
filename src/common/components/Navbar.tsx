@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import {
   AppBar,
@@ -17,7 +16,12 @@ import {
 import { color } from '../theme';
 
 
-export default function Navbar({ left, children, right, onClickBack }) {
+export default function Navbar({ left, children, right, onClickBack }: {
+  left?: ReactNode;
+  children: ReactNode;
+  right?: ReactNode;
+  onClickBack: () => void;
+}) {
   const leftButton = left || (
     onClickBack ? <BackButton onClick={onClickBack} /> : null
   );
@@ -30,20 +34,15 @@ export default function Navbar({ left, children, right, onClickBack }) {
       <AppBarWithPokedex color="inherit">
         <StyledToolbar>
           {leftButton}
-          <FullWidth>{styledChildren}</FullWidth>
+          <FullWidth haveMarginLeft={!!left || !!onClickBack}>
+            {styledChildren}
+          </FullWidth>
           {right}
         </StyledToolbar>
       </AppBarWithPokedex>
     </NavbarContainer>
   );
 }
-
-Navbar.propTypes = {
-  left: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
-  children: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]).isRequired,
-  right: PropTypes.oneOfType([ PropTypes.string, PropTypes.node ]),
-  onClickBack: PropTypes.func,
-};
 
 const NavbarContainer = styled.div`
   && {
@@ -75,16 +74,28 @@ const StyledToolbar = styled(Toolbar)`
   font-size: 20px;
 `;
 
-const FullWidth = styled.div`
+const FullWidth = styled.div<{ haveMarginLeft: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
+  ${props => props.haveMarginLeft && 'margin-left: 24px;'}
 `;
 
-function BackButton(props) {
-  return(
-    <IconButton color="inherit" aria-label="Back" {...props} >
+const BackButtonContainer = styled(IconButton)`
+  left: 0;
+  && {
+    position: absolute;
+  }
+`;
+
+function BackButton(props: any) {
+  return (
+    <BackButtonContainer
+      color="inherit"
+      aria-label="Back"
+      {...props}
+    >
       <ArrowBack />
-    </IconButton>
+    </BackButtonContainer>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Types from '../../../common/components/Types';
-import { SectionTitle } from '../DetailPageLayout.styled';
+import { SectionTitle } from '../DetailPage.styled';
 import { EffectivenessCategory, Item } from './TypeEffectiveness.styled';
 
 export default function TypeEffectiveness({

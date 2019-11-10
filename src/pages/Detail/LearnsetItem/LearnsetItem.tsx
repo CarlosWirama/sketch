@@ -1,17 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { getMoveDescription } from '../../../api/getMoveDetail';
+import { Move as MoveType } from '../../../common/types/partyType';
+
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
-import { TypeBaloon } from '../../../common/components/Types/Types.styled';
+import { TypeBalloon } from '../../../common/components/Types/Types.styled';
 import MoveCategoryIcon from '../../../common/components/MoveCategoryIcon';
 import { default as LoadingIndicator }
   from '../../../common/components/PokeballLoadingIndicator';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 // import StabInfo from './StabInfo';
 import {
   Container,
   Move,
   Level,
+  Headline,
   Name,
+  IconButton,
   SubInfo,
   Collapse,
   ExpansionToggle,
@@ -22,31 +28,63 @@ import {
   DetailValues,
 } from './LearnsetItem.styled';
 
-export default function LearnsetItemLayout({
-  level,
-  moveName,
-  type,
-  category,
-  power,
-  accuracy,
-  pp,
-  stabIndicator,
-  description,
-  toggleExpanded,
-  isExpanded,
-}) {
+type Category = 'Physical' | 'Special' | 'Status';
+
+export default function LearnsetItemContainer({
+  list: [
+    level,
+    name,
+    type,
+    category,
+    power,
+    accuracy,
+    pp,
+    _,
+    stabIndicator,
+  ],
+  isEditingActive,
+  isMoveChoosen,
+  toggleChoosenMove,
+}: {
+  list: [string, string, string, Category, string, string, string, string, string];
+  isEditingActive: boolean;
+  isMoveChoosen: boolean;
+  toggleChoosenMove: (move: MoveType) => void;
+}): JSX.Element {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [description, setDescription] = useState('');
+
+  function toggleExpanded() {
+    if(!isExpanded) {
+      getMoveDescription(name).then(setDescription);
+    }
+    setIsExpanded(!isExpanded);
+  }
+
+  function onChooseMoveClick(event: any) {
+    event.stopPropagation();
+    toggleChoosenMove({ name, type });
+  }
+
   return (
-    <Container>
+    <Container className={name.replace(' ', '-')}>
       <Level>{level}</Level>
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
-        <Name>{moveName}</Name>
+        <Headline>
+          <Name>{name}</Name>
+          {isEditingActive && (
+            <IconButton onClick={onChooseMoveClick}>
+              {isMoveChoosen ? <StarIcon /> : <StarBorderIcon />}
+            </IconButton>
+          )}
+        </Headline>
         <SubInfo>
           <Types types={[type]} />
-          <TypeBaloon color={getCategoryColor(category)}>
+          <TypeBalloon color={getCategoryColor(category)}>
             <MoveCategoryIcon category={category} />
             {category}
             {category !== 'Status' && <span>:&nbsp;{encodeDash(power)}</span>}
-          </TypeBaloon>
+          </TypeBalloon>
         </SubInfo>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <Description>
@@ -76,25 +114,11 @@ export default function LearnsetItemLayout({
   );
 }
 
-LearnsetItemLayout.propTypes = {
-  level: PropTypes.string.isRequired,
-  moveName: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  power: PropTypes.string.isRequired,
-  accuracy: PropTypes.string.isRequired,
-  pp: PropTypes.string.isRequired,
-  stabIndicator: PropTypes.string,
-  description: PropTypes.string.isRequired,
-  toggleExpanded: PropTypes.func.isRequired,
-  isExpanded: PropTypes.bool.isRequired,
-};
-
-function encodeDash(string) {
+function encodeDash(string: string) {
   return string === '&mdash;' ? '-' : string;
 }
 
-function getCategoryColor(category) {
+function getCategoryColor(category: 'Physical' | 'Special' | 'Status') {
   switch (category) {
     case 'Physical': return '#ff4400';
     case 'Special': return '#2266cc';

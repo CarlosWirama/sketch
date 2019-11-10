@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Types from '../Types';
 import {
   Container,
@@ -7,7 +6,7 @@ import {
   PokemonSprite,
   Texts,
   Name,
-} from './PokemonInfo.styled.js';
+} from './PokemonInfo.styled';
 import { getAnimatedPokemonImage } from '../../../api/spriteApi';
 
 export default function PokemonInfo({
@@ -15,6 +14,11 @@ export default function PokemonInfo({
   types,
   titleColor,
   isAlolan,
+}: {
+  name: string;
+  types: [string] | [string, string];
+  titleColor?: string;
+  isAlolan?: boolean;
 }) {
   return (
     <Container>
@@ -30,12 +34,3 @@ export default function PokemonInfo({
     </Container>
   );
 }
-
-PokemonInfo.propTypes = {
-  name: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(
-    PropTypes.string.isRequired
-  ).isRequired,
-  titleColor: PropTypes.string,
-  isAlolan: PropTypes.bool,
-};
