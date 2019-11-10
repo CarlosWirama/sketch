@@ -141,7 +141,12 @@ export default function DetailPageContainer({
       {isLoading ? <LoadingIndicator/> : (
         <>
           <Menu />
-          {isPartyPokemon && <Marking />}
+          {isPartyPokemon && (
+            <>
+              <SectionTitle>Marking</SectionTitle>
+              <Marking />
+            </>
+          )}
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={pokemonName}
