@@ -1,13 +1,13 @@
 import { fetchAndParseWiki } from '../apiHelper';
 import getEvolutionaryLine from './getEvolutionaryLine';
 
-export default async function getPokemonDetail(name) {
+export default async function getPokemonDetail(name, generation) {
   const parsed = await fetchAndParseWiki({
     page: name,
   });
   const isAlolan = name.indexOf('Alolan_') !== -1;
   const evolutionaryLine = getEvolutionaryLine(parsed, isAlolan);
-  const { types, learnset } = getSummary(parsed, name, isAlolan);
+  const { types, learnset } = getSummary(parsed, name, isAlolan, generation);
   const typeEffectiveness = getTypeEffectiveness(parsed, isAlolan);
   return {
     types,
@@ -17,7 +17,7 @@ export default async function getPokemonDetail(name) {
   };
 }
 
-function getSummary(parsed, name, isAlolan) {
+function getSummary(parsed, name, isAlolan, generation) {
   let types = [];
   let learnsetSection = [];
   const summarySection = parsed.sections('').json().infoboxes[0];
@@ -40,7 +40,7 @@ function getSummary(parsed, name, isAlolan) {
   }
   // get learnset table
   const learnset = learnsetSection
-    .filter(i => i.template === 'learnlist/level7');
+    .filter(i => i.template.includes(`level${generation}`));
   return { types, learnset };
 }
 
