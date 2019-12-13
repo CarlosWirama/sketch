@@ -34,6 +34,7 @@ export default function DetailPageContainer({
   match: {
     params: {
       pokemon: string;
+      generation?: string;
     };
   };
   history: {
@@ -78,7 +79,8 @@ export default function DetailPageContainer({
 
   useEffect(() => {
     setIsLoading(true);
-    getPokemonDetail(name, 8)
+    const generation = (params.generation === 'gen_VII') ? 7 : 8;
+    getPokemonDetail(name, generation)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
       checkFavorite(name).then(setIsFavorite);

@@ -34,7 +34,7 @@ export default function SearchResultList({
         </Section>
       ) : (
         <>
-          {filteredList.length && favorite.length !== 0 && (
+          {/* {filteredList.length && favorite.length !== 0 && (
             <Section>
               Favorite
               {favorite.map((storedName, key) => (
@@ -45,8 +45,8 @@ export default function SearchResultList({
                 />
               ))}
             </Section>
-          )}
-          {filteredList.length && recentlyViewed.length !== 0 && (
+          )} */}
+          {/* {filteredList.length && recentlyViewed.length !== 0 && (
             <Section>
               Recenty Viewed
               {recentlyViewed.map((storedName, key) => (
@@ -58,7 +58,7 @@ export default function SearchResultList({
               ))}
               Pokédex
             </Section>
-          )}
+          )} */}
         </>
       )}
       <List>
