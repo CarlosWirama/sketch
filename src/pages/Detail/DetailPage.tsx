@@ -78,7 +78,7 @@ export default function DetailPageContainer({
 
   useEffect(() => {
     setIsLoading(true);
-    getPokemonDetail(name)
+    getPokemonDetail(name, 8)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
       checkFavorite(name).then(setIsFavorite);
