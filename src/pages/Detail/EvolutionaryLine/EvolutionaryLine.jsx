@@ -18,7 +18,7 @@ export default function EvolutionaryLine({ pokemonName, stages, onClickStage }) 
               color={getTypeColor(types[0])}
               color2={types[1] && getTypeColor(types[1])}
             >
-              <PixelImage pokemonName={name} isAlolan />
+              {/* <PixelImage pokemonName={name} isAlolan /> */}
               <div>{name === pokemonName ? <b>{name}</b> : name}</div>
               <div>{evolutionMethod}</div>
             </StageCard>
