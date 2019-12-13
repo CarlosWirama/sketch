@@ -15,7 +15,6 @@ import AddIcon from '@material-ui/icons/Add';
 // import { color } from '../../common/theme';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
-import Modal from '../../common/components/Modal';
 import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
@@ -24,6 +23,7 @@ import LearnsetItem from './LearnsetItem';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 import EditOverviewModal from './EditOverviewModal';
+import AddPartyModal from './AddPartyModal';
 import { SectionTitle } from './DetailPage.styled';
 
 import { Move } from '../../common/types/partyType';
@@ -76,7 +76,7 @@ export default function DetailPageContainer({
 
   // TODO: should be user-generated
   const givenName = name;
-  const isPartyPokemon: boolean = !!givenName // !== name; // TODO
+  const isPartyPokemon: boolean = givenName !== name;
 
   useEffect(() => {
     setIsLoading(true);
@@ -172,8 +172,9 @@ export default function DetailPageContainer({
           </div>
         </>
       )}
-      <Modal
+      <AddPartyModal
         isVisible={isModalVisible}
+        speciesName={name}
         onClose={() => setIsModalVisible(false)}
       />
     </LayoutContainer>
