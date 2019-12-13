@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 // import { color } from '../../common/theme';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
+import Modal from '../../common/components/Modal';
 import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
@@ -53,6 +54,7 @@ export default function DetailPageContainer({
     evolutionaryLine: [],
   });
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
   const [choosenMoves, setChoosenMoves] = useState<Move[]>([]);
   const name = params.pokemon;
@@ -101,6 +103,7 @@ export default function DetailPageContainer({
   }
 
   function setEditingOn() {
+    setIsModalVisible(true); // TODO
     setIsEditingActive(true);
   }
 
@@ -169,6 +172,10 @@ export default function DetailPageContainer({
           </div>
         </>
       )}
-      </LayoutContainer>
+      <Modal
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+      />
+    </LayoutContainer>
   );
 }
