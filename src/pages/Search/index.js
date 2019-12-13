@@ -21,7 +21,7 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    getPokemons()
+    getPokemons(this.props.match.params.generation)
       .then(r => this.setState({ pokemonList: r }))
       .catch(e => {
         if (e.message === 'Network request failed') {
