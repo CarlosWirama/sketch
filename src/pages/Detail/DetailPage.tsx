@@ -18,8 +18,10 @@ import Navbar from '../../common/components/Navbar';
 import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
-import Marking from '../../common/components/Marking';
+// import Marking from '../../common/components/Marking';
 import LearnsetItem from './LearnsetItem';
+import BaseStats from './BaseStats';
+import Abilities from './Abilities';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 import EditOverviewModal from './EditOverviewModal';
@@ -52,6 +54,8 @@ export default function DetailPageContainer({
       immune: [],
     },
     evolutionaryLine: [],
+    baseStats: { attack: 0, defense: 0, hp: 0, spatk: 0, spdef: 0, speed: 0 },
+    abilities: { nonHidden: [] },
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
@@ -75,7 +79,7 @@ export default function DetailPageContainer({
 
   // TODO: should be user-generated
   const givenName = name;
-  const isPartyPokemon: boolean = !!givenName // !== name; // TODO
+  // const isPartyPokemon = Boolean(givenName) // !== name; // TODO
 
   useEffect(() => {
     setIsLoading(true);
@@ -141,12 +145,14 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          {isPartyPokemon && (
+          {/* {isPartyPokemon && (
             <>
               <SectionTitle>Marking</SectionTitle>
               <Marking />
             </>
-          )}
+          )} */}
+          <BaseStats {...details.baseStats} />
+          <Abilities {...details.abilities} />
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={pokemonName}
