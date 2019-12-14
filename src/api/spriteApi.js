@@ -18,7 +18,7 @@ export function getAnimatedPokemonImage(pokemonName, isAlolan) {
 }
 
 export function getPixelImage(pokemonName, isAlolan) {
-  const index = pokedex.indexOf(pokemonName);
+  const index = kantoDex.indexOf(pokemonName);
   const WIDTH = 32;
   const HEIGHT = 32;
   const TOTAL_COLUMN = 25;
@@ -27,7 +27,7 @@ export function getPixelImage(pokemonName, isAlolan) {
   return `url(${pixelSprite}) ${x}px ${y}px`;
 }
 
-const pokedex = [
+const kantoDex = [
   "Bulbasaur",
   "Ivysaur",
   "Venusaur",
