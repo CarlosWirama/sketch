@@ -1,23 +1,43 @@
 import { pixelSprite } from '../common/constants/urls';
 
-export function getAnimatedPokemonImage(pokemonName, isAlolan) {
+export function getAnimatedPokemonImage(pokemonName: string, isAlolan?: boolean) {
   const baseUrl = 'https://projectpokemon.org/images';
-  let name = pokemonName.toLowerCase();
-  let spriteType = 'normal-sprite';
-  if (isAlolan) {
-    name += '-alola';
-  } else switch (name) {
-    case 'nidoran♂': name = 'nidoran_m'; break;
-    case 'nidoran♀': name = 'nidoran_f'; break;
-    case "farfetch'd": name = 'farfetchd'; break;
-    case 'mr. mime': name = 'mr._mime'; break;
-    case 'meltan':
-    case 'melmetal': spriteType = 'lgswitch-sprite';
-  }
-  return `${baseUrl}/${spriteType}/${name}.gif`;
+  const name = pokemonName.toLowerCase();
+  const spriteType = getSpriteType(name);
+  const fileName = getImageFileName(name, isAlolan ? 'Alolan' : '');
+  return `${baseUrl}/${spriteType}/${fileName}.gif`;
 }
 
-export function getPixelImage(pokemonName, isAlolan) {
+function getSpriteType(name: string, isShiny?: boolean) {
+  if (name === 'meltan' || name === 'melmetal')
+    return isShiny ? 'lgswitch-shiny' : 'lgswitch-sprite';
+  return isShiny ? 'shiny-sprite' : 'normal-sprite';
+}
+
+function getImageFileName(pokemonName: string, form: string) {
+  if (form === 'Alolan') {
+    pokemonName += '-alola';
+  } else if (form === 'Galarian') {
+    pokemonName += '-galar';
+  } else if (form === 'Low Key') {
+    return 'toxtricity-low-key';
+  }
+  switch (pokemonName) {
+    case 'nidoran♂': return 'nidoran_m';
+    case 'nidoran♀': return 'nidoran_f';
+    case "farfetch'd": return 'farfetchd';
+    case "sirfetch'd": return 'sirfetch%E2%80%99d';
+    case 'mime jr.': return 'mime_jr';
+    case 'mr. mime': return 'mr.mime';
+    case 'mr. mime-galar': return 'mr.-mime-galar';
+    case 'mr. rime': return 'mr.rime';
+    case 'type: null': return 'typenull';
+    case 'darmanitan': return 'darmanitan-zen-galar';
+    default: return pokemonName;
+  }
+}
+
+export function getPixelImage(pokemonName: string, isAlolan: boolean) {
   const index = kantoDex.indexOf(pokemonName);
   const WIDTH = 32;
   const HEIGHT = 32;
