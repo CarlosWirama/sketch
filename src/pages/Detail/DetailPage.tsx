@@ -28,6 +28,7 @@ import EditOverviewModal from './EditOverviewModal';
 import { SectionTitle } from './DetailPage.styled';
 
 import { Move } from '../../common/types/partyType';
+import { Type } from '../../common/components/Types';
 
 export default function DetailPageContainer({
   match: { params },
@@ -45,7 +46,7 @@ export default function DetailPageContainer({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
-    types: ['???'] as [string] | [string, string],
+    types: ['???'] as [Type] | [Type, Type],
     learnset: [],
     typeEffectiveness: {
       normal: [],
