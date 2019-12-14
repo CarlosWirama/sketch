@@ -1,14 +1,14 @@
 {
-  "main.css": "/pokeplanner/static/css/main.f613843d.chunk.css",
-  "main.js": "/pokeplanner/static/js/main.875582fc.chunk.js",
-  "main.js.map": "/pokeplanner/static/js/main.875582fc.chunk.js.map",
-  "runtime~main.js": "/pokeplanner/static/js/runtime~main.1b3e0fdf.js",
-  "runtime~main.js.map": "/pokeplanner/static/js/runtime~main.1b3e0fdf.js.map",
-  "static/js/2.b07ed0a3.chunk.js": "/pokeplanner/static/js/2.b07ed0a3.chunk.js",
-  "static/js/2.b07ed0a3.chunk.js.map": "/pokeplanner/static/js/2.b07ed0a3.chunk.js.map",
-  "index.html": "/pokeplanner/index.html",
-  "precache-manifest.e8c85a4d02f73d148dff3a4b35bc7226.js": "/pokeplanner/precache-manifest.e8c85a4d02f73d148dff3a4b35bc7226.js",
-  "service-worker.js": "/pokeplanner/service-worker.js",
-  "static/css/main.f613843d.chunk.css.map": "/pokeplanner/static/css/main.f613843d.chunk.css.map",
-  "static/media/index.css": "/pokeplanner/static/media/RobotoMono-Regular.a3649815.ttf"
+  "main.css": "/static/css/main.79dbce45.chunk.css",
+  "main.js": "/static/js/main.cca079b8.chunk.js",
+  "main.js.map": "/static/js/main.cca079b8.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+  "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+  "static/js/2.f9288261.chunk.js": "/static/js/2.f9288261.chunk.js",
+  "static/js/2.f9288261.chunk.js.map": "/static/js/2.f9288261.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.99006c3e6af1bf76edeec0396524be55.js": "/precache-manifest.99006c3e6af1bf76edeec0396524be55.js",
+  "service-worker.js": "/service-worker.js",
+  "static/css/main.79dbce45.chunk.css.map": "/static/css/main.79dbce45.chunk.css.map",
+  "static/media/index.css": "/static/media/RobotoMono-Regular.a3649815.ttf"
 }
