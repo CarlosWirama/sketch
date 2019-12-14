@@ -33,13 +33,13 @@ export default class SearchPage extends Component {
     getRecentlyViewed().then(r => this.setState({ recentlyViewed: r }));
   }
 
-  onClickItem(name, isAlolan) {
-    const pokemonName = addAlolanPrefix(name, isAlolan);
+  onClickItem(name, form) {
+    const pokemonName = addFormPrefix(name, form);
     this.props.history.push(`/pokemon/${pokemonName}`);
   }
 
   getResultItemName(resultItem) {
-    return addAlolanPrefix(resultItem.name, resultItem.isAlolan);
+    return addFormPrefix(resultItem.name, resultItem.form);
   }
 
   render() {
@@ -77,6 +77,6 @@ export default class SearchPage extends Component {
   }
 }
 
-function addAlolanPrefix(name, isAlolan) {
-  return isAlolan ? `Alolan_${name}` : name;
+function addFormPrefix(name, form) {
+  return form ? `${form}_${name}` : name;
 }

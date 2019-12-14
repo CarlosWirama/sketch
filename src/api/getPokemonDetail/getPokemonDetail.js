@@ -1,28 +1,27 @@
 import { fetchAndParseWiki } from '../apiHelper';
 import getEvolutionaryLine from './getEvolutionaryLine';
+import Form from '../../common/constants/Form';
 
-export default async function getPokemonDetail(name, generation) {
+export default async function getPokemonDetail(speciesName, generation, form) {
   const parsed = await fetchAndParseWiki({
-    page: name,
+    page: speciesName,
   });
-  const isAlolan = name.indexOf('Alolan_') !== -1;
-  const form = isAlolan ? 'Alolan' : null;
-  const evolutionaryLine = getEvolutionaryLine(parsed, isAlolan);
-  const { types, abilities } = getSummary(parsed, isAlolan, generation);
-  const typeEffectiveness = getTypeEffectiveness(parsed, form);
+  const evolutionaryLine = getEvolutionaryLine(parsed, form);
+  const { types, abilities } = getSummary(parsed, form);
   const baseStats = getBaseStats(parsed, form);
-  const learnset = getLearnset(parsed, name, isAlolan, generation);
+  const typeEffectiveness = getTypeEffectiveness(parsed, form);
+  const learnset = getLearnset(parsed, speciesName, form, generation);
   return {
     types,
     learnset,
+    baseStats,
     typeEffectiveness,
     evolutionaryLine,
-    baseStats,
     abilities,
   };
 }
 
-function getSummary(parsed, isAlolan, generation) {
+function getSummary(parsed, form) {
   const summarySection = parsed.sections('').json().infoboxes[0];
   const {
     type1, type2,
@@ -32,7 +31,7 @@ function getSummary(parsed, isAlolan, generation) {
     egggroup1,
     ndex,
   } = summarySection;
-  const types = (isAlolan)
+  const types = (form === Form.Galarian) // TODO
     ? pluckText([form2type1, form2type2])
     : pluckText([type1, type2]);
   const abilities = {
@@ -46,7 +45,7 @@ const pluckText = array => cleanArray(array).map(e => e.text);
 const cleanArray = array => array.filter(e => e);
 
 function getTypeEffectiveness(parsed, form) {
-  const sectionData = getMultiformPokemonSectionData('Type effectiveness', parsed, form);
+  const sectionData = getSectionDataFromSubSections('Type effectiveness', parsed, form);
   const effectiveness = {
     weak: [],
     resistant: [],
@@ -67,7 +66,7 @@ function getTypeEffectiveness(parsed, form) {
   return effectiveness;
 }
 
-function getMultiformPokemonSectionData(section, parsed, form = 'Galar') {
+function getSectionDataFromSubSections(section, parsed, form) {
   let { templates } = parsed.sections(section).json();
   let nextSectionIndex = parsed.sections(section).index();
   while (!templates) {
@@ -81,8 +80,8 @@ function getMultiformPokemonSectionData(section, parsed, form = 'Galar') {
 }
 
 function getBaseStats(parsed, form) {
-  const baseStatsSection = getMultiformPokemonSectionData(
-    'Base stats', parsed, form
+  const baseStatsSection = getSectionDataFromSubSections(
+    'Base Stats', parsed, form
   );
   const { attack, defense, hp, spatk, spdef, speed } = baseStatsSection;
   return {
@@ -95,16 +94,11 @@ function getBaseStats(parsed, form) {
   };
 }
 
-function getLearnset(parsed, name, isAlolan, generation) {
-  let learnsetSection;
-  if (isAlolan) {
-    name = name.replace('_',' '); // for alolans
-    learnsetSection = parsed.sections(`=${name}`).json().templates;
-  } else {
-    learnsetSection = parsed.sections('By leveling up').json().templates;
-    if (!learnsetSection) {
-      learnsetSection = parsed.sections(`=${name}`).json().templates;
-    }
+function getLearnset(parsed, speciesName, form, generation) {
+  let learnsetSection = parsed.sections('By leveling up').json().templates;
+  if (!learnsetSection) {
+    const formName = form ? `${form} ${speciesName}` : speciesName;
+    learnsetSection = parsed.sections(formName).json().templates;
   }
   // get learnset table
   return learnsetSection

@@ -1,3 +1,3 @@
 export { default } from './Types';
 export { default as getTypeColor } from './pokemonTypeColor';
-export { Type } from './typeType';
+export { default as Type } from './Type';

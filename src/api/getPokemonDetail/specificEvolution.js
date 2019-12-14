@@ -26,13 +26,13 @@ export default {
       name: 'Meowth',
       types: ['dark'],
       evolutionMethod: '',
-      isAlolan: true,
+      form: 'Alolan',
     },
     {
       name: 'Persian',
       types: ['dark'],
       evolutionMethod: 'Level 28',
-      isAlolan: true,
+      form: 'Alolan',
     },
   ],
 }

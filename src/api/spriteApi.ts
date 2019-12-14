@@ -1,10 +1,11 @@
 import { pixelSprite } from '../common/constants/urls';
+import Form from '../common/constants/Form';
 
-export function getAnimatedPokemonImage(pokemonName: string, isAlolan?: boolean) {
+export function getAnimatedPokemonImage(pokemonName: string, form: Form) {
   const baseUrl = 'https://projectpokemon.org/images';
   const name = pokemonName.toLowerCase();
   const spriteType = getSpriteType(name);
-  const fileName = getImageFileName(name, isAlolan ? 'Alolan' : '');
+  const fileName = getImageFileName(name, form);
   return `${baseUrl}/${spriteType}/${fileName}.gif`;
 }
 
@@ -14,30 +15,66 @@ function getSpriteType(name: string, isShiny?: boolean) {
   return isShiny ? 'shiny-sprite' : 'normal-sprite';
 }
 
-function getImageFileName(pokemonName: string, form: string) {
-  if (form === 'Alolan') {
-    pokemonName += '-alola';
-  } else if (form === 'Galarian') {
-    pokemonName += '-galar';
-  } else if (form === 'Low Key') {
-    return 'toxtricity-low-key';
-  }
+function getImageFileName(pokemonName: string, form: Form) {
   switch (pokemonName) {
     case 'nidoran♂': return 'nidoran_m';
     case 'nidoran♀': return 'nidoran_f';
-    case "farfetch'd": return 'farfetchd';
+    case "farfetch'd": return form ? 'farfetchd-galar' : 'farfetchd';
     case "sirfetch'd": return 'sirfetch%E2%80%99d';
     case 'mime jr.': return 'mime_jr';
-    case 'mr. mime': return 'mr.mime';
-    case 'mr. mime-galar': return 'mr.-mime-galar';
+    case 'mr. mime': return form ? 'mr.-mime-galar' : 'mr.mime';
     case 'mr. rime': return 'mr.rime';
     case 'type: null': return 'typenull';
-    case 'darmanitan': return 'darmanitan-zen-galar';
-    default: return pokemonName;
+    case 'rotom': return form
+      ? `rotom-${form.split(' ')[0].toLowerCase()}`
+      : 'rotom';
+    default: break;
   }
+  if (form) {
+    switch (form) {
+      case Form.Alolan: return pokemonName += '-alola';
+      case Form.Galarian: return pokemonName += '-galar';
+      case Form.LowKey: return 'toxtricity-low-key';
+      case Form.Female: return pokemonName += '-f';
+      case Form.East: return pokemonName += '-east';
+      case Form.GalarianZenMode: return 'darmanitan-zen-galar';
+      case Form.Crowned: return pokemonName === 'zacian'
+        ? 'zacian-crowned-sword'
+        : 'zamazenta-crowned-shield';
+      default: break;
+    }
+  }
+  return pokemonName;
+  /* TODO handle pokemon with dual form:
+    - toxtricity-low-key
+    - indeedee-f
+    - meowth
+    - mr.mime
+    - rotom
+    - keldeo
+    - necrozma
+    - zacian - zamazenta
+    - kyuurem
+    - meowstic
+    
+    stat / ability / type / learnset changes:
+    - aegislash
+    - silvally
+    - wishiwashi
+    - basculin
+    - eiscue
+    - pumpkaboo / gourgeist
+    - morpeko
+    
+    no changes on stat / type / ability / learnset
+    - cramorant
+    - sinistea / polteageist
+    - alcremie
+    - marshadow
+  */
 }
 
-export function getPixelImage(pokemonName: string, isAlolan: boolean) {
+export function getPixelImage(pokemonName: string) {
   const index = kantoDex.indexOf(pokemonName);
   const WIDTH = 32;
   const HEIGHT = 32;

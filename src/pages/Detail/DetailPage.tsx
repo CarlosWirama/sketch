@@ -29,6 +29,7 @@ import { SectionTitle } from './DetailPage.styled';
 
 import { Move } from '../../common/types/partyType';
 import { Type } from '../../common/components/Types';
+import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 
 export default function DetailPageContainer({
   match: { params },
@@ -46,7 +47,7 @@ export default function DetailPageContainer({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
-    types: ['???'] as [Type] | [Type, Type],
+    types: [Type['???']] as [Type] | [Type, Type],
     learnset: [],
     typeEffectiveness: {
       normal: [],
@@ -71,12 +72,7 @@ export default function DetailPageContainer({
     }
     setChoosenMoves(newChoosenMoves.slice(0, 4)); // get the latest 4;
   }
-
-  const alolanSeparatorIndex = name.indexOf('_');
-  let nameForAlolan = '';
-  if (alolanSeparatorIndex !== -1) {
-    nameForAlolan = name.substr(alolanSeparatorIndex + 1);
-  }
+  const { speciesName, form } = getSpeciesNameAndForm(name);
 
   // TODO: should be user-generated
   const givenName = name;
@@ -85,10 +81,10 @@ export default function DetailPageContainer({
   useEffect(() => {
     setIsLoading(true);
     const generation = (params.generation === 'gen_VII') ? 7 : 8;
-    getPokemonDetail(name, generation)
+    getPokemonDetail(speciesName, generation, form)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
-      checkFavorite(name).then(setIsFavorite);
+    checkFavorite(name).then(setIsFavorite);
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
   }, [ params ]);
@@ -132,15 +128,13 @@ export default function DetailPageContainer({
     </IconButton>
   );
 
-  const pokemonName = nameForAlolan || name;
-
   return (
     <LayoutContainer>
       <Navbar onClickBack={onClickBack} right={RightButton}>
         <PokemonInfo
-          name={pokemonName}
+          name={speciesName}
           types={details.types}
-          isAlolan={nameForAlolan !== ''}
+          form={form}
         />
         {isEditingActive && <EditOverviewModal choosenMoves={choosenMoves} />}
       </Navbar>
@@ -156,7 +150,7 @@ export default function DetailPageContainer({
           <Abilities {...details.abilities} />
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
-            pokemonName={pokemonName}
+            pokemonName={speciesName}
             stages={details.evolutionaryLine}
             onClickStage={onClickEvolutionStage}
           />
