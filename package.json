@@ -2,7 +2,7 @@
   "name": "pokeplanner",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://carloswirama.github.io/pokeplanner",
+  "homepage": "https://carloswirama.github.io",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
@@ -25,7 +25,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy-prod": "npm run build && firebase deploy"
+    "deploy-prod": "npm run build && firebase deploy",
+    "deploy-all": "npm run deploy && firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
