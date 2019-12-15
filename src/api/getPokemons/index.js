@@ -3,6 +3,8 @@ import Form from '../../common/constants/Form';
 const KANTO_POKEMON_LIST_PAGE = 'List_of_Pokémon_by_Kanto_Pokédex_number';
 const GALAR_POKEMON_LIST_PAGE = 'List_of_Pokémon_by_Galar_Pokédex_number';
 
+const EXCLUDED = 'excluded';
+
 export default async function getPokemons(generation) {
   const isGenVII = generation === 'gen_VII';
   const wikitextResult = await fetchAndParseWiki({
@@ -24,6 +26,7 @@ export default async function getPokemons(generation) {
         types,
         form: encodeForm(nDex),
       }))
+      .filter(i => i.form !== EXCLUDED) // exclude double entried form
     ).flat();
   return unsortedList.sort(function (a, b) {
     // make foreign pokemon to be sorted by localDex no.
@@ -34,8 +37,7 @@ export default async function getPokemons(generation) {
 
 function encodeForm(nationalDex) {
   const formInitial = nationalDex.slice(3);
-  // check for rotom
-  if (nationalDex.includes('479')) {
+  if (nationalDex.includes('479')) { // Rotom
     switch (formInitial) {
       case 'O': return Form.HeatRotom;
       case 'W': return Form.WashRotom;
@@ -54,14 +56,11 @@ function encodeForm(nationalDex) {
     case 'E': return Form.East;
     case 'C': return Form.Crowned;
     case 'W': return Form.White;
-    // not to be confused with Basculin Blue form
-    case 'B': return Form.Black;
+    // exclude Basculin Blue form, otherwise it's the Black Kyurem
+    case 'B': return (nationalDex === '550B') ? EXCLUDED : Form.Black;
     case 'DW': return Form.DawnWings;
     case 'DM': return Form.DuskMane;
+    case 'R': return EXCLUDED; // 647R Keldeo
     default: return Form.default;
-    /**
-     * 550B Basculin
-     * 647R Keldeo
-     */
   }
 }
