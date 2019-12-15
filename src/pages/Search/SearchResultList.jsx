@@ -8,19 +8,19 @@ export default function SearchResultList({
   filteredList,
   searchText,
   onClickItem,
-  favorite,
-  recentlyViewed,
+  // favorite,
+  // recentlyViewed,
 }) {
-  function findPokemonByName(name) {
-    return filteredList.find(e => {
-      if (name.includes('alolan')) {
-        const realName = name
-          .slice(name.indexOf('_') + 1);
-        return e.isAlolan === true && e.name.toLowerCase() === realName;
-      }
-      return e.name.toLowerCase() === name;
-    });
-  }
+  // function findPokemonByName(name) {
+  //   return filteredList.find(e => {
+  //     if (name.includes('alolan')) {
+  //       const realName = name
+  //         .slice(name.indexOf('_') + 1);
+  //       return e.isAlolan === true && e.name.toLowerCase() === realName;
+  //     }
+  //     return e.name.toLowerCase() === name;
+  //   });
+  // }
 
   return (
     <>

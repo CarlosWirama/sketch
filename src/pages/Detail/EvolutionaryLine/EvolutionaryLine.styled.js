@@ -10,7 +10,7 @@ export const SectionContent = styled.div`
 export const PixelImage = styled.div`
   width: 32px;
   height: 32px;
-  background: ${props => getPixelImage(props.pokemonName, props.isAlolan)};
+  background: ${props => getPixelImage(props.pokemonName)};
 `;
 
 export const StageCard = styled(Card)`

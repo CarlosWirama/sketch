@@ -4,15 +4,15 @@ import PokemonInfo from '../../common/components/PokemonInfo';
 import { ResultItem } from './SearchResultItem.styled';
 
 export default function SearchResultItem({
-  listItem: { name, types, isAlolan },
+  listItem: { name, types, form },
   onClick,
 }) {
   return (
-    <ResultItem onClick={() => onClick(name, isAlolan)}>
+    <ResultItem onClick={() => onClick(name, form)}>
       <PokemonInfo
         name={name}
         types={types}
-        isAlolan={isAlolan}
+        form={form}
         titleColor="white"
       />
     </ResultItem>
@@ -25,7 +25,7 @@ SearchResultItem.propTypes = {
     types: PropTypes.arrayOf(
       PropTypes.string.isRequired
     ).isRequired,
-    isAlolan: PropTypes.bool,
+    form: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func,
 };

@@ -1,4 +1,4 @@
-export enum Type {
+enum Type {
   normal = 'normal',
   fire = 'fire',
   fighting = 'fighting',
@@ -19,3 +19,5 @@ export enum Type {
   fairy = 'fairy',
   '???' = '???'
 }
+
+export default Type;

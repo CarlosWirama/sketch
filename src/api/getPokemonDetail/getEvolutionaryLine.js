@@ -1,9 +1,9 @@
 import specificEvolution from './specificEvolution';
 
 // TODO: eevee, alolan, secondary evolution, item-holding trade, babies
-export default function getEvolutionaryLine(parsed, isAlolan) {
+export default function getEvolutionaryLine(parsed, form) {
   const GENERATION_I = 1;
-
+  const isAlolan = form === 'Alolan';
   // evolution data structure will be vary from here
   // e.g. Squirtle will be different from Eevee, Gloom, Slowking etc.
   let evolutionData = parsed.sections('Evolution').json().templates;
