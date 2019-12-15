@@ -22,7 +22,7 @@ export default async function getPokemons(generation) {
         localDex,
         name,
         types,
-        form: encodeForm(nDex, name),
+        form: encodeForm(nDex),
       }))
     ).flat();
   return unsortedList.sort(function (a, b) {
@@ -32,7 +32,7 @@ export default async function getPokemons(generation) {
   })
 }
 
-function encodeForm(nationalDex, name) {
+function encodeForm(nationalDex) {
   const formInitial = nationalDex.slice(3);
   // check for rotom
   if (nationalDex.includes('479')) {
@@ -53,14 +53,15 @@ function encodeForm(nationalDex, name) {
     case 'L': return Form.LowKey;
     case 'E': return Form.East;
     case 'C': return Form.Crowned;
+    case 'W': return Form.White;
+    // not to be confused with Basculin Blue form
+    case 'B': return Form.Black;
+    case 'DW': return Form.DawnWings;
+    case 'DM': return Form.DuskMane;
     default: return Form.default;
     /**
      * 550B Basculin
-     * 646B Kyurem
-     * 646W Kyurem
      * 647R Keldeo
-     * 800DM Necrozma
-     * 800DW Necrozma
      */
   }
 }

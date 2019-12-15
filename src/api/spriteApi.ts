@@ -41,37 +41,14 @@ function getImageFileName(pokemonName: string, form: Form) {
       case Form.Crowned: return pokemonName === 'zacian'
         ? 'zacian-crowned-sword'
         : 'zamazenta-crowned-shield';
+      case Form.White: return 'kyurem-white';
+      case Form.Black: return 'kyurem-black';
+      case Form.DawnWings: return 'necrozma-dawn-wings';
+      case Form.DuskMane: return 'necrozma-dusk-mane';
       default: break;
     }
   }
   return pokemonName;
-  /* TODO handle pokemon with dual form:
-    - toxtricity-low-key
-    - indeedee-f
-    - meowth
-    - mr.mime
-    - rotom
-    - keldeo
-    - necrozma
-    - zacian - zamazenta
-    - kyuurem
-    - meowstic
-    
-    stat / ability / type / learnset changes:
-    - aegislash
-    - silvally
-    - wishiwashi
-    - basculin
-    - eiscue
-    - pumpkaboo / gourgeist
-    - morpeko
-    
-    no changes on stat / type / ability / learnset
-    - cramorant
-    - sinistea / polteageist
-    - alcremie
-    - marshadow
-  */
 }
 
 export function getPixelImage(pokemonName: string) {
