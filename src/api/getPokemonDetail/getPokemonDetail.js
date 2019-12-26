@@ -7,7 +7,7 @@ export default async function getPokemonDetail(speciesName, generation, form) {
     page: speciesName,
   });
   const evolutionaryLine = getEvolutionaryLine(parsed, form);
-  const { types, abilities } = getSummary(parsed, form);
+  const { types, abilities, genderRatio, eggGroups } = getSummary(parsed, form);
   const baseStats = getBaseStats(parsed, form);
   const typeEffectiveness = getTypeEffectiveness(parsed, form);
   const learnset = getLearnset(parsed, speciesName, form, generation);
@@ -18,6 +18,8 @@ export default async function getPokemonDetail(speciesName, generation, form) {
     typeEffectiveness,
     evolutionaryLine,
     abilities,
+    genderRatio,
+    eggGroups,
   };
 }
 
@@ -28,7 +30,7 @@ function getSummary(parsed, form) {
     form2type1, form2type2,
     lv100exp,
     ability1, ability2, abilityd,
-    egggroup1,
+    gendercode, egggroup1, egggroup2,
     ndex,
   } = summarySection;
   const types = (form === Form.Galarian) // TODO
@@ -38,7 +40,9 @@ function getSummary(parsed, form) {
     nonHidden: pluckText([ability1, ability2]),
     hidden: (abilityd || {}).text,
   };
-  return { types, abilities };
+  const eggGroups = pluckText([egggroup1, egggroup2]);
+  const genderRatio = (254 - gendercode.number) / 254;
+  return { types, abilities, genderRatio, eggGroups };
 }
 
 const pluckText = array => cleanArray(array).map(e => e.text);
