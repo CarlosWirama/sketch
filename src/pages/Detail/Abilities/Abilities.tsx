@@ -26,7 +26,7 @@ export default function Abilities({ nonHidden, hidden }: AbilitiesProps) {
         const description = (abilityName === hidden)
           ? `(Hidden Ability) ${result}` : result;
         setDescription(description);
-      });
+      }).catch(e => setDescription(`Error: ${e.message}`));
     }
   }
 

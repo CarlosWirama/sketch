@@ -8,16 +8,20 @@ export default async function getAbilityDetail(abilityName: string) {
 
 export async function getAbilityDescription(abilityName: string) {
   const parsed = await getAbilityDetail(abilityName);
-  let abilitySummary = parsed
-    .sections('').templates(0) as SummaryTemplate;
-  if (abilitySummary.template !== 'abilityinfobox') {
-    abilitySummary = parsed
-    .sections('').templates(1) as SummaryTemplate;
-  }
-  const description = abilitySummary.text8
+  const infoboxSection = parsed.sections('');
+  let abilitySummary: SummaryTemplate;
+  let templateIndex = 0;
+
+  // search for abilityinfobox temmplate
+  do {
+    abilitySummary = infoboxSection.templates(templateIndex++) as SummaryTemplate;
+  } while (abilitySummary.template !== 'abilityinfobox');
+  abilitySummary = infoboxSection.templates(1) as SummaryTemplate;
+  const GENERATION: number = 8;
+  const description = abilitySummary[`text${GENERATION}` as keyof SummaryTemplate];
   if (description) return description;
   console.error('failed to fetch ability description');
-  console.error(parsed.sections());
+  console.error(infoboxSection.templates());
   throw new Error('failed to fetch ability description');
 }
 
@@ -28,7 +32,7 @@ interface SummaryTemplate {
   jptrans: string;
   jptranslit: string;
   name: string;
-  template: string;
+  template: 'abilityinfobox';
   text1?: string;
   text2?: string;
   text3?: string;
