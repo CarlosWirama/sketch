@@ -16,9 +16,10 @@ export async function getAbilityDescription(abilityName: string) {
   do {
     abilitySummary = infoboxSection.templates(templateIndex++) as SummaryTemplate;
   } while (abilitySummary.template !== 'abilityinfobox');
-  abilitySummary = infoboxSection.templates(1) as SummaryTemplate;
+
   const GENERATION: number = 8;
-  const description = abilitySummary[`text${GENERATION}` as keyof SummaryTemplate];
+  const descriptionAttribute = `text${GENERATION}` as keyof SummaryTemplate;
+  const description = abilitySummary[descriptionAttribute];
   if (description) return description;
   console.error('failed to fetch ability description');
   console.error(infoboxSection.templates());
