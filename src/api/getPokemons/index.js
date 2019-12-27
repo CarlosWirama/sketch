@@ -46,6 +46,8 @@ function encodeForm(nationalDex) {
       case 'L': return Form.MowRotom;
       default:
     }
+  } else if (nationalDex.includes('025')) { // Pikachu
+    return formInitial ? EXCLUDED : Form.default;
   }
   switch (formInitial) {
     case 'A': return Form.Alolan;
