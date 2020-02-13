@@ -1,4 +1,4 @@
-import { pixelSprite } from '../common/constants/urls';
+import { pixelUrl } from '../common/constants/urls';
 import Form from '../common/constants/Form';
 
 export function getAnimatedPokemonImage(pokemonName: string, form: Form) {
@@ -51,15 +51,23 @@ function getImageFileName(pokemonName: string, form: Form) {
   return pokemonName;
 }
 
-export function getPixelImage(pokemonName: string) {
-  const index = kantoDex.indexOf(pokemonName);
-  const WIDTH = 32;
-  const HEIGHT = 32;
-  const TOTAL_COLUMN = 25;
-  const x = -1 * (index % TOTAL_COLUMN) * WIDTH;
-  const y = -1 * Math.floor(index / TOTAL_COLUMN) * HEIGHT - 4;
-  return `url(${pixelSprite}) ${x}px ${y}px`;
+export function getPixelImage(nDex: string, form: Form) {
+  const formSuffix = form ? `-${form[0].toLowerCase()}` : '';
+  const fileName = `${nDex}${formSuffix}`;
+  return `${pixelUrl}/${fileName}.png`;
+  // e.g. https://www.serebii.net/pokedex-swsh/icon/026-a.png
 }
+
+// // DEPRECATED
+// function getKantoPixelImage(pokemonName: string) {
+//   const index = kantoDex.indexOf(pokemonName);
+//   const WIDTH = 32;
+//   const HEIGHT = 32;
+//   const TOTAL_COLUMN = 25;
+//   const x = -1 * (index % TOTAL_COLUMN) * WIDTH;
+//   const y = -1 * Math.floor(index / TOTAL_COLUMN) * HEIGHT - 4;
+//   return `url(${pixelSprite}) ${x}px ${y}px`;
+// }
 
 const kantoDex = [
   "Bulbasaur",

@@ -22,13 +22,15 @@ from '../../common/components/PokeballLoadingIndicator';
 import LearnsetItem from './LearnsetItem';
 import BaseStats from './BaseStats';
 import Abilities from './Abilities';
+import BreedingInfo from './BreedingInfo';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 import EditOverviewModal from './EditOverviewModal';
 import { SectionTitle } from './DetailPage.styled';
 
 import { Move } from '../../common/types/partyType';
-import { Type } from '../../common/components/Types';
+import Type from '../../common/constants/Type';
+
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 
 export default function DetailPageContainer({
@@ -50,14 +52,17 @@ export default function DetailPageContainer({
     types: [Type['???']] as [Type] | [Type, Type],
     learnset: [],
     typeEffectiveness: {
-      normal: [],
-      weak: [],
-      resistant: [],
       immune: [],
+      doubleResistant: [],
+      resistant: [],
+      weak: [],
+      doubleWeak: [],
     },
     evolutionaryLine: [],
     baseStats: { attack: 0, defense: 0, hp: 0, spatk: 0, spdef: 0, speed: 0 },
     abilities: { nonHidden: [] },
+    genderRatio: 0,
+    eggGroups: [],
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
@@ -140,14 +145,12 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          {/* {isPartyPokemon && (
-            <>
-              <SectionTitle>Marking</SectionTitle>
-              <Marking />
-            </>
-          )} */}
           <BaseStats {...details.baseStats} />
           <Abilities {...details.abilities} />
+          <BreedingInfo
+            genderRatio={details.genderRatio}
+            eggGroups={details.eggGroups}
+          />
           <TypeEffectiveness {...details.typeEffectiveness} />
           <EvolutionaryLine
             pokemonName={speciesName}

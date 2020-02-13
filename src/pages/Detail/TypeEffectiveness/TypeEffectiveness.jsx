@@ -5,10 +5,11 @@ import { SectionTitle } from '../DetailPage.styled';
 import { EffectivenessCategory, Item } from './TypeEffectiveness.styled';
 
 export default function TypeEffectiveness({
-  normal,
-  weak,
-  resistant,
   immune,
+  doubleResistant,
+  resistant,
+  weak,
+  doubleWeak,
 }) {
   return (
     <>
@@ -16,6 +17,7 @@ export default function TypeEffectiveness({
         <div>
           <SectionTitle>Weak to</SectionTitle>
           <EffectivenessCategory>
+            {doubleWeak.map(formatEffectiveness)}
             {weak.map(formatEffectiveness)}
           </EffectivenessCategory>
         </div>
@@ -24,6 +26,7 @@ export default function TypeEffectiveness({
         <div>
           <SectionTitle>Resistant to</SectionTitle>
           <EffectivenessCategory>
+            {doubleResistant.map(formatEffectiveness)}
             {resistant.map(formatEffectiveness)}
           </EffectivenessCategory>
         </div>
@@ -51,16 +54,14 @@ const effectivenessPropType = PropTypes.arrayOf(
 
 TypeEffectiveness.propTypes = {
   weak: effectivenessPropType,
-  normal: effectivenessPropType,
   resistant: effectivenessPropType,
   immune: effectivenessPropType,
 };
 
-function formatEffectiveness([type, multiplier], key) {
+function formatEffectiveness(type, key) {
   return (
     <Item key={key}>
       <Types types={[type]} />
-      {/* ({multiplier}x) */}
     </Item>
   );
 }
