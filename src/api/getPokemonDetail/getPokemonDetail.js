@@ -2,6 +2,7 @@ import { fetchAndParseWiki } from '../apiHelper';
 import getEvolutionaryLine from './getEvolutionaryLine';
 import Form from '../../common/constants/Form';
 import { getSection } from '../sectionHelper';
+import getTypeEffectiveness from './getTypeEffectiveness';
 
 export default async function getPokemonDetail(speciesName, generation, form) {
   const parsed = await fetchAndParseWiki({
@@ -47,28 +48,6 @@ function getSummary(parsed, form) {
 
 const pluckText = array => cleanArray(array).map(e => e.text);
 const cleanArray = array => array.filter(e => e);
-
-function getTypeEffectiveness(parsed, form) {
-  const sectionData = getSection(parsed, 'Type effectiveness', form);
-  const effectiveness = {
-    weak: [],
-    resistant: [],
-    immune: [],
-    normal: [],
-  };
-  Object.keys(sectionData).forEach(key => {
-    const value = sectionData[key];
-    if (isNaN(value) || (value < 25 && value !== '0')) return;
-    const multiplier = value / 100;
-    let effectivenessResult;
-    if (multiplier === 1) effectivenessResult = 'normal';
-    else if (multiplier === 0) effectivenessResult = 'immune';
-    else if (multiplier > 1) effectivenessResult = 'weak';
-    else if (multiplier < 1) effectivenessResult = 'resistant';
-    effectiveness[effectivenessResult].push([key, multiplier]);
-  });
-  return effectiveness;
-}
 
 function getBaseStats(parsed, form) {
   const baseStatsSection = getSection(
