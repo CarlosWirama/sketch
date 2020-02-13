@@ -1,4 +1,4 @@
-import { Type } from "../../common/components/Types";
+import Type from '../../common/constants/Type';
 
 export default {
   'Eevee_GEN_I': [

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Type } from '../../../common/components/Types';
+import Type from '../../../common/constants/Type';
 
 export type EvolutionSection = Array<EvoMethodTemplate | EvoboxTemplate>;
 /** example: [
