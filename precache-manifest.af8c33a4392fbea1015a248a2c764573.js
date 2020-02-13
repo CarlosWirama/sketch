@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/pokeplanner/static/js/runtime~main.1b3e0fdf.js"
   },
   {
-    "revision": "cc723235cae9932410c2",
-    "url": "/pokeplanner/static/js/main.7bd71c4a.chunk.js"
+    "revision": "97983a78678236e6e498",
+    "url": "/pokeplanner/static/js/main.16634fba.chunk.js"
   },
   {
-    "revision": "de035f8ef2af1f89e549",
-    "url": "/pokeplanner/static/js/2.a9269ba1.chunk.js"
+    "revision": "aeafeaec09233d38b0ad",
+    "url": "/pokeplanner/static/js/2.467d0c32.chunk.js"
   },
   {
-    "revision": "cc723235cae9932410c2",
+    "revision": "97983a78678236e6e498",
     "url": "/pokeplanner/static/css/main.f613843d.chunk.css"
   },
   {
-    "revision": "0cf6ce384c33444be2a94addc264db82",
+    "revision": "0cef7a467c9da70e08a975341e3fbc33",
     "url": "/pokeplanner/index.html"
   }
 ];
