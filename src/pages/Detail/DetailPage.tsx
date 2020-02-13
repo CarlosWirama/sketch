@@ -51,7 +51,6 @@ export default function DetailPageContainer({
     types: [Type['???']] as [Type] | [Type, Type],
     learnset: [],
     typeEffectiveness: {
-      normal: [],
       weak: [],
       resistant: [],
       immune: [],
@@ -143,12 +142,6 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          {/* {isPartyPokemon && (
-            <>
-              <SectionTitle>Marking</SectionTitle>
-              <Marking />
-            </>
-          )} */}
           <BaseStats {...details.baseStats} />
           <Abilities {...details.abilities} />
           <BreedingInfo
