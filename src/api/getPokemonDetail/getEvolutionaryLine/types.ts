@@ -1,4 +1,4 @@
-import { Type } from '../../../common/components/Types';
+import Type from '../../../common/constants/Type';
 import Form from '../../../common/constants/Form';
 
 export interface EvolutionStages {

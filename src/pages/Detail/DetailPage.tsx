@@ -29,7 +29,8 @@ import EditOverviewModal from './EditOverviewModal';
 import { SectionTitle } from './DetailPage.styled';
 
 import { Move } from '../../common/types/partyType';
-import { Type } from '../../common/components/Types';
+import Type from '../../common/constants/Type';
+
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 
 export default function DetailPageContainer({
@@ -51,9 +52,11 @@ export default function DetailPageContainer({
     types: [Type['???']] as [Type] | [Type, Type],
     learnset: [],
     typeEffectiveness: {
-      weak: [],
-      resistant: [],
       immune: [],
+      doubleResistant: [],
+      resistant: [],
+      weak: [],
+      doubleWeak: [],
     },
     evolutionaryLine: [],
     baseStats: { attack: 0, defense: 0, hp: 0, spatk: 0, spdef: 0, speed: 0 },

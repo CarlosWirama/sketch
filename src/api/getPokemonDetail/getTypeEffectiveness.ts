@@ -2,10 +2,11 @@
 import { getSection } from '../sectionHelper';
 import { keys } from 'ramda';
 // enums
-import { Type } from '../../common/components/Types';
+import Type from '../../common/constants/Type';
+import Form from '../../common/constants/Form';
 // types
 import wtf from 'wtf_wikipedia';
-import Form from '../../common/constants/Form';
+import Effectiveness from '../../common/types/effectiveness';
 
 
 export default function getTypeEffectiveness(parsed: wtf.Document, form: Form) {
@@ -42,14 +43,6 @@ export default function getTypeEffectiveness(parsed: wtf.Document, form: Form) {
 
 function isType (arg: string): arg is Type {
   return keys(Type).map(i => i.toString()).includes(arg);
-}
-
-interface Effectiveness {
-  weak: Type[],
-  resistant: Type[],
-  doubleWeak: Type[],
-  doubleResistant: Type[],
-  immune: Type[],
 }
 
 interface RawEffectiveness {

@@ -4,7 +4,7 @@ import { EvolutionSection, EvoboxTemplate, EvoMethodTemplate } from './evolution
 import Form from '../../../common/constants/Form';
 import { EvolutionStages } from './types';
 import wtf from 'wtf_wikipedia';
-import { Type } from '../../../common/components/Types';
+import Type from '../../../common/constants/Type';
 
 export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, generation: number) {
   // evolution data structure will be vary from here

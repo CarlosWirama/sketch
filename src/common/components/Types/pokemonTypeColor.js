@@ -1,4 +1,4 @@
-import { Type } from '.';
+import Type from '../../constants/Type';
 
 export default function getTypeColor(type) {
   switch (type.toLowerCase()) {
