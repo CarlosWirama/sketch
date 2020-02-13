@@ -1,16 +1,9 @@
 import styled from 'styled-components';
 import Card from '../../../common/components/Card';
-import { getPixelImage } from '../../../api/spriteApi';
 
 export const SectionContent = styled.div`
   display: flex;
   text-align: center;
-`;
-
-export const PixelImage = styled.div`
-  width: 32px;
-  height: 32px;
-  background: ${props => getPixelImage(props.pokemonName)};
 `;
 
 export const StageCard = styled(Card)`

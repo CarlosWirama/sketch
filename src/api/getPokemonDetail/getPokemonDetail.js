@@ -1,13 +1,14 @@
 import { fetchAndParseWiki } from '../apiHelper';
 import getEvolutionaryLine from './getEvolutionaryLine';
 import Form from '../../common/constants/Form';
+import { getSection } from '../sectionHelper';
 
 export default async function getPokemonDetail(speciesName, generation, form) {
   const parsed = await fetchAndParseWiki({
     page: speciesName,
   });
-  const evolutionaryLine = getEvolutionaryLine(parsed, form);
   const { types, abilities, genderRatio, eggGroups } = getSummary(parsed, form);
+  const evolutionaryLine = getEvolutionaryLine(parsed, form, generation);
   const baseStats = getBaseStats(parsed, form);
   const typeEffectiveness = getTypeEffectiveness(parsed, form);
   const learnset = getLearnset(parsed, speciesName, form, generation);
@@ -31,7 +32,6 @@ function getSummary(parsed, form) {
     lv100exp,
     ability1, ability2, abilityd,
     gendercode, egggroup1, egggroup2,
-    ndex,
   } = summarySection;
   const types = (form === Form.Galarian) // TODO
     ? pluckText([form2type1, form2type2])
@@ -49,7 +49,7 @@ const pluckText = array => cleanArray(array).map(e => e.text);
 const cleanArray = array => array.filter(e => e);
 
 function getTypeEffectiveness(parsed, form) {
-  const sectionData = getSectionDataFromSubSections('Type effectiveness', parsed, form);
+  const sectionData = getSection(parsed, 'Type effectiveness', form);
   const effectiveness = {
     weak: [],
     resistant: [],
@@ -70,24 +70,11 @@ function getTypeEffectiveness(parsed, form) {
   return effectiveness;
 }
 
-function getSectionDataFromSubSections(section, parsed, form) {
-  let { templates } = parsed.sections(section).json();
-  let nextSectionIndex = parsed.sections(section).index();
-  while (!templates) {
-    nextSectionIndex++;
-    const nextSection = parsed.sections(nextSectionIndex);
-    if (nextSection.title().includes(form)) {
-      templates = nextSection.json().templates;
-    }
-  }
-  return templates[0];
-}
-
 function getBaseStats(parsed, form) {
-  const baseStatsSection = getSectionDataFromSubSections(
-    'Base Stats', parsed, form
+  const baseStatsSection = getSection(
+    parsed, 'Base Stats', form
   );
-  const { attack, defense, hp, spatk, spdef, speed } = baseStatsSection;
+  const { attack, defense, hp, spatk, spdef, speed } = baseStatsSection[0];
   return {
     attack: Number(attack),
     defense: Number(defense),
@@ -104,7 +91,12 @@ function getLearnset(parsed, speciesName, form, generation) {
     const formName = form ? `${form} ${speciesName}` : speciesName;
     learnsetSection = parsed.sections(formName).json().templates;
   }
-  // get learnset table
-  return learnsetSection
-    .filter(i => i.template.includes(`level${generation}`));
+  if (learnsetSection) {
+    // get learnset table
+    return learnsetSection
+      .filter(i => i.template.includes(`level${generation}`));
+  }
+  console.error('learnset not found');
+  console.error(parsed.sections());
+  throw new Error('learnset not found');
 }
