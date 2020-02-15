@@ -27,6 +27,7 @@ import {
   DetailLabels,
   DetailValues,
 } from './LearnsetItem.styled';
+import Type from '../../../common/constants/Type';
 
 type Category = 'Physical' | 'Special' | 'Status';
 
@@ -46,7 +47,7 @@ export default function LearnsetItemContainer({
   isMoveChoosen,
   toggleChoosenMove,
 }: {
-  list: [string, string, string, Category, string, string, string, string, string];
+  list: [string, string, Type, Category, string, string, string, string, string];
   isEditingActive: boolean;
   isMoveChoosen: boolean;
   toggleChoosenMove: (move: MoveType) => void;
