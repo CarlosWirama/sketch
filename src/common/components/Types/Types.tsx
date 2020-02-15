@@ -1,25 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Container, TypeBalloon } from './Types.styled.js';
 import getTypeColor from './pokemonTypeColor';
+import Type from '../../constants/Type.js';
 
-export default function Types({ types }) {
+interface TypesProps {
+  types: [Type] | [Type, Type];
+}
+
+export default function Types({ types }: TypesProps) {
   return (
     <Container>
       {types.map((type, index) => (
-        <TypeBalloon
-          key={index}
-          color={getTypeColor(type)}
-        >
+        <TypeBalloon key={index} color={getTypeColor(type)}>
           {type}
         </TypeBalloon>
       ))}
     </Container>
   );
 }
-
-Types.propTypes = {
-  types: PropTypes.arrayOf(
-    PropTypes.string.isRequired
-  ).isRequired,
-};

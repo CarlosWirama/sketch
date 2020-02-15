@@ -9,6 +9,7 @@ import {
 } from './PokemonInfo.styled';
 import { getAnimatedPokemonImage } from '../../../api/spriteApi';
 import Form from '../../constants/Form';
+import Type from '../../constants/Type';
 
 export default function PokemonInfo({
   name,
@@ -17,7 +18,7 @@ export default function PokemonInfo({
   form,
 }: {
   name: string;
-  types: [string] | [string, string];
+  types: [Type] | [Type, Type];
   titleColor?: string;
   form: Form;
 }) {
