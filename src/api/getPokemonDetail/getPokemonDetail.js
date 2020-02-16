@@ -3,6 +3,7 @@ import getEvolutionaryLine from './getEvolutionaryLine';
 import Form from '../../common/constants/Form';
 import { getSection } from '../sectionHelper';
 import getTypeEffectiveness from './getTypeEffectiveness';
+import getMoves from './getMoves';
 
 export default async function getPokemonDetail(speciesName, generation, form) {
   const parsed = await fetchAndParseWiki({
@@ -12,10 +13,10 @@ export default async function getPokemonDetail(speciesName, generation, form) {
   const evolutionaryLine = getEvolutionaryLine(parsed, form, generation);
   const baseStats = getBaseStats(parsed, form);
   const typeEffectiveness = getTypeEffectiveness(parsed, form);
-  const learnset = getLearnset(parsed, speciesName, form, generation);
+  const moves = getMoves(parsed, speciesName, form);
   return {
     types,
-    learnset,
+    moves,
     baseStats,
     typeEffectiveness,
     evolutionaryLine,
@@ -62,20 +63,4 @@ function getBaseStats(parsed, form) {
     spdef: Number(spdef),
     speed: Number(speed),
   };
-}
-
-function getLearnset(parsed, speciesName, form, generation) {
-  let learnsetSection = parsed.sections('By leveling up').json().templates;
-  if (!learnsetSection) {
-    const formName = form ? `${form} ${speciesName}` : speciesName;
-    learnsetSection = parsed.sections(formName).json().templates;
-  }
-  if (learnsetSection) {
-    // get learnset table
-    return learnsetSection
-      .filter(i => i.template.includes(`level${generation}`));
-  }
-  console.error('learnset not found');
-  console.error(parsed.sections());
-  throw new Error('learnset not found');
 }

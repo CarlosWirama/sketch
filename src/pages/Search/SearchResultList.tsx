@@ -1,26 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import SearchResultItem from './SearchResultItem';
+import Form from '../../common/constants/Form';
+import Type from '../../common/constants/Type';
+
+interface SearchResultListProps {
+  filteredList: {
+    name: string;
+    types: [Type] | [Type, Type];
+    form: Form;
+  }[];
+  onClickItem: (name: string, form: Form) => void;
+  searchText: string;
+  recentlyViewed: string[];
+};
 
 export default function SearchResultList({
   filteredList,
   searchText,
   onClickItem,
+  recentlyViewed,
   // favorite,
-  // recentlyViewed,
-}) {
-  // function findPokemonByName(name) {
-  //   return filteredList.find(e => {
-  //     if (name.includes('alolan')) {
-  //       const realName = name
-  //         .slice(name.indexOf('_') + 1);
-  //       return e.isAlolan === true && e.name.toLowerCase() === realName;
-  //     }
-  //     return e.name.toLowerCase() === name;
-  //   });
-  // }
+}: SearchResultListProps) {
+  function findPokemonByName(name: string) {
+    return filteredList.find(e => {
+      // if (name.includes('alolan')) {
+      //   const realName = name
+      //     .slice(name.indexOf('_') + 1);
+      //   return e.isAlolan === true && e.name.toLowerCase() === realName;
+      // }
+      return e.name.toLowerCase() === name;
+    });
+  }
 
   return (
     <>
@@ -46,19 +58,22 @@ export default function SearchResultList({
               ))}
             </Section>
           )} */}
-          {/* {filteredList.length && recentlyViewed.length !== 0 && (
+          {filteredList.length && recentlyViewed.length !== 0 && (
             <Section>
               Recenty Viewed
-              {recentlyViewed.map((storedName, key) => (
-                <SearchResultItem
-                  key={key}
-                  onClick={onClickItem}
-                  listItem={findPokemonByName(storedName)}
-                />
-              ))}
+              {recentlyViewed.map((storedName, key) => {
+                const recentItem = findPokemonByName(storedName);
+                return recentItem && (
+                  <SearchResultItem
+                    key={key}
+                    onClick={onClickItem}
+                    listItem={recentItem}
+                  />
+                );
+              })}
               Pokédex
             </Section>
-          )} */}
+          )}
         </>
       )}
       <List>
@@ -74,17 +89,4 @@ export default function SearchResultList({
   );
 }
 
-SearchResultList.propTypes = {
-  filteredList: PropTypes.array.isRequired,
-  onClickItem: PropTypes.func,
-  searchText: PropTypes.string,
-  recentlyViewed: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-SearchResultList.defaultProps = {
-  onClickItem: () => {},
-};
-
-const Section = styled.div`
-  margin-top: 24px;
-`;
+const Section = styled.div`margin-top: 24px;`;

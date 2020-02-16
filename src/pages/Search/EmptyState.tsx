@@ -1,3 +1,3 @@
 export default function EmptyState() {
-  return 'Failed to connect to the network...';
+  return <div>Failed to connect to the network...</div>;
 }

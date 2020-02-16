@@ -1,6 +1,6 @@
 import Type from '../../constants/Type';
 
-export default function getTypeColor(type) {
+export default function getTypeColor(type: Type) {
   switch (type.toLowerCase()) {
     case Type.normal: return '#aaaa99';
     case Type.fire: return '#ff4421';

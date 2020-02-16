@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { getMoveDescription } from '../../../api/getMoveDetail';
-import { Move as MoveType } from '../../../common/types/partyType';
 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
@@ -27,10 +26,11 @@ import {
   DetailLabels,
   DetailValues,
 } from './LearnsetItem.styled';
+// types
+import { MoveItem } from '../../../common/types/partyType';
+import { RawMove } from '../../../common/types/move';
 
-type Category = 'Physical' | 'Special' | 'Status';
-
-export default function LearnsetItemContainer({
+export default function LearnsetItem({
   list: [
     level,
     name,
@@ -46,11 +46,11 @@ export default function LearnsetItemContainer({
   isMoveChoosen,
   toggleChoosenMove,
 }: {
-  list: [string, string, string, Category, string, string, string, string, string];
+  list: RawMove;
   isEditingActive: boolean;
   isMoveChoosen: boolean;
-  toggleChoosenMove: (move: MoveType) => void;
-}): JSX.Element {
+  toggleChoosenMove: (move: MoveItem) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [description, setDescription] = useState('');
 
@@ -66,9 +66,13 @@ export default function LearnsetItemContainer({
     toggleChoosenMove({ name, type });
   }
 
+  const hasVerticalConnector = (level !== '') && !isNaN(Number(level));
   return (
-    <Container className={name.replace(' ', '-')}>
-      <Level>{level}</Level>
+    <Container
+      className={name.replace(' ', '-')}
+      hasVerticalConnector={hasVerticalConnector}
+    >
+      {level && <Level>{level}</Level>}
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
         <Headline>
           <Name>{name}</Name>

@@ -2,16 +2,16 @@ import specificEvolution from '../specificEvolution';
 import { getSection } from '../../sectionHelper';
 import { EvolutionSection, EvoboxTemplate, EvoMethodTemplate } from './evolution-wiki';
 import Form from '../../../common/constants/Form';
-import { EvolutionStages } from './types';
 import wtf from 'wtf_wikipedia';
 import Type from '../../../common/constants/Type';
+import EvolutionStage from '../../../common/types/evolutionStage';
 
 export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, generation: number) {
   // evolution data structure will be vary from here
   // e.g. Squirtle will be different from Eevee, Gloom, Slowking etc.
 
-  console.log(getSection(parsed, 'Evolution', form));
   const evolutionSection: EvolutionSection = [...getSection(parsed, 'Evolution', form)];
+  if (!evolutionSection || evolutionSection.length === 0) return [];
   const evoboxData = evolutionSection.pop() as EvoboxTemplate;
   const evolutionDetails = evolutionSection as Array<EvoMethodTemplate>;
   // now evolutionDetails is EvoMethodTemplate[]
@@ -29,7 +29,8 @@ export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, ge
     default: // 'evobox-2' | 'evobox-3' normal evolutionary line
   }
 
-  const evolutionaryLine: EvolutionStages[] = [];
+  const evolutionaryLine: EvolutionStage[] = [];
+  
   let evolutionStage = 1; // vary from 1-3 (sometimes 3a, etc)
 
   while (evoboxData[`name${evolutionStage}` as 'name1' | 'name2' | 'name3'] !== undefined) {
@@ -139,7 +140,12 @@ export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, ge
     return method;
   }
 
-  function filterApplicableEvolution(generation: number, method: string, evolutionaryLine: EvolutionStages[], index: number) {
+  function filterApplicableEvolution(
+    generation: number,
+    method: string,
+    evolutionaryLine: EvolutionStage[],
+    index: number,
+  ) {
     function handleBreedMethod(supportedGeneration: number) {
       if (generation < supportedGeneration) { // not supported
         // removing breed method means we should

@@ -19,16 +19,15 @@ import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
 // import Marking from '../../common/components/Marking';
-import LearnsetItem from './LearnsetItem';
 import BaseStats from './BaseStats';
 import Abilities from './Abilities';
 import BreedingInfo from './BreedingInfo';
+import Learnset from './Learnset';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 import EditOverviewModal from './EditOverviewModal';
-import { SectionTitle } from './DetailPage.styled';
 
-import { Move } from '../../common/types/partyType';
+import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
 
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
@@ -50,7 +49,13 @@ export default function DetailPageContainer({
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
     types: [Type['???']] as [Type] | [Type, Type],
-    learnset: [],
+    moves: {
+      leveling: [],
+      machine: [],
+      breed: [],
+      tutor: [],
+      prior: [],
+    },
     typeEffectiveness: {
       immune: [],
       doubleResistant: [],
@@ -66,17 +71,9 @@ export default function DetailPageContainer({
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
-  const [choosenMoves, setChoosenMoves] = useState<Move[]>([]);
+  const [choosenMoves, setChoosenMoves] = useState<MoveItem[]>([]);
   const name = params.pokemon;
 
-  function toggleChoosenMove(move: Move) {
-    const newChoosenMoves = choosenMoves
-      .filter(({ name }) => name !== move.name);
-    if (newChoosenMoves.length === choosenMoves.length) {
-      newChoosenMoves.unshift(move);
-    }
-    setChoosenMoves(newChoosenMoves.slice(0, 4)); // get the latest 4;
-  }
   const { speciesName, form } = getSpeciesNameAndForm(name);
 
   // TODO: should be user-generated
@@ -157,22 +154,12 @@ export default function DetailPageContainer({
             stages={details.evolutionaryLine}
             onClickStage={onClickEvolutionStage}
           />
-          <SectionTitle>Moves by leveling up</SectionTitle>
-          <div>
-            {details.learnset.map(({ list }, i) => (
-              <LearnsetItem
-                key={i}
-                list={list}
-                isEditingActive={isEditingActive}
-                // list[1] contains move's name
-                isMoveChoosen={choosenMoves.reduce<boolean>(
-                  (result, choosenMove) => choosenMove.name === list[1] || result,
-                  false,
-                )}
-                toggleChoosenMove={toggleChoosenMove}
-              />
-            ))}
-          </div>
+          <Learnset
+            learnset={details.moves}
+            choosenMoves={choosenMoves}
+            setChoosenMoves={setChoosenMoves}
+            isEditingActive={isEditingActive}
+          />
         </>
       )}
       </LayoutContainer>
