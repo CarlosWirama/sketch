@@ -66,9 +66,13 @@ export default function LearnsetItem({
     toggleChoosenMove({ name, type });
   }
 
+  const hasVerticalConnector = (level !== '') && !isNaN(Number(level));
   return (
-    <Container className={name.replace(' ', '-')}>
-      <Level>{level}</Level>
+    <Container
+      className={name.replace(' ', '-')}
+      hasVerticalConnector={hasVerticalConnector}
+    >
+      {level && <Level>{level}</Level>}
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
         <Headline>
           <Name>{name}</Name>

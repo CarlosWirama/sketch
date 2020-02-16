@@ -16,7 +16,7 @@ export default function getLearnset(
       tm: getMovesByMethod('By TM/TR'),
       breeding: getMovesByMethod('By'),
       tutoring: getMovesByMethod('By tutoring'),
-      prior: getMovesByMethod('By a prior evolution'),
+      // prior: getMovesByMethod('By a prior evolution'),
     };
 }
 
@@ -33,18 +33,31 @@ function getMoves(
   }
   if (learnsetSection) {
     // get learnset table
-    const moves = learnsetSection
-      .filter(i =>
-        i.template.includes('tt') === false &&
-        i.template.includes('msp') === false // for breeding mini-sprite data
-      )
-      .slice(1, -1)
+    if (learningMethod === 'By leveling up') learnsetSection = modifyLevelingList(learnsetSection);
+    else if (learningMethod === 'By') learnsetSection = modifyBreedingList(learnsetSection);
+    else learnsetSection = learnsetSection.slice(1, -1);
+    let moves = learnsetSection
       .map(({ list }) => learningMethod === 'By tutoring' ? ['', ...list] as RawMove : list);
     return (moves.length && moves[0] !== undefined) ? moves : [];
   }
   console.error('learnset not found');
   console.error(parsed.sections());
   throw new Error('learnset not found');
+}
+
+function modifyLevelingList(learnsetSection: LearnsetMethodSectionTemplate) {
+  const prunedList = learnsetSection
+    .slice(2, -1); // slice the list tt template, header, and footer;
+  const movesLearntByEvo = prunedList
+    .filter(({ list }) => list[0] === '')
+    .map(moveData => ({ ...moveData, list: ['EVO', ...moveData.list.slice(1)] as RawMove}));
+  const movesLearntByLeveling = prunedList.filter(({ list }) => list[0] !== '');
+  return [...movesLearntByEvo, ...movesLearntByLeveling];
+}
+function modifyBreedingList(learnsetSection: LearnsetMethodSectionTemplate) {
+  return learnsetSection
+    .filter(i => i.template.includes('msp') === false)
+    .slice(1, -1) // slice the list header and footer;
 }
 
 type learningMethod =
