@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getMoveDescription } from '../../../api/getMoveDetail';
-import { Move as MoveType } from '../../../common/types/partyType';
+import { MoveItem } from '../../../common/types/partyType';
 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
@@ -28,10 +28,9 @@ import {
   DetailValues,
 } from './LearnsetItem.styled';
 import Type from '../../../common/constants/Type';
+import { Category } from '../../../common/types/move';
 
-type Category = 'Physical' | 'Special' | 'Status';
-
-export default function LearnsetItemContainer({
+export default function LearnsetItem({
   list: [
     level,
     name,
@@ -47,11 +46,11 @@ export default function LearnsetItemContainer({
   isMoveChoosen,
   toggleChoosenMove,
 }: {
-  list: [string, string, Type, Category, string, string, string, string, string];
+  list: [string, string, Type, Category, string, string, string, string?, string?];
   isEditingActive: boolean;
   isMoveChoosen: boolean;
-  toggleChoosenMove: (move: MoveType) => void;
-}): JSX.Element {
+  toggleChoosenMove: (move: MoveItem) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [description, setDescription] = useState('');
 
