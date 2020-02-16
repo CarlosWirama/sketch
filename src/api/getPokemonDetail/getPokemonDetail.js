@@ -13,7 +13,7 @@ export default async function getPokemonDetail(speciesName, generation, form) {
   const evolutionaryLine = getEvolutionaryLine(parsed, form, generation);
   const baseStats = getBaseStats(parsed, form);
   const typeEffectiveness = getTypeEffectiveness(parsed, form);
-  const moves = getMoves(parsed, speciesName, form, generation);
+  const moves = getMoves(parsed, speciesName, form);
   return {
     types,
     moves,
