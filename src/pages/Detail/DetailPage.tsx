@@ -19,18 +19,15 @@ import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
 from '../../common/components/PokeballLoadingIndicator';
 // import Marking from '../../common/components/Marking';
-import BaseStats from './BaseStats';
-import Abilities from './Abilities';
-import BreedingInfo from './BreedingInfo';
 import Learnset from './Learnset';
-import TypeEffectiveness from './TypeEffectiveness';
-import EvolutionaryLine from './EvolutionaryLine';
+import BasicInfoTab from './BasicInfoTab';
 import EditOverviewModal from './EditOverviewModal';
 
 import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
 
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
+import EvolutionStage from '../../common/types/evolutionStage';
 
 export default function DetailPageContainer({
   match: { params },
@@ -63,7 +60,7 @@ export default function DetailPageContainer({
       weak: [],
       doubleWeak: [],
     },
-    evolutionaryLine: [],
+    evolutionaryLine: [] as EvolutionStage[],
     baseStats: { attack: 0, defense: 0, hp: 0, spatk: 0, spdef: 0, speed: 0 },
     abilities: { nonHidden: [] },
     genderRatio: 0,
@@ -98,11 +95,6 @@ export default function DetailPageContainer({
   function onClickFloatingButton() {
     toggleFavorite(name, !isFavorite);
     setIsFavorite(!isFavorite);
-  }
-
-  function onClickEvolutionStage(pokemonName: string) {
-    pokemonName.replace(' ', '_'); // for alolan
-    push(`/pokemon/${pokemonName}`);
   }
 
   function setEditingOn() {
@@ -142,17 +134,13 @@ export default function DetailPageContainer({
       </Navbar>
       {isLoading ? <LoadingIndicator/> : (
         <>
-          <BaseStats {...details.baseStats} />
-          <Abilities {...details.abilities} />
-          <BreedingInfo
+          <BasicInfoTab
+            baseStats={details.baseStats}
+            abilities={details.abilities}
             genderRatio={details.genderRatio}
             eggGroups={details.eggGroups}
-          />
-          <TypeEffectiveness {...details.typeEffectiveness} />
-          <EvolutionaryLine
-            pokemonName={speciesName}
-            stages={details.evolutionaryLine}
-            onClickStage={onClickEvolutionStage}
+            typeEffectiveness={details.typeEffectiveness}
+            evolutionaryLine={details.evolutionaryLine}
           />
           <Learnset
             learnset={details.moves}

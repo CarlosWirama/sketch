@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Types from '../../../common/components/Types';
 import { SectionTitle } from '../DetailPage.styled';
 import { EffectivenessCategory, Item } from './TypeEffectiveness.styled';
+import Type from '../../../common/constants/Type';
+import Effectiveness from '../../../common/types/effectiveness';
 
 export default function TypeEffectiveness({
   immune,
@@ -10,7 +11,7 @@ export default function TypeEffectiveness({
   resistant,
   weak,
   doubleWeak,
-}) {
+}: Effectiveness) {
   return (
     <>
       {weak.length > 0 && (
@@ -43,22 +44,7 @@ export default function TypeEffectiveness({
   );
 }
 
-const effectivenessPropType = PropTypes.arrayOf(
-  PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ])
-  )
-).isRequired;
-
-TypeEffectiveness.propTypes = {
-  weak: effectivenessPropType,
-  resistant: effectivenessPropType,
-  immune: effectivenessPropType,
-};
-
-function formatEffectiveness(type, key) {
+function formatEffectiveness(type: Type, key: number) {
   return (
     <Item key={key}>
       <Types types={[type]} />
