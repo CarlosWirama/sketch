@@ -6,7 +6,7 @@ export const SectionContent = styled.div`
   text-align: center;
 `;
 
-export const StageCard = styled(Card)`
+export const StageCard = styled<any>(Card)`
   flex: 1;
   margin: 0 4px;
   cursor: pointer;

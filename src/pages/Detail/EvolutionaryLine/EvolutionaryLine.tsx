@@ -3,8 +3,14 @@ import { SectionTitle } from '../DetailPage.styled';
 import { SectionContent, StageCard } from './EvolutionaryLine.styled';
 import { getTypeColor } from '../../../common/components/Types';
 import { getPixelImage } from '../../../api/spriteApi';
+import EvolutionStage from '../../../common/types/evolutionStage';
 
-export default function EvolutionaryLine({ pokemonName, stages, onClickStage }) {
+interface EvolutionaryLineProps {
+  pokemonName: string;
+  stages: EvolutionStage[];
+  onClickStage: (pokemonName: string) => void;
+}
+export default function EvolutionaryLine({ pokemonName, stages, onClickStage }: EvolutionaryLineProps) {
   return (
     <>
       <SectionTitle>Evolution</SectionTitle>
