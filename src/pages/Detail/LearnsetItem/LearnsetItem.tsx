@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { getMoveDescription } from '../../../api/getMoveDetail';
-import { MoveItem } from '../../../common/types/partyType';
 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Types, { getTypeColor } from '../../../common/components/Types';
@@ -27,8 +26,9 @@ import {
   DetailLabels,
   DetailValues,
 } from './LearnsetItem.styled';
-import Type from '../../../common/constants/Type';
-import { Category } from '../../../common/types/move';
+// types
+import { MoveItem } from '../../../common/types/partyType';
+import { RawMove } from '../../../common/types/move';
 
 export default function LearnsetItem({
   list: [
@@ -46,7 +46,7 @@ export default function LearnsetItem({
   isMoveChoosen,
   toggleChoosenMove,
 }: {
-  list: [string, string, Type, Category, string, string, string, string?, string?];
+  list: RawMove;
   isEditingActive: boolean;
   isMoveChoosen: boolean;
   toggleChoosenMove: (move: MoveItem) => void;

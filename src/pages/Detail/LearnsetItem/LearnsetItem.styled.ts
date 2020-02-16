@@ -11,7 +11,7 @@ export const Container = styled.div<{ hasVerticalConnector: boolean }>`
   position: relative;
   :not(:last-child):before {
     position: absolute;
-    border: 2px solid ${(props: any) => props.theme.color.black};
+    border: 2px solid ${props => props.theme.color.black};
     bottom: -17px;
     top: 17px;
     left: 14px;
