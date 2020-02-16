@@ -37,6 +37,7 @@ function getMoves(
     else if (learningMethod === 'By') learnsetSection = modifyBreedingList(learnsetSection);
     else learnsetSection = learnsetSection.slice(1, -1);
     let moves = learnsetSection
+      .filter(i => i.template.includes('null') === false)
       .map(({ list }) => learningMethod === 'By tutoring' ? ['', ...list] as RawMove : list);
     return (moves.length && moves[0] !== undefined) ? moves : [];
   }
