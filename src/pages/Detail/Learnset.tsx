@@ -82,7 +82,6 @@ function LearnsetByMethod ({
     }
     setChoosenMoves(newChoosenMoves.slice(0, 4)); // get the latest 4;
   }
-  console.log(methodTitle, moves)
   return (
     <>
       <SectionTitle>{methodTitle}</SectionTitle>
