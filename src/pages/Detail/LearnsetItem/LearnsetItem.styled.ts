@@ -6,16 +6,16 @@ import {
 } from '@material-ui/core';
 import Card from '../../../common/components/Card';
 
-export const Container = styled.div`
+export const Container = styled.div<{ hasVerticalConnector: boolean }>`
   display: flex;
   position: relative;
   :not(:last-child):before {
-    content: " ";
     position: absolute;
     border: 2px solid ${props => props.theme.color.black};
     bottom: -17px;
     top: 17px;
     left: 14px;
+    ${props => props.hasVerticalConnector && 'content: " ";'}
   }
 `;
 // ${props => lighten(0.1, props.color)} 32px

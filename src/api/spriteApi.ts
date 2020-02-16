@@ -48,7 +48,7 @@ function getImageFileName(pokemonName: string, form: Form) {
       default: break;
     }
   }
-  return pokemonName;
+  return pokemonName.replace(' ', ''); // for Tapu Blablabla
 }
 
 export function getPixelImage(nDex: string, form: Form) {

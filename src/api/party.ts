@@ -1,7 +1,7 @@
 import {
   PartyPokemon,
   PartyPokemonOptimized,
-  Move,
+  MoveItem,
   StoredPartyList,
 } from '../common/types/partyType';
 
@@ -23,7 +23,7 @@ export function savePartyList(partyList: PartyPokemonOptimized[]) {
   return localStorage.setItem(PARTY_STORAGE_KEY, stringified);
 }
 
-export function getChoosenMove(name: string): Move[] {
+export function getChoosenMove(name: string): MoveItem[] {
   const partyList = getPartyList();
   const [matching] = partyList.filter(pokemon => pokemon.givenName === name);
   return matching
