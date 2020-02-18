@@ -22,27 +22,17 @@ from '../../common/components/PokeballLoadingIndicator';
 import Learnset from './Learnset';
 import BasicInfoTab from './BasicInfoTab';
 import EditOverviewModal from './EditOverviewModal';
+import Tab from '../../common/components/Tab';
 
 import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
 
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 import EvolutionStage from '../../common/types/evolutionStage';
+import { useParams, useHistory } from 'react-router-dom';
+import { Tabs, DetailPageContent, PageContainer } from './DetailPage.styled';
 
-export default function DetailPageContainer({
-  match: { params },
-  history: { push },
-}: {
-  match: {
-    params: {
-      pokemon: string;
-      generation?: string;
-    };
-  };
-  history: {
-    push: Function;
-  };
-}) {
+export default function DetailPageContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
     types: [Type['???']] as [Type] | [Type, Type],
@@ -69,7 +59,10 @@ export default function DetailPageContainer({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
   const [choosenMoves, setChoosenMoves] = useState<MoveItem[]>([]);
-  const name = params.pokemon;
+  const [activeTab, setActiveTab] = useState(DetailPageTab.BasicInfo);
+  const { push } = useHistory();
+  const { pokemon: pokemonName, generation } = useParams<DetailRouteParams>();
+  const name = pokemonName;
 
   const { speciesName, form } = getSpeciesNameAndForm(name);
 
@@ -79,14 +72,14 @@ export default function DetailPageContainer({
 
   useEffect(() => {
     setIsLoading(true);
-    const generation = (params.generation === 'gen_VII') ? 7 : 8;
-    getPokemonDetail(speciesName, generation, form)
+    const generationNumber = (generation === 'gen_VII') ? 7 : 8;
+    getPokemonDetail(speciesName, generationNumber, form)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
     checkFavorite(name).then(setIsFavorite);
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
-  }, [ params ]);
+  }, [ name, generation ]);
 
   function onClickBack() {
     push('/search');
@@ -122,8 +115,15 @@ export default function DetailPageContainer({
     </IconButton>
   );
 
+  function onClickBasicInfoTab() {
+    setActiveTab(DetailPageTab.BasicInfo);
+  }
+  function onClickMovesTab() {
+    setActiveTab(DetailPageTab.Moves);
+  }
+
   return (
-    <LayoutContainer>
+    <PageContainer>
       <Navbar onClickBack={onClickBack} right={RightButton}>
         <PokemonInfo
           name={speciesName}
@@ -132,24 +132,44 @@ export default function DetailPageContainer({
         />
         {isEditingActive && <EditOverviewModal choosenMoves={choosenMoves} />}
       </Navbar>
+      <Tabs>
+        <Tab onClick={onClickBasicInfoTab}>Basic Info</Tab>
+        <Tab onClick={onClickMovesTab}>Moves</Tab>
+      </Tabs>
       {isLoading ? <LoadingIndicator/> : (
-        <>
-          <BasicInfoTab
-            baseStats={details.baseStats}
-            abilities={details.abilities}
-            genderRatio={details.genderRatio}
-            eggGroups={details.eggGroups}
-            typeEffectiveness={details.typeEffectiveness}
-            evolutionaryLine={details.evolutionaryLine}
-          />
-          <Learnset
-            learnset={details.moves}
-            choosenMoves={choosenMoves}
-            setChoosenMoves={setChoosenMoves}
-            isEditingActive={isEditingActive}
-          />
-        </>
+        <DetailPageContent>
+          <LayoutContainer>
+          {activeTab === DetailPageTab.BasicInfo && (
+            <BasicInfoTab
+              baseStats={details.baseStats}
+              abilities={details.abilities}
+              genderRatio={details.genderRatio}
+              eggGroups={details.eggGroups}
+              typeEffectiveness={details.typeEffectiveness}
+              evolutionaryLine={details.evolutionaryLine}
+            />
+          )}
+          {activeTab === DetailPageTab.Moves && (
+            <Learnset
+              learnset={details.moves}
+              choosenMoves={choosenMoves}
+              setChoosenMoves={setChoosenMoves}
+              isEditingActive={isEditingActive}
+            />
+          )}
+          </LayoutContainer>
+        </DetailPageContent>
       )}
-      </LayoutContainer>
+    </PageContainer>
   );
+}
+
+interface DetailRouteParams {
+  pokemon: string;
+  generation?: string;
+}
+
+enum DetailPageTab {
+  BasicInfo = 'BasicInfo',
+  Moves = 'Moves',
 }
