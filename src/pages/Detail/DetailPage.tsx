@@ -8,6 +8,7 @@ import {
   saveToParty,
 } from '../../api';
 
+import SwipeableViews from 'react-swipeable-views';
 import IconButton from '@material-ui/core/IconButton';
 import DoneIcon from '@material-ui/icons/Done';
 import AddIcon from '@material-ui/icons/Add';
@@ -22,7 +23,6 @@ from '../../common/components/PokeballLoadingIndicator';
 import Learnset from './Learnset';
 import BasicInfoTab from './BasicInfoTab';
 import EditOverviewModal from './EditOverviewModal';
-import Tab from '../../common/components/Tab';
 
 import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
@@ -30,7 +30,7 @@ import Type from '../../common/constants/Type';
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 import EvolutionStage from '../../common/types/evolutionStage';
 import { useParams, useHistory } from 'react-router-dom';
-import { Tabs, DetailPageContent, PageContainer } from './DetailPage.styled';
+import { DetailPageContent, PageContainer, Tabs, Tab } from './DetailPage.styled';
 
 export default function DetailPageContainer() {
   const [isLoading, setIsLoading] = useState(false);
@@ -115,13 +115,6 @@ export default function DetailPageContainer() {
     </IconButton>
   );
 
-  function onClickBasicInfoTab() {
-    setActiveTab(DetailPageTab.BasicInfo);
-  }
-  function onClickMovesTab() {
-    setActiveTab(DetailPageTab.Moves);
-  }
-
   return (
     <PageContainer>
       <Navbar onClickBack={onClickBack} right={RightButton}>
@@ -132,14 +125,25 @@ export default function DetailPageContainer() {
         />
         {isEditingActive && <EditOverviewModal choosenMoves={choosenMoves} />}
       </Navbar>
-      <Tabs>
-        <Tab onClick={onClickBasicInfoTab}>Basic Info</Tab>
-        <Tab onClick={onClickMovesTab}>Moves</Tab>
+      <Tabs
+        value={activeTab}
+        onChange={(_, value) => setActiveTab(value)}
+        variant="fullWidth"
+        indicatorColor="secondary"
+        textColor="secondary"
+        aria-label="icon label tabs example"
+      >
+        <Tab label="Basic Info" />
+        <Tab label="Moves" />
       </Tabs>
       {isLoading ? <LoadingIndicator/> : (
-        <DetailPageContent>
-          <LayoutContainer>
-          {activeTab === DetailPageTab.BasicInfo && (
+        <SwipeableViews
+          index={activeTab}
+          onChangeIndex={setActiveTab}
+          resistance
+          containerStyle={{ height: '100%' }}
+        >
+          <DetailPageContent>
             <BasicInfoTab
               baseStats={details.baseStats}
               abilities={details.abilities}
@@ -148,17 +152,16 @@ export default function DetailPageContainer() {
               typeEffectiveness={details.typeEffectiveness}
               evolutionaryLine={details.evolutionaryLine}
             />
-          )}
-          {activeTab === DetailPageTab.Moves && (
+          </DetailPageContent>
+          <DetailPageContent>
             <Learnset
               learnset={details.moves}
               choosenMoves={choosenMoves}
               setChoosenMoves={setChoosenMoves}
               isEditingActive={isEditingActive}
             />
-          )}
-          </LayoutContainer>
-        </DetailPageContent>
+          </DetailPageContent>
+        </SwipeableViews>
       )}
     </PageContainer>
   );
@@ -170,6 +173,6 @@ interface DetailRouteParams {
 }
 
 enum DetailPageTab {
-  BasicInfo = 'BasicInfo',
-  Moves = 'Moves',
+  BasicInfo,
+  Moves,
 }

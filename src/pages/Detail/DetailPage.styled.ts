@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Tabs as MaterialTabs, Tab as MaterialTab } from '@material-ui/core';
+import { LayoutContainer } from '../../common/components';
 
 export const PageContainer = styled.div`
   display: flex;
@@ -11,16 +13,24 @@ export const SectionTitle = styled.div`
   font-weight: bold;
 `;
 
-export const Tabs = styled.div`
+export const Tabs = styled(MaterialTabs)`
   display: flex;
   width: 100%;
   padding: 8px 16px;
   z-index: 1;
-  position: fixed;
   top: 105px;
 `;
 
-export const DetailPageContent = styled.div`
-  overflow: scroll;
-  margin-top: 45px;
+export const Tab = styled(MaterialTab)`
+  background: rgb(19, 153, 240);
+  border-radius: 4px 9px;
+  padding: 2px 8px;
+  margin-right: 8px;
+  color: white;
+  border: 2px solid #95ddfe;
+  box-sizing: border-box;
+`;
+
+export const DetailPageContent = styled(LayoutContainer)`
+  padding-top: 0;
 `;
