@@ -11,6 +11,10 @@ export const TypeBalloon = styled.div<{ color: string }>`
   display: flex;
   align-items: center;
   margin: 5px 0;
+
+  &:not(:first-child) {
+    margin-left: 4px;
+  }
 `;
 
 export const TypeIcon = styled.img<{ color: string }>`
