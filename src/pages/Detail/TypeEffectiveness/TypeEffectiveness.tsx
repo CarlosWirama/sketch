@@ -1,7 +1,7 @@
 import React from 'react';
 import Types from '../../../common/components/Types';
 import { SectionTitle } from '../DetailPage.styled';
-import { EffectivenessCategory, Item } from './TypeEffectiveness.styled';
+import { EffectivenessCategory } from './TypeEffectiveness.styled';
 import Type from '../../../common/constants/Type';
 import Effectiveness from '../../../common/types/effectiveness';
 
@@ -45,9 +45,5 @@ export default function TypeEffectiveness({
 }
 
 function formatEffectiveness(type: Type, key: number) {
-  return (
-    <Item key={key}>
-      <Types types={[type]} />
-    </Item>
-  );
+  return <Types types={[type]} key={key}/>;
 }
