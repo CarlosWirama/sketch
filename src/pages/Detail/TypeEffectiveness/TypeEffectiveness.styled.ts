@@ -6,4 +6,5 @@ export const EffectivenessCategory = styled(BorderedCard)`
   flex-wrap: wrap;
   align-items: center;
   padding: 16px;
+  margin-top: 8px;
 `;
