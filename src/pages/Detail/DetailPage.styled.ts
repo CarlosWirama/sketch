@@ -15,7 +15,6 @@ export const SectionTitle = styled.div`
 
 export const Tabs = styled(MaterialTabs)`
   display: flex;
-  width: 100%;
   padding: 8px 16px;
   z-index: 1;
   top: 105px;
