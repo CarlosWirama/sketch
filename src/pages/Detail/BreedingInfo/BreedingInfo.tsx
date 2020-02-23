@@ -41,14 +41,10 @@ function GenderRatio({ ratio }: { ratio: number }) {
       {isGenderless ? 'Genderless' : (
         <GenderRatioBar ratio={ratio}>
           {maleRatioInteger !== 0 && (
-            <RatioText>
-              {maleRatioInteger} male
-            </RatioText>
+            <RatioText>{maleRatioInteger} male</RatioText>
           )}
           {femaleRatioInteger !== 0 && (
-            <RatioText>
-              {femaleRatioInteger} female
-            </RatioText>
+            <RatioText>{femaleRatioInteger} female</RatioText>
           )}
         </GenderRatioBar>
       )}
@@ -85,4 +81,5 @@ const Grid = styled.div`
 
 const RatioText = styled.div`
   z-index: 1;
+  margin: auto;
 `;
