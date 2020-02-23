@@ -6,16 +6,16 @@ import {
 } from '@material-ui/core';
 import Card from '../../../common/components/Card';
 
-export const Container = styled.div`
+export const Container = styled.div<{ hasVerticalConnector: boolean }>`
   display: flex;
   position: relative;
   :not(:last-child):before {
-    content: " ";
     position: absolute;
     border: 2px solid ${props => props.theme.color.black};
     bottom: -17px;
     top: 17px;
     left: 14px;
+    ${props => props.hasVerticalConnector && 'content: " ";'}
   }
 `;
 // ${props => lighten(0.1, props.color)} 32px
@@ -38,12 +38,12 @@ export const Move = styled(Card)`
   }
 `;
 
-export const Level = styled.div`
+export const LevelCircle = styled.div`
   min-width: 32px;
   height: 32px;
   border-radius: 50%;
   background-color: ${props => props.theme.color.black};
-  font-size: 16px;
+  font-size: ${props => isNaN(Number(props.children)) ? '12px' : '16px'};
   color: white;
   margin-right: 8px;
   z-index: 1;
@@ -74,6 +74,7 @@ export const IconButton = styled(IconButtonMaterialUi)`
 export const SubInfo = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const Collapse = styled(CollapseMaterialUi)`
@@ -107,4 +108,15 @@ export const DetailLabels = styled.div`
 
 export const DetailValues = styled.div`
   margin-left: 8px;
+`;
+
+export const CategoryBalloon = styled.div<{ color: string }>`
+  background-color: ${props => props.color};
+  display: flex;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  align-items: center;
+  position: relative;
+  border: 1px solid #0004;
 `;

@@ -8,23 +8,25 @@ import {
   Name,
 } from './PokemonInfo.styled';
 import { getAnimatedPokemonImage } from '../../../api/spriteApi';
+import Form from '../../constants/Form';
+import Type from '../../constants/Type';
 
 export default function PokemonInfo({
   name,
   types,
   titleColor,
-  isAlolan,
+  form,
 }: {
   name: string;
-  types: [string] | [string, string];
+  types: [Type] | [Type, Type];
   titleColor?: string;
-  isAlolan?: boolean;
+  form: Form;
 }) {
   return (
     <Container>
       <SpriteContainer>
         <PokemonSprite
-          src={getAnimatedPokemonImage(name, isAlolan)}
+          src={getAnimatedPokemonImage(name, form)}
         />
       </SpriteContainer>
       <Texts>

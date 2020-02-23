@@ -25,6 +25,8 @@ export default function App() {
             <Switch>
               <Route path="/search" component={Search}/>
               <Route path="/pokemon/:pokemon" component={Detail}/>
+              <Route path="/:generation/search" component={Search}/>
+              <Route path="/:generation/pokemon/:pokemon" component={Detail}/>
               {/* <Route path="/" component={Home}/> */}
               <Route path="/" component={Search}/>
               <Route component={NotFound}/>

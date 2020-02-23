@@ -15,12 +15,11 @@ import {
 } from '../constants/pokedexCssCalculation';
 import { color } from '../theme';
 
-
 export default function Navbar({ left, children, right, onClickBack }: {
   left?: ReactNode;
   children: ReactNode;
   right?: ReactNode;
-  onClickBack: () => void;
+  onClickBack?: () => void;
 }) {
   const leftButton = left || (
     onClickBack ? <BackButton onClick={onClickBack} /> : null
