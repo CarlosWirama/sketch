@@ -11,6 +11,8 @@ export const TypeBalloon = styled.div<{ color: string }>`
   display: flex;
   align-items: center;
   margin: 5px 0;
+  min-width: 28px;
+  min-height: 28px;
 
   &:not(:first-child) {
     margin-left: 4px;
@@ -27,8 +29,7 @@ export const TypeIcon = styled.img<{ color: string }>`
   z-index: 1;
 `;
 
-export const TypeText = styled.div<{ color: string }>`
-  margin-left: 24px;
+export const TypeText = styled.div<{ color: string; hidden: boolean; }>`
   min-width: 56px;
   color: white;
   text-align: center;
@@ -39,4 +40,5 @@ export const TypeText = styled.div<{ color: string }>`
   background-color: ${props => props.color};
   padding: 1px 4px 2px;
   border-radius: 0 4px 4px 0;
+  margin-left: 24px;
 `;
