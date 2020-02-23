@@ -15,7 +15,7 @@ export default function Types({ types, hideText }: TypesProps) {
       {types.map((type, index) => {
         const color = getTypeColor(type);
         return (
-          <TypeBalloon color={color} key={index}>
+          <TypeBalloon key={index}>
             <TypeIcon color={color} src={TypeIcons[type]} />
             <TypeText color={color} hidden={Boolean(hideText)}>
               {type}

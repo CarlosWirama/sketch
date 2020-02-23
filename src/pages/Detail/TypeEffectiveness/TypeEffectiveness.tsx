@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Types from '../../../common/components/Types';
 import { SectionTitle } from '../DetailPage.styled';
 import Tab from '../../../common/components/Tab';
-import { EffectivenessCategory, TypeListContainer } from './TypeEffectiveness.styled';
+import {
+  EffectivenessCategory,
+  TypeListContainer,
+  AnimatedWidth,
+} from './TypeEffectiveness.styled';
 import Type from '../../../common/constants/Type';
 import Effectiveness from '../../../common/types/effectiveness';
 
@@ -54,7 +58,11 @@ export default function TypeEffectiveness({
 
 function formatEffectiveness(isTabActive: boolean) {
   return function (type: Type, key: number) {
-    return <Types types={[type]} key={key} hideText={!isTabActive}/>;
+    return (
+      <AnimatedWidth className={!isTabActive ? 'short' : ''} key={key}>
+        <Types types={[type]} hideText={!isTabActive} />
+      </AnimatedWidth>
+    );
   }
 }
 

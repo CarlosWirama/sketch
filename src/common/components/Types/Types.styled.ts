@@ -5,13 +5,12 @@ export const Container = styled.div`
   color: white;
 `;
 
-export const TypeBalloon = styled.div<{ color: string }>`
+export const TypeBalloon = styled.div`
   position: relative;
   border-radius: 4px;
   display: flex;
   align-items: center;
   margin: 5px 0;
-  min-width: 28px;
   min-height: 28px;
 
   &:not(:first-child) {
@@ -29,7 +28,9 @@ export const TypeIcon = styled.img<{ color: string }>`
   z-index: 1;
 `;
 
-export const TypeText = styled.div<{ color: string; hidden: boolean; }>`
+export const TypeText = styled.div<{ color: string; hidden: boolean }>`
+  transition: opacity 1s cubic-bezier(0.15, 0.3, 0.25, 1) 2s;
+  opacity: ${props => props.hidden ? 0 : 1};
   min-width: 56px;
   color: white;
   text-align: center;
