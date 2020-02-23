@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Types from '../../../common/components/Types';
 import { SectionTitle } from '../DetailPage.styled';
-import { EffectivenessCategory, Item } from './TypeEffectiveness.styled';
+import Tab from '../../../common/components/Tab';
+import {
+  EffectivenessCategory,
+  TypeListContainer,
+  AnimatedWidth,
+} from './TypeEffectiveness.styled';
 import Type from '../../../common/constants/Type';
 import Effectiveness from '../../../common/types/effectiveness';
 
@@ -12,42 +17,53 @@ export default function TypeEffectiveness({
   weak,
   doubleWeak,
 }: Effectiveness) {
+  const [tab, setTab] = useState(TAB.Weak);
+  function showWeak() { setTab(TAB.Weak) }
+  function showResist() { setTab(TAB.Resist) }
+  function showImmune() { setTab(TAB.Immune) }
   return (
     <>
-      {weak.length > 0 && (
-        <div>
-          <SectionTitle>Weak to</SectionTitle>
-          <EffectivenessCategory>
-            {doubleWeak.map(formatEffectiveness)}
-            {weak.map(formatEffectiveness)}
+      <SectionTitle>Type Effectiveness</SectionTitle>
+      <div style={{ display: 'flex' }}>
+        {weak.length > 0 && (
+          <EffectivenessCategory active={tab === TAB.Weak} onClick={showWeak}>
+            <Tab>Weak</Tab>
+            <TypeListContainer>
+              {doubleWeak.map(formatEffectiveness(tab === TAB.Weak))}
+              {weak.map(formatEffectiveness(tab === TAB.Weak))}
+            </TypeListContainer>
           </EffectivenessCategory>
-        </div>
-      )}
-      {resistant.length > 0 && (
-        <div>
-          <SectionTitle>Resistant to</SectionTitle>
-          <EffectivenessCategory>
-            {doubleResistant.map(formatEffectiveness)}
-            {resistant.map(formatEffectiveness)}
+        )}
+        {resistant.length > 0 && (
+          <EffectivenessCategory active={tab === TAB.Resist} onClick={showResist}>
+            <Tab>Resist</Tab>
+            <TypeListContainer>
+              {doubleResistant.map(formatEffectiveness(tab === TAB.Resist))}
+              {resistant.map(formatEffectiveness(tab === TAB.Resist))}
+            </TypeListContainer>
           </EffectivenessCategory>
-        </div>
-      )}
-      {immune.length > 0 && (
-        <div>
-          <SectionTitle>Immune to</SectionTitle>
-          <EffectivenessCategory>
-            {immune.map(formatEffectiveness)}
+        )}
+        {immune.length > 0 && (
+          <EffectivenessCategory active={tab === TAB.Immune} onClick={showImmune}>
+            <Tab>Immune</Tab>
+            <TypeListContainer>
+              {immune.map(formatEffectiveness(tab === TAB.Immune))}
+            </TypeListContainer>
           </EffectivenessCategory>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }
 
-function formatEffectiveness(type: Type, key: number) {
-  return (
-    <Item key={key}>
-      <Types types={[type]} />
-    </Item>
-  );
+function formatEffectiveness(isTabActive: boolean) {
+  return function (type: Type, key: number) {
+    return (
+      <AnimatedWidth className={!isTabActive ? 'short' : ''} key={key}>
+        <Types types={[type]} hideText={!isTabActive} />
+      </AnimatedWidth>
+    );
+  }
 }
+
+enum TAB { Weak, Resist, Immune }
