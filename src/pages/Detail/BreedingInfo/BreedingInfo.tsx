@@ -27,10 +27,8 @@ export default function BreedingInfo({ genderRatio, eggGroups }: BreedingInfoPro
 }
 
 function GenderRatio({ ratio }: { ratio: number }) {
-  // const ratioA = ratio * 100;
   let maleRatioInteger: number | 'all' = Math.round(1 / (1 - ratio) - 1);
   let femaleRatioInteger: number | 'all' = Math.round(1 / ratio - 1);
-  console.log(ratio, 1 / (1 - ratio) - 1, 1 / ratio - 1)
   let isGenderless = false;
   if (ratio < 0) isGenderless = true;
   else if (maleRatioInteger === Infinity) maleRatioInteger = 'all';
