@@ -129,7 +129,7 @@ export default function DetailPageContainer() {
         value={activeTab}
         onChange={(_, value) => setActiveTab(value)}
         variant="fullWidth"
-        indicatorColor="secondary"
+        indicatorColor="none"
         textColor="secondary"
         aria-label="icon label tabs example"
       >
