@@ -23,7 +23,7 @@ export default async function getPokemons(generation) {
       .map(({ list: [ localDex, nDex, name, typeCount, ...types ] } ) => ({
         localDex,
         name,
-        types,
+        types: types.map(str => str.toLowerCase()),
         form: encodeForm(nDex),
       }))
       .filter(i => i.form !== EXCLUDED) // exclude double entried form

@@ -74,17 +74,17 @@ export default function BasicInfoTab({
 
   return (
     <>
+      <TypeEffectiveness {...typeEffectiveness} />
       <BaseStats {...baseStats} />
       <Abilities {...abilities} />
-      <BreedingInfo
-        genderRatio={genderRatio}
-        eggGroups={eggGroups}
-      />
-      <TypeEffectiveness {...typeEffectiveness} />
       <EvolutionaryLine
         pokemonName={speciesName}
         stages={evolutionaryLine}
         onClickStage={onClickEvolutionStage}
+      />
+      <BreedingInfo
+        genderRatio={genderRatio}
+        eggGroups={eggGroups}
       />
     </>
   );
