@@ -1,40 +1,72 @@
+// Libraries
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import React, { useEffect, useState } from 'react';
+// Functions
 import { saveToParty } from '../../api';
-
-import IconButton from '@material-ui/core/IconButton';
-import DoneIcon from '@material-ui/icons/Done';
-import AddIcon from '@material-ui/icons/Add';
-import PokemonInfo from '../../common/components/PokemonInfo';
-import Navbar from '../../common/components/Navbar';
-import LayoutContainer from '../../common/components/LayoutContainer';
-import Modal from '../../common/components/Modal';
-import Marking from '../../common/components/Marking';
-import LearnsetItem from './LearnsetItem';
-import TypeEffectiveness from './TypeEffectiveness';
-import EditOverviewModal from './EditOverviewModal';
-
-import { Move } from '../../common/types/partyType';
-import { PokemonSprite } from '../../common/components/PokemonInfo/PokemonInfo.styled';
 import { getAnimatedPokemonImage } from '../../api/spriteApi';
+
+// Components
+import { Button, Input } from '@material-ui/core';
+import Modal from '../../common/components/Modal';
+import { PokemonSprite } from '../../common/components/PokemonInfo/PokemonInfo.styled';
+
+// Enums
+import Form from '../../common/constants/Form';
 
 interface AddPartyModalProps {
   isVisible: boolean;
-  speciesName: string;
-  isAlolan?: boolean;
-  onClose: (event: React.SyntheticEvent<{}, Event>) => void
+  onClose: () => void;
+  species: string;
+  form: Form;
 }
 
 export default function AddPartyModal({
-  speciesName,
-  isAlolan = false,
+  species,
+  form,
+  onClose,
   ...props
 }: AddPartyModalProps) {
+  const [name, setName] = useState(species);
+
+  function onSubmit() {
+    saveToParty({
+      species,
+      givenName: name,
+      moves: [],
+      // [{ name: "Haze", type: "ice" }, { name: "Bite", type: "dark"}]
+    });
+    onClose();
+    setName(species);
+  }
+
+  function onChangeName (e: { target: { value: string } }) {
+    setName(e.target.value);
+  }
+
   return (
-    <Modal {...props}>
+    <Modal onClose={onClose} {...props}>
       <h3>Adding to party</h3>
-      <div>{speciesName}</div>
-      <PokemonSprite src={getAnimatedPokemonImage(speciesName, isAlolan)} />
+      <PokemonSprite src={getAnimatedPokemonImage(species, form)} />
+      <div>
+        <NameInput value={name} onChange={onChangeName} autoFocus />
+      </div>
+      <AddToPartyButton onClick={onSubmit}>
+        Add to Party
+      </AddToPartyButton>
     </Modal>
   );
 }
+
+const NameInput = styled(Input)`
+  & input {
+    text-align: center;
+  }
+`;
+
+const AddToPartyButton = styled(Button).attrs({
+  color: 'primary',
+  variant: 'contained',
+})`
+  margin: 16px 0;
+`;

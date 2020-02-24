@@ -31,4 +31,6 @@ const ModalBackground = styled.div`
   border-radius: 8px;
   align-items: center;
   text-align: center;
+  padding: 16px;
+  margin: 32px;
 `;

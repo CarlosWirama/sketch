@@ -167,7 +167,8 @@ export default function DetailPageContainer() {
       )}
       <AddPartyModal
         isVisible={isModalVisible}
-        speciesName={name}
+        species={name}
+        form={form}
         onClose={() => setIsModalVisible(false)}
       />
     </PageContainer>
