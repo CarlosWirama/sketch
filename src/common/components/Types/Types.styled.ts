@@ -21,6 +21,7 @@ export const TypeBalloon = styled.div`
 export const TypeIcon = styled.img<{ color: string }>`
   position: absolute;
   width: 24px;
+  height: 24px;
   color: white;
   background-color: ${props => props.color};
   padding: 2px;

@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Category } from '../types/move';
 
-export default function MoveCategoryIcon({ category, ...props }) {
+interface MoveCategoryIconProps {
+  category: Category;
+}
+
+export default function MoveCategoryIcon({
+  category,
+  ...props
+}: MoveCategoryIconProps) {
   switch(category) {
     case 'Physical': return <Physical {...props}/>;
     case 'Special': return <Special {...props}/>;
@@ -10,9 +18,9 @@ export default function MoveCategoryIcon({ category, ...props }) {
   }
 }
 
-function Physical(props) {
+function Physical(props: any) {
   return (
-    <PhysicalContainer  {...props}>
+    <PhysicalContainer {...props}>
       <PhysicalStarVerticalHorizontal/>
       <PhysicalStarDiagonal />
     </PhysicalContainer>
@@ -23,13 +31,14 @@ const shadow = '0 1px 2px rgba(0, 0, 0, 0.5)';
 const filterShadow = '0 1px 0.5px rgba(0, 0, 0, 0.5)';
 const boxShadow = `inset ${shadow}, ${shadow}`;
 
-const Template = styled.span`
+const Template = styled.div`
   margin-right: 4px;
   top: 1px;
 `;
 
 const PhysicalContainer = styled(Template)`
   position: relative;
+  top: -7px;
   padding-right: 16px;
   filter: drop-shadow(${filterShadow});
 `;

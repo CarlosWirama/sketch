@@ -16,13 +16,13 @@ import AddIcon from '@material-ui/icons/Add';
 // import { color } from '../../common/theme';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
-import LayoutContainer from '../../common/components/LayoutContainer';
 import LoadingIndicator
-from '../../common/components/PokeballLoadingIndicator';
+  from '../../common/components/PokeballLoadingIndicator';
 // import Marking from '../../common/components/Marking';
 import Learnset from './Learnset';
 import BasicInfoTab from './BasicInfoTab';
 import EditOverviewModal from './EditOverviewModal';
+import AddPartyModal from './AddPartyModal';
 
 import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
@@ -57,6 +57,7 @@ export default function DetailPageContainer() {
     eggGroups: [],
   });
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditingActive, setIsEditingActive] = useState(false);
   const [choosenMoves, setChoosenMoves] = useState<MoveItem[]>([]);
   const [activeTab, setActiveTab] = useState(DetailPageTab.BasicInfo);
@@ -91,6 +92,7 @@ export default function DetailPageContainer() {
   }
 
   function setEditingOn() {
+    setIsModalVisible(true); // TODO
     setIsEditingActive(true);
   }
 
@@ -129,7 +131,7 @@ export default function DetailPageContainer() {
         value={activeTab}
         onChange={(_, value) => setActiveTab(value)}
         variant="fullWidth"
-        indicatorColor="secondary"
+        indicatorColor="none"
         textColor="secondary"
         aria-label="icon label tabs example"
       >
@@ -163,6 +165,12 @@ export default function DetailPageContainer() {
           </DetailPageContent>
         </SwipeableViews>
       )}
+      <AddPartyModal
+        isVisible={isModalVisible}
+        species={name}
+        form={form}
+        onClose={() => setIsModalVisible(false)}
+      />
     </PageContainer>
   );
 }
