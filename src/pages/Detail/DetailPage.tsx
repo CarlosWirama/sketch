@@ -11,9 +11,8 @@ import {
 import SwipeableViews from 'react-swipeable-views';
 import IconButton from '@material-ui/core/IconButton';
 import DoneIcon from '@material-ui/icons/Done';
-import AddIcon from '@material-ui/icons/Add';
-// import PokeballIcon from '../../common/components/Pokeball';
-// import { color } from '../../common/theme';
+import PokeballIcon from '../../common/components/Pokeball';
+import { color } from '../../common/theme';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import Navbar from '../../common/components/Navbar';
 import LoadingIndicator
@@ -111,8 +110,9 @@ export default function DetailPageContainer() {
       aria-label="edit"
       style={{ position: 'absolute', right: 0 }}
     >
-      {isEditingActive ? <DoneIcon /> : <AddIcon />
-        // : <PokeballIcon size={254} color="gray" background={color.primary} /> // TODO
+      {isEditingActive
+        ? <DoneIcon />
+        : <PokeballIcon size={24} background={color.primary} />
       }
     </IconButton>
   );

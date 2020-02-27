@@ -1,34 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../common/components';
+import { LayoutContainer } from '../common/components';
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // searchText: '',
-      // learnset: [],
-    };
-    // this.onChange = this.onChange.bind(this);
-    // this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
-  render() {
-    return (
-      <LayoutContainer>
-        <Navbar middle="PokéPlanner" />
+export default function Party() {
+  return (
+    <PageContainer>
+      <Navbar>PokéParty</Navbar>
+      <ScrollableLayout>
         <Section title="PokéPlanner" desc="Select and plan your party Pokémon" />
         <Section
           title="PokéFight"
           desc="Find a Pokémon and see your party's winning chance against enemy party"
         />
-      </LayoutContainer>
-    );
-  }
+      </ScrollableLayout>
+    </PageContainer>
+  );
 }
 
-function Section({title, desc}) {
+interface SectionProps {
+  title: string;
+  desc: string;
+}
+
+function Section({title, desc}: SectionProps) {
   return (
     <SectionStyle>
       <div style={{fontWeight: 'bold'}}>{title}</div>
@@ -39,6 +35,16 @@ function Section({title, desc}) {
     </SectionStyle>
   );
 }
+
+const PageContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+const ScrollableLayout = styled(LayoutContainer)`
+  flex: 1;
+  overflow: scroll;
+`;
 
 const SectionStyle = styled.div`
   margin: 24px 0;
@@ -51,8 +57,4 @@ const PartyArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const LayoutContainer = styled.div`
-  margin: 0 16px;
 `;
