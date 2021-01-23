@@ -1,8 +1,8 @@
 {
-  "name": "pokeplanner",
+  "name": "sketch",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://carloswirama.github.io/pokeplanner",
+  "homepage": "https://carloswirama.github.io/sketch",
   "dependencies": {
     "@material-ui/core": "^3.9.4",
     "@material-ui/icons": "^3.0.2",

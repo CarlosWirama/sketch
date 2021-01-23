@@ -1,12 +1,12 @@
 ## PokéPlanner
 
-demo here: https://carloswirama.github.io/pokeplanner
+demo here: https://carloswirama.github.io/sketch
 
 To run the project:
 1. npm install
 2. npm start
 
-if you find any issue, please report it here: https://github.com/CarlosWirama/pokeplanner/issues
+if you find any issue, please report it here: https://github.com/CarlosWirama/sketch/issues
 
 
 Bootstrapped with [Create React App]
