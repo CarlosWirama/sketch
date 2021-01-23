@@ -73,14 +73,14 @@ export default function DetailPageContainer() {
 
   useEffect(() => {
     setIsLoading(true);
-    const generationNumber = (generation === 'gen_VII') ? 7 : 8;
+    const generationNumber = (generation === 'gen_VIII') ? 8 : 7;
     getPokemonDetail(speciesName, generationNumber, form)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
     checkFavorite(name).then(setIsFavorite);
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
-  }, [ name, generation ]);
+  }, [name, generation]);
 
   function onClickBack() {
     push('/search');
@@ -138,7 +138,7 @@ export default function DetailPageContainer() {
         <Tab label="Basic Info" />
         <Tab label="Moves" />
       </Tabs>
-      {isLoading ? <LoadingIndicator/> : (
+      {isLoading ? <LoadingIndicator /> : (
         <SwipeableViews
           index={activeTab}
           onChangeIndex={setActiveTab}
