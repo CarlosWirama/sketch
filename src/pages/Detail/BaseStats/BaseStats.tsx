@@ -23,7 +23,7 @@ export default function BaseStats({
   return (
     <>
       <SectionTitle>Base Stats</SectionTitle>
-      <BorderedCard style={{ }}>
+      <BorderedCard style={{}}>
         <BaseStatRow color="#FF0000" name="HP" value={hp} />
         <BaseStatRow color="#F08030" name="Attack" value={attack} />
         <BaseStatRow color="#F8D030" name="Defense" value={defense} />

@@ -1,31 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import { Category } from '../types/move';
-
-interface MoveCategoryIconProps {
-  category: Category;
-}
-
-export default function MoveCategoryIcon({
-  category,
-  ...props
-}: MoveCategoryIconProps) {
-  switch(category) {
-    case 'Physical': return <Physical {...props}/>;
-    case 'Special': return <Special {...props}/>;
-    case 'Status': return <Status {...props}/>;
-    default: return null;
-  }
-}
-
-function Physical(props: any) {
-  return (
-    <PhysicalContainer {...props}>
-      <PhysicalStarVerticalHorizontal/>
-      <PhysicalStarDiagonal />
-    </PhysicalContainer>
-  );
-}
 
 const shadow = '0 1px 2px rgba(0, 0, 0, 0.5)';
 const filterShadow = '0 1px 0.5px rgba(0, 0, 0, 0.5)';
@@ -36,7 +9,7 @@ const Template = styled.div`
   top: 1px;
 `;
 
-const PhysicalContainer = styled(Template)`
+export const PhysicalContainer = styled(Template)`
   position: relative;
   top: -7px;
   padding-right: 16px;
@@ -58,7 +31,7 @@ const PhysicalStarTemplate = styled.div`
   }
 `;
 
-const PhysicalStarDiagonal = styled(PhysicalStarTemplate)`
+export const PhysicalStarDiagonal = styled(PhysicalStarTemplate)`
   top: 4px;
   left: 4px;
   &:before, &:after {
@@ -67,7 +40,7 @@ const PhysicalStarDiagonal = styled(PhysicalStarTemplate)`
   }
 `;
 
-const PhysicalStarVerticalHorizontal = styled(PhysicalStarTemplate)`
+export const PhysicalStarVerticalHorizontal = styled(PhysicalStarTemplate)`
   transform: rotate(45deg);
   top: 2px;
   left: 8px;
@@ -77,7 +50,7 @@ const PhysicalStarVerticalHorizontal = styled(PhysicalStarTemplate)`
   }
 `;
 
-const Special = styled(Template)`
+export const Special = styled(Template)`
   position: relative;
   width: 14px;
   height: 14px;
@@ -104,7 +77,7 @@ const Special = styled(Template)`
   }
 `;
 
-const Status = styled(Template)`
+export const Status = styled(Template)`
   width: 14px;
   box-sizing: content-box;
   height: 6.5px;

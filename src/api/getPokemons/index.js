@@ -6,28 +6,28 @@ const GALAR_POKEMON_LIST_PAGE = 'List_of_Pokémon_by_Galar_Pokédex_number';
 const EXCLUDED = 'excluded';
 
 export default async function getPokemons(generation) {
-  const isGenVII = generation === 'gen_VII';
+  const isGenVIII = generation === 'gen_VIII';
   const wikitextResult = await fetchAndParseWiki({
-    page: isGenVII ? KANTO_POKEMON_LIST_PAGE : GALAR_POKEMON_LIST_PAGE,
+    page: isGenVIII ? GALAR_POKEMON_LIST_PAGE : KANTO_POKEMON_LIST_PAGE,
   });
 
   // list of pokemon will be divided into several sections
   const sectionsOfPokemonList = wikitextResult
     .sections() // get all sections in page
     // filter only sections with pokemon list
-    .filter(i => i.depth === (isGenVII ? 2 : 1));
+    .filter(i => i.depth === (isGenVIII ? 1 : 2));
   const unsortedList = sectionsOfPokemonList.map(section =>
     wikitextResult.sections(section._title).json()
       .templates
       .filter(i => i.template === 'rdex') // exclude header
-      .map(({ list: [ localDex, nDex, name, typeCount, ...types ] } ) => ({
+      .map(({ list: [localDex, nDex, name, typeCount, ...types] }) => ({
         localDex,
         name,
         types: types.map(str => str.toLowerCase()),
         form: encodeForm(nDex),
       }))
       .filter(i => i.form !== EXCLUDED) // exclude double entried form
-    ).flat();
+  ).flat();
   return unsortedList.sort(function (a, b) {
     // make foreign pokemon to be sorted by localDex no.
     // Infinity is sorting pokemon without localDex to the bottom

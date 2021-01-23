@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { BorderedCard } from '../../../common/components/Card';
 import Tab from '../../../common/components/Tab';
 
-export const AbilityBox = styled(Tab)<{ isHiddenAbility?: boolean }>`
+export const AbilityBox = styled(Tab) <{ isHiddenAbility?: boolean }>`
   background: rgb(19, 153, 240);
   border-radius: 4px 9px;
   padding: 2px 8px;
