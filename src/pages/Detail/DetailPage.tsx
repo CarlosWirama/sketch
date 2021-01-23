@@ -5,7 +5,7 @@ import {
   checkFavorite,
   toggleFavorite,
   getChoosenMove,
-  saveToParty,
+  addToParty,
 } from '../../api';
 
 import SwipeableViews from 'react-swipeable-views';
@@ -97,7 +97,7 @@ export default function DetailPageContainer() {
 
   function saveEditing() {
     setIsEditingActive(false);
-    saveToParty({
+    addToParty({
       givenName,
       species: name,
       moves: choosenMoves,

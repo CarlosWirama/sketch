@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Functions
-import { saveToParty } from '../../api';
+import { addToParty } from '../../api';
 import { getAnimatedPokemonImage } from '../../api/spriteApi';
 
 // Components
@@ -30,7 +30,7 @@ export default function AddPartyModal({
   const [name, setName] = useState(species);
 
   function onSubmit() {
-    saveToParty({
+    addToParty({
       species,
       givenName: name,
       moves: [],
