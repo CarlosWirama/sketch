@@ -35,7 +35,7 @@ function GenderRatio({ ratio }: { ratio: number }) {
   else if (femaleRatioInteger === Infinity) femaleRatioInteger = 'all';
   else if (maleRatioInteger > 1) femaleRatioInteger = 1;
   else if (femaleRatioInteger > 1) maleRatioInteger = 1;
-  
+
   return (
     <GenderRatioContainer>
       {isGenderless ? 'Genderless' : (
@@ -52,7 +52,7 @@ function GenderRatio({ ratio }: { ratio: number }) {
   );
 }
 
-const GenderRatioBar = styled.div<{ratio: number}>`
+const GenderRatioBar = styled.div<{ ratio: number }>`
   background-color: #FF77DDCC;
   width: 100%;
   height: 100%;

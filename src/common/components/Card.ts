@@ -9,6 +9,7 @@ export const BorderedCard = styled(Card)`
   position: relative;
   color: white;
   padding: 16px;
+  
   && {
     background-color: rgba(32, 129, 255, 0.3);
     box-shadow: 0 0 8px 10px rgba(182, 237, 255, 0.3);
