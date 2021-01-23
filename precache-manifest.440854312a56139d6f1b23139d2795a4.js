@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "dc8a9a56121e1466f30c",
+    "revision": "4c6f8f65bd540ef9b6e8",
     "url": "/sketch/static/css/main.1664bcc8.chunk.css"
   },
   {
-    "revision": "dc8a9a56121e1466f30c",
-    "url": "/sketch/static/js/main.88c84d40.chunk.js"
+    "revision": "4c6f8f65bd540ef9b6e8",
+    "url": "/sketch/static/js/main.67debf92.chunk.js"
   },
   {
     "revision": "240b49737d5ee7462b49",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/sketch/static/media/RobotoMono-Regular.a3649815.ttf"
   },
   {
-    "revision": "0b5f0a28e07fafa624f587d674f97ca1",
+    "revision": "15be282c4ddd46e2f01f7d9c729baa28",
     "url": "/sketch/index.html"
   }
 ];
