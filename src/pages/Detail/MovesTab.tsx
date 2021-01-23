@@ -46,13 +46,13 @@ export default function MovesTab({
 
   useEffect(() => {
     setIsLoading(true);
-    const generation = (params.generation === 'gen_VII') ? 7 : 8;
+    const generation = (params.generation === 'gen_VIII') ? 8 : 7;
     getPokemonDetail(speciesName, generation, form)
       .then(setDetails as any) // TODO
       .finally(() => setIsLoading(false));
     setChoosenMoves(getChoosenMove(givenName));
     updateRecentlyViewed(name);
-  }, [ params ]);
+  }, [params]);
 
   function onClickEvolutionStage(pokemonName: string) {
     pokemonName.replace(' ', '_'); // for alolan
