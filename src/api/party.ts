@@ -7,7 +7,7 @@ import {
 
 const PARTY_STORAGE_KEY = 'party';
 
-function getPartyList(): PartyPokemonOptimized[] {
+export function getPartyList(): PartyPokemonOptimized[] {
   const rawPartyList = localStorage.getItem(PARTY_STORAGE_KEY) || '[]';
   const parsed: StoredPartyList = JSON.parse(rawPartyList);
   return parsed.map(

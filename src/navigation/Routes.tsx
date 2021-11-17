@@ -42,16 +42,16 @@ function Routes() {
         disabled
       >
         <Switch>
-          <Route component={Party}/>
-          <Route path="/party" component={Party}/>
+          <Route component={Party} />
+          <Route path="/party" component={Party} />
         </Switch>
         <Switch>
           <Redirect exact from="/" to="/party" />
-          <Route path="/search" component={Search}/>
-          <Route path="/pokemon/:pokemon" component={Detail}/>
-          <Route path="/:generation/search" component={Search}/>
-          <Route path="/:generation/pokemon/:pokemon" component={Detail}/>
-          <Route component={NotFound}/>
+          <Route path="/search" component={Search} />
+          <Route path="/pokemon/:pokemon" component={Detail} />
+          <Route path="/:generation/search" component={Search} />
+          <Route path="/:generation/pokemon/:pokemon" component={Detail} />
+          <Route component={NotFound} />
         </Switch>
       </SwipeableViews>
       <Tabs
@@ -61,15 +61,15 @@ function Routes() {
         textColor="primary"
         aria-label="navigation tab"
       >
-        <Tab component="a" label="Party" href={`#${PATH.Party}`}/>
-        <Tab component="a" label="Search" href={`#${PATH.Search}`}/>
+        <Tab component="a" label="Party" href={`#${PATH.Party}`} />
+        <Tab component="a" label="Search" href={`#${PATH.Search}`} />
       </Tabs>
-    </div>
+    </div >
   );
 }
 
 function NotFound() {
   return (
-    <div style={{ margin: '40px auto'}}>404 Not Found</div>
+    <div style={{ margin: '40px auto' }}>404 Not Found</div>
   );
 }
