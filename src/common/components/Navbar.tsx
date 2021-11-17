@@ -21,7 +21,7 @@ export default function Navbar({ left, children, right, onClickBack }: {
     onClickBack ? <BackButton onClick={onClickBack} /> : null
   );
   const styledChildren = typeof children === 'string'
-    ? <Typography variant="h2" color="inherit">{children}</Typography>
+    ? <Typography variant="h5" color="inherit">{children}</Typography>
     : children;
   return (
     <NavbarContainer>
