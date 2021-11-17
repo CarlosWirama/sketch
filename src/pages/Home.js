@@ -3,22 +3,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../common/components';
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // searchText: '',
-      // learnset: [],
-    };
-    // this.onChange = this.onChange.bind(this);
-    // this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
-  render() {
-    return (
-      <LayoutContainer>
-        <Navbar middle="PokéPlanner" />
-        <Section title="PokéPlanner" desc="Select and plan your party Pokémon" />
+export default function Party() {
+  return (
+    <PageContainer>
+      <Navbar>Sketch</Navbar>
+      <ScrollableLayout>
+        <Section title="Sketch" desc="Select and plan your party Pokémon" />
         <Section
           title="PokéFight"
           desc="Find a Pokémon and see your party's winning chance against enemy party"
@@ -28,10 +18,15 @@ export default class Home extends Component {
   }
 }
 
-function Section({title, desc}) {
+interface SectionProps {
+  title: string;
+  desc: string;
+}
+
+function Section({ title, desc }: SectionProps) {
   return (
     <SectionStyle>
-      <div style={{fontWeight: 'bold'}}>{title}</div>
+      <div style={{ fontWeight: 'bold' }}>{title}</div>
       <div>{desc}</div>
       <PartyArea>
         <Link to="/search">Tap to add Pokémon to your party</Link>

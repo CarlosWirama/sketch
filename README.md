@@ -1,4 +1,4 @@
-## PokéPlanner
+## Sketch
 
 demo here: https://carloswirama.github.io/sketch
 
