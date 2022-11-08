@@ -51,23 +51,29 @@ function getImageFileName(pokemonName: string, form: Form) {
   return pokemonName.replace(' ', ''); // for Tapu Blablabla
 }
 
-export function getPixelImage(nDex: string, form: Form) {
+export function getPixelImage(nDex: string, form?: Form) {
   const formSuffix = form ? `-${form[0].toLowerCase()}` : '';
   const fileName = `${nDex}${formSuffix}`;
   return `${pixelUrl}/${fileName}.png`;
   // e.g. https://www.serebii.net/pokedex-swsh/icon/026-a.png
 }
 
-// // DEPRECATED
-// function getKantoPixelImage(pokemonName: string) {
-//   const index = kantoDex.indexOf(pokemonName);
-//   const WIDTH = 32;
-//   const HEIGHT = 32;
-//   const TOTAL_COLUMN = 25;
-//   const x = -1 * (index % TOTAL_COLUMN) * WIDTH;
-//   const y = -1 * Math.floor(index / TOTAL_COLUMN) * HEIGHT - 4;
-//   return `url(${pixelSprite}) ${x}px ${y}px`;
-// }
+function getPokedexNumber(pokemonName: string) {
+  function addLeadingZero(num: number, size: number) {
+    let numStr = num.toString();
+    while (numStr.length < size) numStr = `0${numStr}`;
+    return numStr;
+  }
+  const index: number = kantoDex.indexOf(pokemonName) + 1;
+  return addLeadingZero(index, 3);
+}
+
+export function getPixelImageFromName(pokemonName: string) {
+  const index: string = getPokedexNumber(pokemonName);
+  return getPixelImage(index);
+  // TODO meltan, melmetal
+  // TODO alolan
+}
 
 const kantoDex = [
   "Bulbasaur",

@@ -1,11 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import { ArrowBack } from '@material-ui/icons';
 import {
   isPokedexLayout,
@@ -25,11 +21,10 @@ export default function Navbar({ left, children, right, onClickBack }: {
     onClickBack ? <BackButton onClick={onClickBack} /> : null
   );
   const styledChildren = typeof children === 'string'
-    ? <Typography variant="h2" color="inherit">{children}</Typography>
+    ? <Typography variant="h5" color="inherit">{children}</Typography>
     : children;
   return (
     <NavbarContainer>
-      <EmptySpace/>
       <AppBarWithPokedex color="inherit">
         <StyledToolbar>
           {leftButton}
@@ -43,6 +38,18 @@ export default function Navbar({ left, children, right, onClickBack }: {
   );
 }
 
+function BackButton(props: IconButtonProps) {
+  return (
+    <BackButtonContainer
+      color="inherit"
+      aria-label="Back"
+      {...props}
+    >
+      <ArrowBack />
+    </BackButtonContainer>
+  );
+}
+
 const NavbarContainer = styled.div`
   && {
     color: black;
@@ -50,19 +57,17 @@ const NavbarContainer = styled.div`
   }
 `;
 
-const EmptySpace = styled.div`
-  height: 104px;
-`;
-
+// not using top: 0; because we will have 2 navbar in 2 side-by-side layers
 const AppBarWithPokedex = styled(AppBar)`
+  && {
+    top: auto;
+    right: auto;
+    position: relative;
+  }
   ${isPokedexLayout} {
     max-width: ${CONTENT_MAX_WIDTH};
-    && {
-      top: ${FRAME_VERTICAL_PADDING};
-      right: ${CONTENT_RIGHT_CALC};
-      & > div {
-        box-shadow: inset 1px 2px 3px 1px grey;
-      }
+    && > div {
+      box-shadow: inset 1px 2px 3px 1px grey;
     }
   }
 `;
@@ -86,15 +91,3 @@ const BackButtonContainer = styled(IconButton)`
     position: absolute;
   }
 `;
-
-function BackButton(props: any) {
-  return (
-    <BackButtonContainer
-      color="inherit"
-      aria-label="Back"
-      {...props}
-    >
-      <ArrowBack />
-    </BackButtonContainer>
-  );
-}

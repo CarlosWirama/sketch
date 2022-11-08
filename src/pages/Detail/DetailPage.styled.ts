@@ -5,7 +5,7 @@ import { LayoutContainer } from '../../common/components';
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 `;
 
 export const SectionTitle = styled.div`

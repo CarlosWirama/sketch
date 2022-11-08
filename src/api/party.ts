@@ -15,7 +15,7 @@ export function getPartyList(): PartyPokemonOptimized[] {
   ) || [];
 }
 
-export function savePartyList(partyList: PartyPokemonOptimized[]) {
+function savePartyList(partyList: PartyPokemonOptimized[]) {
   const arrayStructured = partyList.map(
     ({ species, givenName, moves }) => [species, givenName, moves],
   );
@@ -31,7 +31,7 @@ export function getChoosenMove(name: string): MoveItem[] {
     : [];
 }
 
-export function saveToParty(newPokemon: PartyPokemon): void {
+export function addToParty(newPokemon: PartyPokemon): void {
   const partyList = getPartyList();
   const newParty = partyList.filter(i => i.givenName !== newPokemon.givenName);
   const newPokemonOptimized: PartyPokemonOptimized = {
