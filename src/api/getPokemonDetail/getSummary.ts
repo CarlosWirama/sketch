@@ -1,5 +1,3 @@
-// functions
-import { keys } from 'ramda';
 // enums
 import Type from '../../common/constants/Type';
 import Form from '../../common/constants/Form';

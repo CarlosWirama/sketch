@@ -2,15 +2,7 @@ import React from 'react';
 import { SectionTitle } from '../DetailPage.styled';
 import BaseStatRow from './BaseStatRow';
 import { BorderedCard } from '../../../common/components/Card';
-
-interface BaseStatsProps {
-  attack: number;
-  defense: number;
-  hp: number;
-  spatk: number;
-  spdef: number;
-  speed: number;
-}
+import IBaseStats from '../../../common/types/baseStats';
 
 export default function BaseStats({
   attack,
@@ -19,11 +11,11 @@ export default function BaseStats({
   spatk,
   spdef,
   speed,
-}: BaseStatsProps) {
+}: IBaseStats) {
   return (
     <>
       <SectionTitle>Base Stats</SectionTitle>
-      <BorderedCard style={{}}>
+      <BorderedCard>
         <BaseStatRow color="#FF0000" name="HP" value={hp} />
         <BaseStatRow color="#F08030" name="Attack" value={attack} />
         <BaseStatRow color="#F8D030" name="Defense" value={defense} />

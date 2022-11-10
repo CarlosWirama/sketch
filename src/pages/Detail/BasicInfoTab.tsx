@@ -18,16 +18,10 @@ import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 import Effectiveness from '../../common/types/effectiveness';
 import EvolutionStage from '../../common/types/evolutionStage';
 import { useHistory, useParams } from 'react-router-dom';
+import IBaseStats from '../../common/types/baseStats';
 
 interface BasicInfoTabProps {
-  baseStats: {
-    attack: number;
-    defense: number;
-    hp: number;
-    spatk: number;
-    spdef: number;
-    speed: number;
-  };
+  baseStats: IBaseStats;
   abilities: { nonHidden: string[]; hidden?: string };
   genderRatio: number;
   eggGroups: string[];
