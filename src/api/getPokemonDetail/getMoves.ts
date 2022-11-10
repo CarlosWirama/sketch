@@ -37,7 +37,7 @@ function getMoves(
     else if (learningMethod === 'By') learnsetSection = modifyBreedingList(learnsetSection);
     else learnsetSection = learnsetSection.slice(1, -1);
     let moves = learnsetSection
-      .filter(i => i.template.includes('null') === false)
+      .filter(i => i.template.includes('null') === false && i.list.length > 6)
       // TODO
       // - remove unknown
       // - add RawMove without level for tutoring,
