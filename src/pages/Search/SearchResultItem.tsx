@@ -2,12 +2,14 @@ import React from 'react';
 import PokemonInfo from '../../common/components/PokemonInfo';
 import { ResultItem } from './SearchResultItem.styled';
 import Form from '../../common/constants/Form';
-import Type from '../../common/constants/Type';
+
+// types
+import { Types } from '../../common/types';
 
 interface SearchResultItemProps {
   listItem: {
     name: string;
-    types: [Type] | [Type, Type];
+    types: Types;
     form: Form;
   };
   onClick: (name: string, form: Form) => void;

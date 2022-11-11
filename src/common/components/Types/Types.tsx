@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container, TypeBalloon, TypeIcon, TypeText } from './Types.styled';
-import Type from '../../constants/Type';
 import getTypeColor from './pokemonTypeColor';
 import TypeIcons from './typeIcons';
 
+// types
+import { Types as TTypes } from '../../types';
+
 interface TypesProps {
-  types: [Type] | [Type, Type];
+  types: TTypes;
   hideText?: boolean;
 }
 

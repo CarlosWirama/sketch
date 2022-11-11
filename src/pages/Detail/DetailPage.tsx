@@ -24,18 +24,19 @@ import BasicInfoTab from './BasicInfoTab';
 import EditOverviewModal from './EditOverviewModal';
 import AddPartyModal from './AddPartyModal';
 
-import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
 
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
-import EvolutionStage from '../../common/types/evolutionStage';
 import { useParams, useHistory } from 'react-router-dom';
 import { DetailPageContent, PageContainer, Tabs, Tab } from './DetailPage.styled';
+
+// types
+import { EvolutionStage, MoveItem, Types } from '../../common/types';
 
 export default function DetailPageContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
-    types: [Type['???']] as [Type] | [Type, Type],
+    types: [Type['???']] as Types,
     moves: {
       leveling: [],
       machine: [],

@@ -11,14 +11,19 @@ import BreedingInfo from './BreedingInfo';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 
-import { MoveItem } from '../../common/types/partyType';
 import Type from '../../common/constants/Type';
 
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
-import Effectiveness from '../../common/types/effectiveness';
-import EvolutionStage from '../../common/types/evolutionStage';
 import { useHistory, useParams } from 'react-router-dom';
-import IBaseStats from '../../common/types/baseStats';
+
+// types
+import {
+  BaseStats as IBaseStats,
+  Effectiveness,
+  EvolutionStage,
+  MoveItem,
+  Types,
+} from '../../common/types';
 
 interface BasicInfoTabProps {
   baseStats: IBaseStats;
@@ -39,7 +44,7 @@ export default function BasicInfoTab({
 }: BasicInfoTabProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
-    types: [Type['???']] as [Type] | [Type, Type],
+    types: [Type['???']] as Types,
   });
   const { push } = useHistory();
   const [choosenMoves, setChoosenMoves] = useState<MoveItem[]>([]);

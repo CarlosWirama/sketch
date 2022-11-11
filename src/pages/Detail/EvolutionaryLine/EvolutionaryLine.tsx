@@ -3,7 +3,9 @@ import { SectionTitle } from '../DetailPage.styled';
 import { SectionContent, StageCard } from './EvolutionaryLine.styled';
 import { getTypeColor } from '../../../common/components/Types';
 import { getPixelImage } from '../../../api/spriteApi';
-import EvolutionStage from '../../../common/types/evolutionStage';
+
+// types
+import { EvolutionStage } from '../../../common/types';
 
 interface EvolutionaryLineProps {
   pokemonName: string;

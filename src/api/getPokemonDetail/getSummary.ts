@@ -1,8 +1,8 @@
 // enums
-import Type from '../../common/constants/Type';
 import Form from '../../common/constants/Form';
 // types
 import wtf from 'wtf_wikipedia';
+import { Types } from '../../common/types';
 
 export default function getSummary(parsed: wtf.Document, form: Form) {
   const summarySection: SummarySection =
@@ -16,7 +16,7 @@ export default function getSummary(parsed: wtf.Document, form: Form) {
   const capsTypes = (form === Form.Galarian) // TODO
     ? pluckText([form2type1, form2type2])
     : pluckText([type1, type2]);
-  const types = capsTypes.map(str => str.toLowerCase()) as [Type] | [Type, Type];
+  const types = capsTypes.map(str => str.toLowerCase()) as Types;
   const abilities = {
     nonHidden: pluckText([ability1, ability2]),
     hidden: (abilityd || {}).text,
