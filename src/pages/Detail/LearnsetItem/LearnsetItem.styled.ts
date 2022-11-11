@@ -52,15 +52,16 @@ export const LevelCircle = styled.div`
   align-items: center;
 `;
 
-export const Headline = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
 export const Name = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   flex: 3;
   padding-bottom: 8px;
+  margin-left: 4px;
 `;
 
 export const IconButton = styled(IconButtonMaterialUi)`
@@ -71,35 +72,14 @@ export const IconButton = styled(IconButtonMaterialUi)`
   }
 `;
 
-export const SubInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 export const Collapse = styled(CollapseMaterialUi)`
   margin-top: 4px;
   font-size: 14px;
 `;
 
-export const ExpansionToggle = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 10px;
-  margin-right: 8px;
-`;
-
-export const ExpandIconContainer = styled.div<{ isExpanded: boolean }>`
-  transition: transform 400ms;
-  transform: rotate(${props => props.isExpanded ? 180 : 0}deg);
-`;
 
 export const Description = styled.div`
   margin: 16px 0;
-`;
-
-export const DetailGrid = styled.div`
-  display: flex;
 `;
 
 export const DetailLabels = styled.div`
@@ -110,13 +90,6 @@ export const DetailValues = styled.div`
   margin-left: 8px;
 `;
 
-export const CategoryBalloon = styled.div<{ color: string }>`
-  background-color: ${props => props.color};
+export const Flex = styled.div`
   display: flex;
-  padding: 4px;
-  border-radius: 4px;
-  font-size: 12px;
-  align-items: center;
-  position: relative;
-  border: 1px solid #0004;
 `;

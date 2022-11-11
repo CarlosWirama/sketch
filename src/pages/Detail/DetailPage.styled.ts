@@ -11,6 +11,9 @@ export const PageContainer = styled.div`
 export const SectionTitle = styled.div`
   margin: 24px 0 16px;
   font-weight: bold;
+  & svg {
+    vertical-align: top;
+  }
 `;
 
 export const Tabs = styled(MaterialTabs)`
