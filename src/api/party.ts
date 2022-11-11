@@ -3,7 +3,7 @@ import {
   PartyPokemonOptimized,
   MoveItem,
   StoredPartyList,
-} from '../common/types/partyType';
+} from '../common/types';
 
 const PARTY_STORAGE_KEY = 'party';
 

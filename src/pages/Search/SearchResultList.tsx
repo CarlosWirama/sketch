@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import List from '@material-ui/core/List';
 import SearchResultItem from './SearchResultItem';
 import Form from '../../common/constants/Form';
-import Type from '../../common/constants/Type';
+
+// types
+import { Types } from '../../common/types';
 
 interface SearchResultListProps {
   filteredList: {
     name: string;
-    types: [Type] | [Type, Type];
+    types: Types;
     form: Form;
   }[];
   onClickItem: (name: string, form: Form) => void;

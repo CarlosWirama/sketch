@@ -6,9 +6,11 @@ import {
 } from '../../api';
 
 import Learnset from './Learnset';
-import { MoveItem } from '../../common/types/partyType';
-
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
+
+// types
+import { MoveItem } from '../../common/types';
+
 
 export default function MovesTab({
   match: { params },

@@ -3,8 +3,9 @@ import { getSection } from '../../sectionHelper';
 import { EvolutionSection, EvoboxTemplate, EvoMethodTemplate } from './evolution-wiki';
 import Form from '../../../common/constants/Form';
 import wtf from 'wtf_wikipedia';
-import Type from '../../../common/constants/Type';
-import EvolutionStage from '../../../common/types/evolutionStage';
+
+// types
+import { EvolutionStage, Types } from '../../../common/types';
 
 export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, generation: number) {
   // evolution data structure will be vary from here
@@ -52,7 +53,7 @@ export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, ge
       form,
       nDex,
       name: evoboxData[`name${evolutionStage}` as 'name1' | 'name2' | 'name3'] || '',
-      types: [type1, type2].filter(a => a) as [Type] | [Type, Type],
+      types: [type1, type2].filter(a => a) as Types,
     });
     evolutionStage++;
   };

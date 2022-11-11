@@ -1,11 +1,12 @@
 import React from 'react';
 import LearnsetItem from './LearnsetItem';
-import { Learnset as LearnsetType, RawMove } from '../../common/types/move';
 import { SectionTitle } from './DetailPage.styled';
-import { MoveItem } from '../../common/types/partyType';
+
+//  types
+import { Learnset as TLearnset, MoveItem, RawMove } from '../../common/types';
 
 interface LearnsetProps {
-  learnset: LearnsetType;
+  learnset: TLearnset;
   choosenMoves: MoveItem[];
   setChoosenMoves: React.Dispatch<React.SetStateAction<MoveItem[]>>;
   isEditingActive: boolean;
