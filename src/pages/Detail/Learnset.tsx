@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Collapse from '@material-ui/core/Collapse';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+
 import LearnsetItem from './LearnsetItem';
 import { SectionTitle } from './DetailPage.styled';
 
@@ -22,48 +25,61 @@ export default function Learnset ({
   },
   ...props
 }: LearnsetProps) {
+  const [expanded, setExpanded] = useState<string>('leveling');
   return (
-    <>
+    <div style={{ height: '100%', display: 'flex', flexFlow:'column' }}>
       <LearnsetByMethod
         methodTitle='Moves by leveling up'
         moves={leveling}
+        isExpanded={expanded === 'leveling'}
+        onExpanded={() => setExpanded('leveling')}
         {...props}
       />
       {tm && tm.length > 0 && (
         <LearnsetByMethod
           methodTitle='Moves by TM/TR'
           moves={tm}
+          isExpanded={expanded === 'tmtr'}
+          onExpanded={() => setExpanded('tmtr')}
           {...props}
         />
       )}
       {breeding && breeding.length > 0 && (
-          <LearnsetByMethod
+        <LearnsetByMethod
           methodTitle='Moves by breeding'
           moves={breeding}
+          isExpanded={expanded === 'breeding'}
+          onExpanded={() => setExpanded('breeding')}
           {...props}
         />
       )}
       {tutoring && tutoring.length > 0 && (
-          <LearnsetByMethod
+        <LearnsetByMethod
           methodTitle='Moves by tutoring'
           moves={tutoring}
+          isExpanded={expanded === 'tutoring'}
+          onExpanded={() => setExpanded('tutoring')}
           {...props}
         />
       )}
       {prior && prior.length > 0 && (
-          <LearnsetByMethod
+        <LearnsetByMethod
           methodTitle='Moves by prior evolution'
           moves={prior}
+          isExpanded={expanded === 'priorevo'}
+          onExpanded={() => setExpanded('priorevo')}
           {...props}
         />
       )}
-    </>
+    </div>
   );
 }
 
 interface LearnsetByMethodProps extends Omit<LearnsetProps, 'learnset'> {
   methodTitle: string;
   moves: RawMove[];
+  isExpanded: boolean;
+  onExpanded: () => void;
   setChoosenMoves: React.Dispatch<React.SetStateAction<MoveItem[]>>;
   isEditingActive: boolean;
 }
@@ -71,6 +87,8 @@ interface LearnsetByMethodProps extends Omit<LearnsetProps, 'learnset'> {
 function LearnsetByMethod ({
   methodTitle,
   moves,
+  isExpanded,
+  onExpanded,
   choosenMoves,
   setChoosenMoves,
   isEditingActive,
@@ -85,8 +103,10 @@ function LearnsetByMethod ({
   }
   return (
     <>
-      <SectionTitle>{methodTitle}</SectionTitle>
-      <div>
+      <SectionTitle onClick={onExpanded}>
+        {methodTitle}&nbsp;<ArrowDropDown />
+      </SectionTitle>
+      <Collapse in={isExpanded} timeout="auto" unmountOnExit style={{ flexGrow: 1, overflow: 'scroll' }}>
         {moves.map((move, i) => (
           <LearnsetItem
             key={i}
@@ -100,7 +120,7 @@ function LearnsetByMethod ({
             toggleChoosenMove={toggleChoosenMove}
           />
         ))}
-      </div>
+      </Collapse>
     </>
   );
 }

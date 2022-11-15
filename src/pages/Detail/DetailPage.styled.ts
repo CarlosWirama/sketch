@@ -42,5 +42,6 @@ export const Tab = styled(MaterialTab).attrs({
 `;
 
 export const DetailPageContent = styled(LayoutContainer)`
-  padding-top: 0;
+  padding: 0 16px;
+  height: 100%;
 `;
