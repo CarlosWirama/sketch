@@ -56,6 +56,7 @@ export default function DetailPageContainer() {
     abilities: { nonHidden: [] },
     genderRatio: 0,
     eggGroups: [],
+    evYield: [],
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -154,6 +155,7 @@ export default function DetailPageContainer() {
               eggGroups={details.eggGroups}
               typeEffectiveness={details.typeEffectiveness}
               evolutionaryLine={details.evolutionaryLine}
+              evYield={details.evYield}
             />
           </DetailPageContent>
           <DetailPageContent>

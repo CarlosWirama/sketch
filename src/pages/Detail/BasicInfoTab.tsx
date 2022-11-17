@@ -10,6 +10,7 @@ import Abilities from './Abilities';
 import BreedingInfo from './BreedingInfo';
 import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
+import EvYield from './EvYield';
 
 import Type from '../../common/constants/Type';
 
@@ -18,21 +19,15 @@ import { useHistory, useParams } from 'react-router-dom';
 
 // types
 import {
-  BaseStats as IBaseStats,
-  Effectiveness,
   EvolutionStage,
   MoveItem,
+  PokemonDetail,
   Types,
 } from '../../common/types';
 
-interface BasicInfoTabProps {
-  baseStats: IBaseStats;
-  abilities: { nonHidden: string[]; hidden?: string };
-  genderRatio: number;
-  eggGroups: string[];
-  typeEffectiveness: Effectiveness;
+  type BasicInfoTabProps = Pick<PokemonDetail, 'baseStats' | 'abilities' | 'genderRatio' | 'eggGroups' | 'typeEffectiveness' | 'evYield'> & {
   evolutionaryLine: EvolutionStage[];
-}
+  };
 
 export default function BasicInfoTab({
   baseStats,
@@ -41,6 +36,7 @@ export default function BasicInfoTab({
   eggGroups,
   typeEffectiveness,
   evolutionaryLine,
+  evYield,
 }: BasicInfoTabProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState({
@@ -76,6 +72,7 @@ export default function BasicInfoTab({
       <TypeEffectiveness {...typeEffectiveness} />
       <BaseStats {...baseStats} />
       <Abilities {...abilities} />
+      <EvYield yields={evYield} />
       <EvolutionaryLine
         pokemonName={speciesName}
         stages={evolutionaryLine}
