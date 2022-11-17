@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import {
-  getPokemonDetail,
-  updateRecentlyViewed,
-  getChoosenMove,
-} from '../../api';
+import React from 'react';
 
 import BaseStats from './BaseStats';
 import Abilities from './Abilities';
@@ -12,22 +7,22 @@ import TypeEffectiveness from './TypeEffectiveness';
 import EvolutionaryLine from './EvolutionaryLine';
 import EvYield from './EvYield';
 
-import Type from '../../common/constants/Type';
-
 import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
 import { useHistory, useParams } from 'react-router-dom';
 
 // types
-import {
-  EvolutionStage,
-  MoveItem,
-  PokemonDetail,
-  Types,
-} from '../../common/types';
+import { PokemonDetail } from '../../common/types';
 
-  type BasicInfoTabProps = Pick<PokemonDetail, 'baseStats' | 'abilities' | 'genderRatio' | 'eggGroups' | 'typeEffectiveness' | 'evYield'> & {
-  evolutionaryLine: EvolutionStage[];
-  };
+type BasicInfoTabProps = Pick<
+  PokemonDetail,
+  | 'baseStats'
+  | 'abilities'
+  | 'genderRatio'
+  | 'eggGroups'
+  | 'typeEffectiveness'
+  | 'evYield'
+  | 'evolutionaryLine'
+>;
 
 export default function BasicInfoTab({
   baseStats,
@@ -38,29 +33,10 @@ export default function BasicInfoTab({
   evolutionaryLine,
   evYield,
 }: BasicInfoTabProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [details, setDetails] = useState({
-    types: [Type['???']] as Types,
-  });
   const { push } = useHistory();
-  const [choosenMoves, setChoosenMoves] = useState<MoveItem[]>([]);
-  const { pokemon: name, generation: generationParams } = useParams();
+  const { pokemon: name } = useParams();
 
-  const { speciesName, form } = getSpeciesNameAndForm(name || '');
-
-  // TODO: should be user-generated
-  const givenName = name;
-  // const isPartyPokemon = Boolean(givenName) // !== name; // TODO
-
-  useEffect(() => {
-    setIsLoading(true);
-    const generation = (generationParams === 'gen_VIII') ? 8 : 7;
-    getPokemonDetail(speciesName, generation, form)
-      .then(setDetails as any) // TODO
-      .finally(() => setIsLoading(false));
-    givenName && setChoosenMoves(getChoosenMove(givenName));
-    name && updateRecentlyViewed(name);
-  }, [name]);
+  const { speciesName } = getSpeciesNameAndForm(name || '');
 
   function onClickEvolutionStage(pokemonName: string) {
     pokemonName.replace(' ', '_'); // for alolan

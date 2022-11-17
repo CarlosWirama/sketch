@@ -1,6 +1,6 @@
-import Type from "../../constants/Type";
 import BaseStats from "../baseStats";
 import Effectiveness from "../effectiveness";
+import EvolutionStage from "../evolutionStage";
 import { Learnset } from "../move";
 import { Types } from "../types";
 
@@ -10,12 +10,7 @@ export interface PokemonDetail {
   moves: Learnset;
   baseStats: BaseStats;
   typeEffectiveness: Effectiveness;
-  evolutionaryLine:  {
-    name: string;
-    types: Type[];
-    evolutionMethod: string;
-    nDex: string;
-}[]
+  evolutionaryLine:  EvolutionStage[];
   abilities:  {
     nonHidden: string[];
     hidden?: string;

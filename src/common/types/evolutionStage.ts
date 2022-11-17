@@ -5,6 +5,6 @@ export default interface EvolutionStage {
   nDex: string;
   name: string;
   types: Types;
-  form: Form;
+  form?: Form;
   evolutionMethod: string;
 }

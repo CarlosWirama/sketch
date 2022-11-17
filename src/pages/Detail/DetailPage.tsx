@@ -31,19 +31,13 @@ import { useParams, useHistory } from 'react-router-dom';
 import { DetailPageContent, PageContainer, Tabs, Tab } from './DetailPage.styled';
 
 // types
-import { EvolutionStage, MoveItem, Types } from '../../common/types';
+import { EvolutionStage, MoveItem, PokemonDetail, Types } from '../../common/types';
 
 export default function DetailPageContainer() {
   const [isLoading, setIsLoading] = useState(false);
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState<PokemonDetail>({
     types: [Type['???']] as Types,
-    moves: {
-      leveling: [],
-      machine: [],
-      breed: [],
-      tutor: [],
-      prior: [],
-    },
+    moves: { leveling: [] },
     typeEffectiveness: {
       immune: [],
       doubleResistant: [],

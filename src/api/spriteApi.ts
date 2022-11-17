@@ -51,7 +51,7 @@ function getImageFileName(pokemonName: string, form: Form) {
   return pokemonName.replace(' ', ''); // for Tapu Blablabla
 }
 
-export function getPixelImage(nDex: string, form: Form) {
+export function getPixelImage(nDex: string, form?: Form) {
   const formSuffix = form ? `-${form[0].toLowerCase()}` : '';
   const fileName = `${nDex}${formSuffix}`;
   return `${pixelUrl}/${fileName}.png`;
