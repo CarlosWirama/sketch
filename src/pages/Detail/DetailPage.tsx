@@ -19,8 +19,8 @@ import Navbar from '../../common/components/Navbar';
 import LoadingIndicator
   from '../../common/components/PokeballLoadingIndicator';
 // import Marking from '../../common/components/Marking';
-import Learnset from './Learnset';
 import BasicInfoTab from './BasicInfoTab';
+import MovesTab from './MovesTab';
 import EditOverviewModal from './EditOverviewModal';
 import AddPartyModal from './AddPartyModal';
 
@@ -129,7 +129,7 @@ export default function DetailPageContainer() {
         variant="fullWidth"
         indicatorColor="none"
         textColor="secondary"
-        aria-label="icon label tabs example"
+        aria-label="Detail Page tab"
       >
         <Tab label="Basic Info" />
         <Tab label="Moves" />
@@ -153,7 +153,7 @@ export default function DetailPageContainer() {
             />
           </DetailPageContent>
           <DetailPageContent>
-            <Learnset
+            <MovesTab
               learnset={details.moves}
               choosenMoves={choosenMoves}
               setChoosenMoves={setChoosenMoves}
