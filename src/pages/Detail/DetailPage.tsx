@@ -19,8 +19,8 @@ import Navbar from '../../common/components/Navbar';
 import LoadingIndicator
   from '../../common/components/PokeballLoadingIndicator';
 // import Marking from '../../common/components/Marking';
-import Learnset from './Learnset';
 import BasicInfoTab from './BasicInfoTab';
+import MovesTab from './MovesTab';
 import EditOverviewModal from './EditOverviewModal';
 import AddPartyModal from './AddPartyModal';
 
@@ -31,19 +31,13 @@ import { useParams, useHistory } from 'react-router-dom';
 import { DetailPageContent, PageContainer, Tabs, Tab } from './DetailPage.styled';
 
 // types
-import { EvolutionStage, MoveItem, Types } from '../../common/types';
+import { EvolutionStage, MoveItem, PokemonDetail, Types } from '../../common/types';
 
 export default function DetailPageContainer() {
   const [isLoading, setIsLoading] = useState(false);
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState<PokemonDetail>({
     types: [Type['???']] as Types,
-    moves: {
-      leveling: [],
-      machine: [],
-      breed: [],
-      tutor: [],
-      prior: [],
-    },
+    moves: { leveling: [] },
     typeEffectiveness: {
       immune: [],
       doubleResistant: [],
@@ -56,6 +50,7 @@ export default function DetailPageContainer() {
     abilities: { nonHidden: [] },
     genderRatio: 0,
     eggGroups: [],
+    evYield: [],
   });
   const [isFavorite, setIsFavorite] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -134,7 +129,7 @@ export default function DetailPageContainer() {
         variant="fullWidth"
         indicatorColor="none"
         textColor="secondary"
-        aria-label="icon label tabs example"
+        aria-label="Detail Page tab"
       >
         <Tab label="Basic Info" />
         <Tab label="Moves" />
@@ -154,10 +149,11 @@ export default function DetailPageContainer() {
               eggGroups={details.eggGroups}
               typeEffectiveness={details.typeEffectiveness}
               evolutionaryLine={details.evolutionaryLine}
+              evYield={details.evYield}
             />
           </DetailPageContent>
           <DetailPageContent>
-            <Learnset
+            <MovesTab
               learnset={details.moves}
               choosenMoves={choosenMoves}
               setChoosenMoves={setChoosenMoves}

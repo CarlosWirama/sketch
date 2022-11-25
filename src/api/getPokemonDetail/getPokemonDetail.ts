@@ -10,10 +10,15 @@ import getMoves from './getMoves';
 import { Learnset} from '../../common/types/move';
 import Form from '../../common/constants/Form';
 import BaseStats from '../../common/types/baseStats';
+import { PokemonDetail } from '../../common/types';
 
-export default async function getPokemonDetail(speciesName: string, generation: number, form: Form) {
+export default async function getPokemonDetail(
+  speciesName: string,
+  generation: number,
+  form: Form,
+): Promise<PokemonDetail> {
   const parsed = await fetchAndParseWiki({ page: speciesName });
-  const { types, abilities, genderRatio, eggGroups } = getSummary(parsed, form);
+  const { types, abilities, genderRatio, eggGroups, evYield } = getSummary(parsed, form);
   const evolutionaryLine = getEvolutionaryLine(parsed, form, generation);
   const baseStats: BaseStats = getBaseStats(parsed, form);
   const typeEffectiveness = getTypeEffectiveness(parsed, form);
@@ -27,6 +32,7 @@ export default async function getPokemonDetail(speciesName: string, generation: 
     abilities,
     genderRatio,
     eggGroups,
+    evYield,
   };
 }
 

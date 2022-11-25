@@ -1,26 +1,32 @@
+import Form from '../../common/constants/Form';
 import Type from '../../common/constants/Type';
+import { EvolutionStage } from '../../common/types';
 
-export default {
+const specificEvolution: Record<string, EvolutionStage[]> = {
   'Eevee_GEN_I': [
     {
       name: 'Eevee',
       types: [Type.normal],
       evolutionMethod: '',
-    },
-    {
-      name: 'Flareon',
-      types: [Type.fire],
-      evolutionMethod: 'Fire Stone',
-    },
-    {
-      name: 'Jolteon',
-      types: [Type.electric],
-      evolutionMethod: 'Thunder Stone',
+      nDex: '133',
     },
     {
       name: 'Vaporeon',
       types: [Type.water],
       evolutionMethod: 'Water Stone',
+      nDex: '134',
+    },
+    {
+      name: 'Jolteon',
+      types: [Type.electric],
+      evolutionMethod: 'Thunder Stone',
+      nDex: '135',
+    },
+    {
+      name: 'Flareon',
+      types: [Type.fire],
+      evolutionMethod: 'Fire Stone',
+      nDex: '136',
     },
   ],
   'Eevee_GEN_VI': [
@@ -84,14 +90,14 @@ export default {
       name: 'Meowth',
       types: [Type.dark],
       evolutionMethod: '',
-      form: 'Alolan',
+      form: Form.Alolan,
       nDex: '052',
     },
     {
       name: 'Persian',
       types: [Type.dark],
       evolutionMethod: 'Level 28',
-      form: 'Alolan',
+      form: Form.Alolan,
       nDex: '053',
     },
   ],
@@ -156,3 +162,5 @@ export default {
     },
   ],
 }
+
+export default specificEvolution;

@@ -3,6 +3,7 @@ import { SectionTitle } from '../DetailPage.styled';
 import BaseStatRow from './BaseStatRow';
 import { BorderedCard } from '../../../common/components/Card';
 import IBaseStats from '../../../common/types/baseStats';
+import { getStatColor } from '../helper';
 
 export default function BaseStats({
   attack,
@@ -16,12 +17,12 @@ export default function BaseStats({
     <>
       <SectionTitle>Base Stats</SectionTitle>
       <BorderedCard>
-        <BaseStatRow color="#FF0000" name="HP" value={hp} />
-        <BaseStatRow color="#F08030" name="Attack" value={attack} />
-        <BaseStatRow color="#F8D030" name="Defense" value={defense} />
-        <BaseStatRow color="#6890F0" name="Sp. Atk" value={spatk} />
-        <BaseStatRow color="#78C850" name="Sp. Def" value={spdef} />
-        <BaseStatRow color="#F85888" name="Speed" value={speed} />
+        <BaseStatRow color={getStatColor('hp')} name="HP" value={hp} />
+        <BaseStatRow color={getStatColor('at')} name="Attack" value={attack} />
+        <BaseStatRow color={getStatColor('de')} name="Defense" value={defense} />
+        <BaseStatRow color={getStatColor('sa')} name="Sp. Atk" value={spatk} />
+        <BaseStatRow color={getStatColor('sd')} name="Sp. Def" value={spdef} />
+        <BaseStatRow color={getStatColor('sp')} name="Speed" value={speed} />
       </BorderedCard>
     </>
   );

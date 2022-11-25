@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { getMoveDescription } from '../../../api/getMoveDetail';
 
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Types, { getTypeColor } from '../../../common/components/Types';
+import { TypeIcons, getTypeColor } from '../../../common/components/Types';
 import MoveCategoryIcon from '../../../common/components/MoveCategoryIcon';
 import { default as LoadingIndicator }
   from '../../../common/components/PokeballLoadingIndicator';
@@ -13,23 +12,20 @@ import {
   Container,
   Move,
   LevelCircle,
-  Headline,
+  Header,
   Name,
   IconButton,
-  SubInfo,
   Collapse,
-  ExpansionToggle,
-  ExpandIconContainer,
   Description,
-  DetailGrid,
   DetailLabels,
   DetailValues,
-  CategoryBalloon,
+  Flex,
 } from './LearnsetItem.styled';
+
 // types
-import { MoveItem } from '../../../common/types/partyType';
-import { RawMove } from '../../../common/types/move';
 import Type from '../../../common/constants/Type';
+import { MoveItem, RawMove } from '../../../common/types';
+
 
 export default function LearnsetItem({
   list: [
@@ -76,45 +72,42 @@ export default function LearnsetItem({
     >
       {level && <LevelCircle>{level}</LevelCircle>}
       <Move color={getTypeColor(type)} onClick={toggleExpanded} >
-        <Headline>
-          <Name>{name}</Name>
-          {isEditingActive && (
-            <IconButton onClick={onChooseMoveClick}>
-              {isMoveChoosen ? <StarIcon /> : <StarBorderIcon />}
-            </IconButton>
-          )}
-        </Headline>
-        <SubInfo>
-          <Types types={[type]} />
-          <CategoryBalloon color={getCategoryColor(category)}>
+        <Header>
+          <Flex>
+            <img src={TypeIcons[type]} alt={type} width={20} height={20} />
+            <Name>{name}</Name>
+          </Flex>
+          <Flex>
             <MoveCategoryIcon category={category} />
-            {category}
-            {category !== 'Status' && <span>:&nbsp;{encodeDash(power)}</span>}
-          </CategoryBalloon>
-        </SubInfo>
+            {category !== 'Status' && <span>{encodeDash(power)}</span>}
+            {isEditingActive && (
+              <IconButton onClick={onChooseMoveClick}>
+                {isMoveChoosen ? <StarIcon /> : <StarBorderIcon />}
+              </IconButton>
+            )}
+          </Flex>
+        </Header>
         <Collapse in={isExpanded} timeout="auto" unmountOnExit>
           <Description>
             {description || (
               <LoadingIndicator size={57} background={getTypeColor(type)} color="white"/>
             )}
           </Description>
-          <DetailGrid>
+          <Flex>
             <DetailLabels>
+              <div>Type</div>
+              <div>Category</div>
               <div>Accuracy</div>
               <div>PP</div>
             </DetailLabels>
             <DetailValues>
+              <div>{type}</div>
+              <div>{category}</div>
               <div>{encodeDash(accuracy)}%</div>
               <div>{pp}</div>
             </DetailValues>
-          </DetailGrid>
+          </Flex>
         </Collapse>
-        <ExpansionToggle>
-          {isExpanded ? 'hide' : 'show'} details...
-          <ExpandIconContainer isExpanded={isExpanded}>
-            <ExpandMore/>
-          </ExpandIconContainer>
-        </ExpansionToggle>
       </Move>
     </Container>
   );
@@ -122,13 +115,4 @@ export default function LearnsetItem({
 
 function encodeDash(string: string) {
   return string === '&mdash;' ? '-' : string;
-}
-
-function getCategoryColor(category: 'Physical' | 'Special' | 'Status') {
-  switch (category) {
-    case 'Physical': return '#ff4400';
-    case 'Special': return '#2266cc';
-    case 'Status': return '#999999';
-    default: return 'transparent';
-  }
 }

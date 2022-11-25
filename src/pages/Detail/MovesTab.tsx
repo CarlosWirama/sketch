@@ -1,74 +1,130 @@
-import React, { useEffect, useState } from 'react';
-import {
-  getPokemonDetail,
-  updateRecentlyViewed,
-  getChoosenMove,
-} from '../../api';
+import React, { useState } from 'react';
+import SwipeableViews from 'react-swipeable-views';
+import MuiTabs from '@material-ui/core/Tabs';
+import { default as MuiTab, TabProps as MuiTabProps } from '@material-ui/core/Tab';
+import styled from 'styled-components';
 
-import Learnset from './Learnset';
-import { getSpeciesNameAndForm } from '../../common/utilities/pokemonForm';
+import LearnsetByMethod from './LearnsetByMethod';
+
+// image src
+import RareCandy from '../../assets/images/icons/rare_candy.png';
+import Tm from '../../assets/images/icons/tm.png';
+import Egg from '../../assets/images/icons/pokemon_egg.png';
+import Tamer from '../../assets/images/icons/tamer_sprite.png';
+import Everstone from '../../assets/images/icons/everstone.png';
 
 // types
-import { MoveItem } from '../../common/types';
-
+import { MoveItem, PokemonDetail } from '../../common/types';
 
 export default function MovesTab({
-  match: { params },
-  history: { push },
+  learnset: {
+    leveling,
+    tm,
+    breeding,
+    tutoring,
+    prior,
+  },
+  ...props
 }: {
-  match: {
-    params: {
-      pokemon: string;
-      generation?: string;
-    };
-  };
-  history: {
-    push: Function;
-  };
+  learnset: PokemonDetail['moves'];
+  choosenMoves: MoveItem[];
+  setChoosenMoves: React.Dispatch<React.SetStateAction<MoveItem[]>>;
+  isEditingActive: boolean;
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [details, setDetails] = useState({
-    moves: {
-      leveling: [],
-      machine: [],
-      breed: [],
-      tutor: [],
-      prior: [],
-    },
-  });
-  const [isEditingActive, setIsEditingActive] = useState(false);
-  const [choosenMoves, setChoosenMoves] = useState<MoveItem[]>([]);
-  const name = params.pokemon;
-
-  const { speciesName, form } = getSpeciesNameAndForm(name);
-
-  // TODO: should be user-generated
-  const givenName = name;
-  // const isPartyPokemon = Boolean(givenName) // !== name; // TODO
-
-  useEffect(() => {
-    setIsLoading(true);
-    const generation = (params.generation === 'gen_VIII') ? 8 : 7;
-    getPokemonDetail(speciesName, generation, form)
-      .then(setDetails as any) // TODO
-      .finally(() => setIsLoading(false));
-    setChoosenMoves(getChoosenMove(givenName));
-    updateRecentlyViewed(name);
-  }, [params]);
-
-  function onClickEvolutionStage(pokemonName: string) {
-    pokemonName.replace(' ', '_'); // for alolan
-    push(`/pokemon/${pokemonName}`);
-  }
-
+  const [method, setMethod] = useState<LearnsetMethod>(LearnsetMethod.Leveling);
+  const methodLabel = getMethodLabel(method);
+  
   return (
-    <>
-      <Learnset
-        learnset={details.moves}
-        choosenMoves={choosenMoves}
-        setChoosenMoves={setChoosenMoves}
-        isEditingActive={isEditingActive}
-      />
-    </>
+    <div style={{ display: 'flex', flexFlow: 'column', height: '100%' }}>
+      <Tabs
+        value={method}
+        onChange={(_, value) => setMethod(value)}
+        variant="fullWidth"
+        indicatorColor="primary"
+        textColor="secondary"
+        aria-label="Move Method"
+      >
+        <Tab
+          imgSrc={RareCandy} alt='leveling' />
+
+        {tm && tm.length && (
+          <Tab imgSrc={Tm} alt='tm' />
+        )}
+
+        {breeding && breeding.length && (
+          <Tab imgSrc={Egg} alt='breeding' />
+        )}
+
+        {tutoring && tutoring.length && (
+          <Tab imgSrc={Tamer} alt='tutoring' />
+        )}
+
+        {prior && prior.length && (
+          <Tab imgSrc={Everstone} alt='prior evolution' />
+        )}
+      </Tabs>
+      
+      <div style={{ padding: '2px 0 4px' }}>
+        Moves by {methodLabel}
+      </div>
+      <div style={{ height: '100%', overflowY: 'scroll' }}>
+        <SwipeableViews
+          index={method}
+          onChangeIndex={setMethod}
+          disabled
+          animateHeight
+        >
+          <LearnsetByMethod moves={leveling} {...props} />
+          <LearnsetByMethod moves={tm} {...props} />
+          <LearnsetByMethod moves={breeding} {...props} />
+          <LearnsetByMethod moves={tutoring} {...props} />
+          <LearnsetByMethod moves={prior} {...props} />
+        </SwipeableViews>
+      </div>
+    </div>
   );
+}
+
+function getMethodLabel(method: LearnsetMethod) {
+  switch (method) {
+    case LearnsetMethod.Leveling: return 'Leveling';
+    case LearnsetMethod.Tm: return 'TM/TR';
+    case LearnsetMethod.Breeding: return 'Breeding';
+    case LearnsetMethod.Tutoring: return 'Tutoring';
+    case LearnsetMethod.PriorEvolution: return 'Prior Evolution';
+  }
+}
+
+interface TabProps extends MuiTabProps {
+  imgSrc: string;
+  alt: string
+}
+
+function Tab({ imgSrc, alt, ...props }: TabProps) {
+  return (
+    <MuiTab
+      label={(
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={imgSrc} alt={alt} />
+        </div>
+      )}
+      {...props}
+    />
+  );
+}
+
+const Tabs = styled(MuiTabs)`
+  max-width: fit-content;
+
+  & button {
+    min-width: auto;
+  }
+`
+
+enum LearnsetMethod {
+  Leveling,
+  Tm,
+  Breeding,
+  Tutoring,
+  PriorEvolution,
 }

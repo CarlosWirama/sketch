@@ -7,7 +7,7 @@ import wtf from 'wtf_wikipedia';
 // types
 import { EvolutionStage, Types } from '../../../common/types';
 
-export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, generation: number) {
+export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, generation: number): EvolutionStage[] {
   // evolution data structure will be vary from here
   // e.g. Squirtle will be different from Eevee, Gloom, Slowking etc.
 
@@ -53,7 +53,7 @@ export default function getEvolutionaryLine(parsed: wtf.Document, form: Form, ge
       form,
       nDex,
       name: evoboxData[`name${evolutionStage}` as 'name1' | 'name2' | 'name3'] || '',
-      types: [type1, type2].filter(a => a) as Types,
+      types: [type1, type2].filter(Boolean) as Types,
     });
     evolutionStage++;
   };

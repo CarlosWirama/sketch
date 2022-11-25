@@ -3,4 +3,5 @@ export type { default as Effectiveness } from './effectiveness';
 export type { default as EvolutionStage } from './evolutionStage';
 export * from './move';
 export * from './partyType';
+export * from './pokemonDetail';
 export * from './types';

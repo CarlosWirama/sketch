@@ -2,7 +2,7 @@
 import Form from '../../common/constants/Form';
 // types
 import wtf from 'wtf_wikipedia';
-import { Types } from '../../common/types';
+import { PokemonDetail, Types } from '../../common/types';
 
 export default function getSummary(parsed: wtf.Document, form: Form) {
   const summarySection: SummarySection =
@@ -12,7 +12,17 @@ export default function getSummary(parsed: wtf.Document, form: Form) {
     form2type1, form2type2,
     ability1, ability2, abilityd,
     gendercode, egggroup1, egggroup2,
+    evhp, evat, evde, evsa, evsd, evsp,
   } = summarySection;
+  
+  const evYield = Object
+    .entries({evhp, evat, evde, evsa, evsd, evsp})
+    .filter(([_, value]) => value !== undefined)
+    .map(([key, val]) => ({
+      stat: key.substring(2), // trim 'ev' from 'evhp'
+      value: (val as numberWithText).number,
+    }) ) as PokemonDetail['evYield']
+
   const capsTypes = (form === Form.Galarian) // TODO
     ? pluckText([form2type1, form2type2])
     : pluckText([type1, type2]);
@@ -23,7 +33,7 @@ export default function getSummary(parsed: wtf.Document, form: Form) {
   };
   const eggGroups = pluckText([egggroup1, egggroup2]);
   const genderRatio = (254 - gendercode.number) / 254;
-  return { types, abilities, genderRatio, eggGroups };
+  return { types, abilities, genderRatio, eggGroups, evYield };
 }
 
 function pluckText (array: Array<{ text: string } | undefined>) {
@@ -56,6 +66,7 @@ interface SummarySection {
   egggroup2?: { text: string };
   egggroupn: numberWithText;
   evforms: numberWithText;
+  evhp?: numberWithText;
   evat?: numberWithText;
   evat2?: numberWithText;
   evde?: numberWithText;
